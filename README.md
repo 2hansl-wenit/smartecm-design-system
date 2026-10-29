@@ -5,6 +5,7 @@
 ## 저장소
 
 - 회사 GitHub: https://github.com/2hansl-wenit/smartecm-design-system
+- 저장소 공개 상태: **Public**. 열람·Clone은 로그인 없이 가능하며, 수정·Push는 승인된 계정만 가능합니다.
 - SSH: `git@github.com:2hansl-wenit/smartecm-design-system.git`
 - 기본 브랜치: `main`
 - 작업 폴더: 사용하는 PC에서 적절한 로컬 경로를 선택해 설정합니다.
@@ -60,3 +61,7 @@ Git 작성자는 저장소에 쓰기 권한이 있는 회사 계정으로 설정
 
 - 시작 템플릿: `templates/printable-document.html`
 - 대제목 21pt, 하위 번호·본문 분리와 내용별 표 너비 정책: `references/document-style.md`, `references/document-components.md`
+
+## 직원용 AI 프롬프트
+
+디자인 스튜디오에서 UI/UX·문서 작업 유형을 선택하고 **AI 작업 프롬프트 복사**를 누르면 공개 GitHub의 Skill·참고 파일 및 선택한 설정을 포함하는 짧은 지시문이 복사됩니다. 다른 직원도 GitHub 로그인 없이 공개 자료를 열람할 수 있습니다. AI가 URL을 읽지 못하는 환경에서는 자료 파일을 제공해야 합니다. 문서 형식 미지정 시 출력 기본은 인쇄 버튼이 있는 단일 HTML입니다.
