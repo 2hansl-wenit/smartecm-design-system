@@ -20,3 +20,9 @@
 - For release changes, check layout/interaction behavior, source claims, print output and accessibility before merging.
 
 - Keep the existing Vercel smart-ecm/smartecm-design-preview project. Use the company GitHub main integration with sh scripts/build-preview.sh and preview-dist. Never create a replacement project or connect a personal repository.
+
+## Reviewed public AI summaries
+
+- Only `ai/document.md` and `ai/ui.md` are approved for the optional public `/ai/` preview directory. These summaries contain public design conventions and no credentials, customer evidence, team IDs, or internal-only instructions.
+- Build scripts must not include source `SKILL.md`, complete `references/`, `company/`, or internal documentation in the static preview by default.
+- If public source URLs are unreachable by other AI assistants, copied prompts must include a concise factual fallback so they can proceed without claiming unverified full Skill access.
