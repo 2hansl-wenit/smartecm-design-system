@@ -12,4 +12,7 @@ for asset in '로고_smartecm.png' '로고_smartecm_w.png' '패키지이미지_�
 done
 mkdir -p preview-dist/scripts
 cp scripts/document-library.js preview-dist/scripts/
+# Allowlisted public AI-readable summaries; no internal company docs or skill sources.
+mkdir -p preview-dist/ai
+cp ai/document.md ai/ui.md preview-dist/ai/
 echo 'Prepared preview-dist (public-safe files only; review content before deployment)'
