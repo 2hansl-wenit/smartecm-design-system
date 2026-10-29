@@ -341,3 +341,11 @@
 - Updated AI-copy prompts for UI/UX and A4 document work to explicitly load this font in generated HTML rather than merely copying fallback typography rules.
 - CDN-backed fonts require network access; for locked-down or offline deployments, self-host licensed assets and retain OFL attribution. Browser PDF print may embed loaded fonts; verify individual exports. No font binaries stored or distributed from this repository change.
 - This change affects HTML typography loading only and preserves existing UI sizes, layouts, tab behavior and print features.
+
+## 2026-10-29 · Public GitHub and compressed AI task prompt
+
+- After the company repository changed to **Public** and its history was reset, changed Studio's AI copy action to link to the public repository without private-access/connector-authentication language.
+- Reduced copied text to ~7 lines (roughly 500–600 Korean characters): one public repo reference, required AGENTS/SKILL, task-specific references, key execution guidance, compact current settings, task placeholder.
+- Keep UI/UX and A4-document modes distinct, HTML-first and PDF print button for unspecified document format, Pretendard loading, source-data fidelity and no source-repo pushes by default.
+- Public HTTPS reading requires no GitHub login; users' AI environments still need supported web/GitHub access. The fallback is to request relevant files, not to claim access.
+- Updated adoption documentation and README; no private repository copied or new public repository created.
