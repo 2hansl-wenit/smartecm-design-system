@@ -1,0 +1,107 @@
+/* Motion language: fast, calm, no large shifts. */
+:root{--motion-fast:130ms;--motion-base:185ms;--motion-panel:235ms;
+ --motion-ease:cubic-bezier(.22,.75,.28,1);--motion-out:cubic-bezier(.2,.8,.2,1)}
+.input,.roundbtn,.ui-page,.segment button,.page-btn,.ui-switch>span{
+ transition:border-color var(--motion-fast) ease,background-color var(--motion-fast) ease,color var(--motion-fast) ease}
+.btn,.navbtn,.link,.ui-table th button,.swatch,.ui-alert-close,.ui-tabs button,.status,.pill{
+ transition:background-color var(--motion-base) ease,color var(--motion-base) ease,
+ border-color var(--motion-base) ease,opacity var(--motion-base) ease,transform var(--motion-base) var(--motion-ease)}
+.btn:not(:disabled):hover{transform:translateY(-1px)}
+.btn:not(:disabled):active{transform:translateY(0) scale(.985)}
+.btn-primary:not(:disabled):hover{filter:none;background:color-mix(in srgb,var(--accent) 87%,var(--text))}
+.btn-outline:not(:disabled):hover,.roundbtn:hover,.ui-page:not(:disabled):hover{
+ background:var(--surface-alt);border-color:color-mix(in srgb,var(--accent) 30%,var(--border))}
+.btn-ghost:not(:disabled):hover,.link:hover{color:var(--accent);background:transparent}
+.sidebar .navbtn:hover:not(.active){background:color-mix(in srgb,var(--text) 5%,var(--surface))}
+.navbtn svg{transition:color var(--motion-base) ease,transform var(--motion-base) var(--motion-ease)}
+.navbtn:hover svg{transform:translateX(1px)}
+.ui-table tbody tr,.rowtable tbody tr{transition:background-color var(--motion-base) ease}
+.ui-tabs button:hover:not([aria-selected="true"]){color:var(--text);background:var(--surface-alt)}
+.ui-alert-close:hover{opacity:1;transform:scale(1.05)}
+.swatch:hover{transform:translateY(-2px)}
+.segment button:hover:not(.selected){background:color-mix(in srgb,var(--accent) 5%,var(--surface-alt))}
+.ui-switch>span:before,.switch-track:after{transition:transform var(--motion-base) var(--motion-ease)}
+.view.active{animation:motion-view-in var(--motion-panel) var(--motion-out) both}
+@keyframes motion-view-in{from{opacity:.6;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+.ui-tabpanel:not([hidden]){animation:motion-tab-in var(--motion-base) var(--motion-out) both}
+@keyframes motion-tab-in{from{opacity:.3;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+/* Animated dropdown using an accessible button/listbox, native select preserved for data. */
+.motion-select{position:relative;display:inline-block;min-width:155px;max-width:100%;vertical-align:top;isolation:isolate}
+.motion-select:has(#ui-table-filter){flex:0 1 175px}
+.motion-select:has(#demo-category),.motion-select:has(#ui-form-type){width:100%}
+.motion-native{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;opacity:0!important;
+ pointer-events:none!important;clip-path:inset(50%);border:0!important}
+.motion-select-trigger{width:100%;min-height:43px;display:flex;align-items:center;justify-content:space-between;gap:14px;
+ text-align:left;padding:10px 12px;font:inherit;font-size:inherit;color:var(--text);background:var(--surface);
+ border:1px solid var(--border);border-radius:var(--radius);cursor:pointer;
+ transition:border-color var(--motion-fast) ease,background-color var(--motion-fast) ease}
+.motion-select-trigger:hover{border-color:color-mix(in srgb,var(--accent) 42%,var(--border))}
+.motion-select-trigger:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.motion-select.open .motion-select-trigger{border-color:var(--accent)}
+.motion-select-chevron{width:8px;height:8px;flex-shrink:0;border-right:1.5px solid var(--muted);
+ border-bottom:1.5px solid var(--muted);transform:translateY(-2px) rotate(45deg);
+ transition:transform var(--motion-base) var(--motion-ease)}
+.motion-select.open .motion-select-chevron{transform:translateY(2px) rotate(225deg)}
+.motion-select-label{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.motion-select-menu{position:absolute;z-index:80;top:calc(100% + 5px);left:0;right:0;
+ max-height:0;overflow:hidden;padding:0 5px;opacity:0;visibility:hidden;pointer-events:none;
+ transform:translateY(-5px);background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+ box-shadow:0 12px 24px color-mix(in srgb,var(--text) 11%,transparent);
+ transition:max-height var(--motion-panel) var(--motion-ease),padding var(--motion-panel) var(--motion-ease),
+ opacity var(--motion-base) ease,transform var(--motion-panel) var(--motion-ease),
+ visibility 0s linear var(--motion-panel)}
+.motion-select.open{z-index:81}
+.motion-select.open .motion-select-menu{max-height:300px;padding:5px;opacity:1;visibility:visible;pointer-events:auto;transform:translateY(0);
+ transition:max-height var(--motion-panel) var(--motion-ease),padding var(--motion-panel) var(--motion-ease),
+ opacity var(--motion-base) ease,transform var(--motion-panel) var(--motion-ease),visibility 0s}
+.motion-select-option{display:block;width:100%;padding:10px 11px;text-align:left;background:transparent;color:var(--text);
+ border:0;border-radius:var(--radius);font:inherit;cursor:pointer;
+ transition:background-color var(--motion-fast) ease,color var(--motion-fast) ease}
+.motion-select-option:hover,.motion-select-option:focus-visible{background:var(--surface-alt);outline:none}
+.motion-select-option[aria-selected="true"]{background:color-mix(in srgb,var(--accent) 10%,var(--surface));color:var(--accent);font-weight:650}
+.motion-select-option:disabled{opacity:.35;cursor:not-allowed}
+/* Detail rows expand downward. An adjacent chevron changes orientation. */
+.ui-expand-header{width:44px}
+.ui-expand-btn{border:0;background:transparent;display:grid;place-items:center;width:35px;height:35px;
+ color:var(--muted);border-radius:var(--radius);cursor:pointer;
+ transition:background-color var(--motion-fast) ease,color var(--motion-fast) ease}
+.ui-expand-btn:hover{background:var(--surface-alt);color:var(--accent)}
+.ui-expand-btn svg{width:18px;height:18px;stroke:currentColor;stroke-width:1.7;fill:none;
+ transition:transform var(--motion-panel) var(--motion-ease)}
+.ui-expand-btn[aria-expanded="true"] svg{transform:rotate(180deg)}
+.ui-expanded-main td{border-bottom:0!important}
+.ui-detail-row>td{padding:0!important;border:0!important}
+.ui-detail-panel{max-height:0;overflow:hidden;opacity:0;transform:translateY(-5px);
+ background:var(--surface-alt);
+ transition:max-height var(--motion-panel) var(--motion-ease),opacity var(--motion-base) ease,
+ transform var(--motion-panel) var(--motion-ease)}
+.ui-detail-row.is-expanded .ui-detail-panel{max-height:230px;opacity:1;transform:translateY(0)}
+.ui-detail-inner{padding:20px 23px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;
+ border-bottom:1px solid var(--border)}
+.ui-detail-item{display:grid;gap:6px;min-width:0}
+.ui-detail-item span{font-size:calc(10px + 2pt);color:var(--muted)}
+.ui-detail-item strong{font-size:calc(11px + 2pt);font-weight:600;white-space:normal;overflow-wrap:anywhere;color:var(--text)}
+/* Modal remains mounted through exit transition. */
+.modalback{display:flex!important;visibility:hidden;opacity:0;pointer-events:none;
+ transition:opacity var(--motion-panel) ease,visibility 0s linear var(--motion-panel)}
+.modalback.open{visibility:visible;opacity:1;pointer-events:auto;
+ transition:opacity var(--motion-panel) ease,visibility 0s}
+.modal{opacity:0;transform:translateY(12px) scale(.985);
+ transition:opacity var(--motion-panel) ease,transform var(--motion-panel) var(--motion-out)}
+.modalback.open .modal{opacity:1;transform:translateY(0) scale(1)}
+.modal-is-open{overflow:hidden}
+.toast{transform:translate(-50%,12px);transition:opacity var(--motion-base) ease,transform var(--motion-panel) var(--motion-ease)}
+.toast.show{transform:translate(-50%,0)}
+.ui-alert{max-height:220px;overflow:hidden;transition:opacity var(--motion-base) ease,
+ transform var(--motion-base) ease,max-height var(--motion-panel) var(--motion-ease),
+ padding var(--motion-panel) var(--motion-ease),margin var(--motion-panel) var(--motion-ease)}
+.ui-alert.is-dismissing{opacity:0;transform:translateY(-4px);padding-top:0;padding-bottom:0;margin:0;pointer-events:none}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media(max-width:960px){.ui-detail-inner{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:640px){.motion-select:has(#ui-table-filter){flex:1 1 100%;width:100%}}
+@media(prefers-reduced-motion:reduce){
+ :root{--motion-fast:0ms;--motion-base:0ms;--motion-panel:0ms}
+ *,*::before,*::after{animation:none!important;transition-duration:0ms!important;scroll-behavior:auto!important}
+ .view.active,.ui-tabpanel:not([hidden]){transform:none!important;opacity:1!important}
+ .modal,.modalback,.motion-select-menu,.ui-detail-panel{transform:none!important}
+}

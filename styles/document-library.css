@@ -1,0 +1,235 @@
+/* Reuses document.css primitives; only new library/layout rules live here. */
+.doc-body{font-size:10pt;line-height:1.72;margin:0;word-break:keep-all}
+.paper{max-width:100%;padding-bottom:19mm}
+.landscape-paper{width:297mm;min-height:210mm}
+.table caption{text-align:left;font-size:8.5pt;line-height:1.5;color:var(--muted);padding:0 0 8px}
+.table th,.table td{overflow-wrap:break-word}
+.table.table-proportional{table-layout:fixed}
+.table.table-proportional th,.table.table-proportional td{white-space:normal;word-break:keep-all;overflow-wrap:break-word;hyphens:none}
+/* Nested entries use a number-only gutter. The body begins directly below its
+   own heading; no content runs under the 01/02 numbering. */
+.doc-subsections{margin:15px 0 20px;display:grid;gap:0;border-top:1px solid var(--line)}
+.doc-subsection{display:grid;grid-template-columns:max-content minmax(0,1fr);column-gap:8px;align-items:start;padding:17px 0 19px;border-bottom:1px solid var(--line);break-inside:avoid;page-break-inside:avoid}
+.doc-subsection-no{font-size:13.5pt;color:var(--accent);font-weight:550;line-height:1.48;font-variant-numeric:tabular-nums}
+.doc-subsection-content{min-width:0}
+.doc-subsection-heading{display:flex;align-items:baseline;justify-content:space-between;gap:10px;min-width:0;break-after:avoid}
+.doc-subsection-heading h3{font-size:13.5pt;line-height:1.48;font-weight:750;color:var(--ink);margin:0;word-break:keep-all}
+.doc-subsection-source{font-size:8pt;line-height:1.4;white-space:nowrap;color:var(--muted);flex:0 0 auto}
+.doc-subsection-content p{font-size:10pt;line-height:1.72;margin:10px 0 0;word-break:keep-all}
+.doc-subsection-content .doc-subsection-detail{color:var(--muted);font-size:9.4pt;margin-top:6px}
+@media screen and (max-width:540px){
+ .doc-subsection{grid-template-columns:max-content minmax(0,1fr);column-gap:6px;padding:15px 0}
+ .doc-subsection-no{font-size:12.5pt;line-height:1.48}
+ .doc-subsection-heading{flex-wrap:wrap;gap:4px}
+ .doc-subsection-heading h3{font-size:12.5pt}
+}
+@media print{
+ .doc-subsection,.doc-subsection-heading,.doc-subsection-content h3{break-inside:avoid;page-break-inside:avoid}
+ .table.table-proportional{table-layout:fixed}
+}
+
+.doc-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:18px;break-inside:avoid}
+.doc-card{border:1px solid var(--line);padding:16px;border-radius:0}
+.doc-card h3{font-size:12pt;margin:0 0 8px}.doc-card p{font-size:10pt;line-height:1.72;margin:0}
+.doc-image{margin:18px 0;break-inside:avoid;text-align:center}
+.doc-image img{max-width:100%;width:auto;height:210px;object-fit:contain}
+.doc-image figcaption{font-size:8.5pt;color:var(--muted);margin-top:8px;line-height:1.5}
+/* Diagram nodes and printable line/arrow connectors. */
+.doc-architecture-diagram{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:26px;list-style:none;margin:20px 0;padding:0;break-inside:avoid}
+.arch-step{position:relative;min-width:0;display:flex;break-inside:avoid}
+.arch-node{width:100%;min-width:0;min-height:108px;padding:15px 12px 17px;border:1px solid var(--line);border-top:3px solid var(--accent);border-radius:5px;background:#fff;display:flex;flex-direction:column;justify-content:center}
+.arch-step-number{font-size:8pt;color:var(--accent);font-weight:740;margin-bottom:8px}
+.arch-node strong{font-size:10.5pt;line-height:1.4;color:var(--ink);margin-bottom:7px;word-break:keep-all}
+.arch-description{font-size:9pt;line-height:1.55;color:var(--muted);word-break:keep-all}
+.arch-step:not(:last-child)::after{content:"";position:absolute;z-index:2;left:calc(100% + 1px);top:50%;width:24px;border-top:2px solid var(--accent);transform:translateY(-50%);pointer-events:none}
+.arch-step:not(:last-child)::before{content:"";position:absolute;z-index:3;left:calc(100% + 17px);top:calc(50% - 4px);width:7px;height:7px;border-top:2px solid var(--accent);border-right:2px solid var(--accent);transform:rotate(45deg);pointer-events:none}
+.specimen{padding:24px 0;break-inside:avoid}
+.specimen-label{display:flex;gap:7px;align-items:center}.specimen-label span{font-size:13pt;color:var(--accent);font-weight:550;line-height:1.3;font-variant-numeric:tabular-nums}
+.specimen-label h2{font-size:13pt;font-weight:750;line-height:1.3;margin:0}.specimen-rule{font-size:9pt;line-height:1.65;color:var(--muted);margin:10px 0 20px}
+.specimen .cover{margin:0}.specimen .metrics{margin-top:0}
+/* A4 covers have two independent design directions, printed one at a time. */
+.cover-sheet{display:flex;flex-direction:column;min-height:247mm}
+.cover-brand{display:flex;align-items:flex-start;justify-content:space-between;gap:20px}
+.cover-brand img{width:165px;max-width:100%;height:auto}
+.cover-brand span{font-size:8pt;color:var(--muted)}
+
+/* Cover 01 — large top-right logo, raised centered title and author/date at the bottom. */
+.cover-sheet.cover-centered{display:flex;flex-direction:column;min-height:247mm}
+.cover-sheet.cover-one .cover-brand-right{justify-content:flex-end;flex:0 0 auto}
+.cover-sheet.cover-one .cover-brand-right img{width:220px;max-width:55%;height:auto}
+.cover-center-content{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;min-width:0;padding:0 6px 110px}
+.cover-center-content .document-title{font-size:30pt;line-height:1.32;font-weight:770;letter-spacing:0;word-break:keep-all;margin:0}
+.cover-center-content .document-deck{max-width:138mm;font-size:11pt;line-height:1.7;color:var(--muted);word-break:keep-all;margin:19px auto 0}
+.cover-byline{flex:0 0 auto;display:grid;gap:10px;max-width:100%;margin:0;padding:18px 0 0;border-top:1px solid var(--line)}
+.cover-byline>div{display:grid;grid-template-columns:66px 1fr;gap:13px;align-items:baseline;min-width:0}
+.cover-byline dt,.cover-byline dd{margin:0;font-size:9.5pt;line-height:1.5;word-break:keep-all}
+.cover-byline dt{color:var(--muted);font-weight:500}
+.cover-byline dd{font-weight:630;color:var(--ink)}
+
+/* Cover 02 — stronger editorial typography with disciplined accent geometry. */
+.cover-sheet.cover-editorial{position:relative;min-height:247mm;overflow:hidden}
+.cover-editorial-top{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
+.cover-editorial-top img{width:172px;max-width:50%;height:auto}
+.cover-editorial-top>span{font-size:8pt;font-weight:650;letter-spacing:.045em;color:var(--muted);padding-top:5px;white-space:nowrap}
+.cover-editorial-main{position:relative;flex:1;min-width:0;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;margin:0;padding:0 0 34px}
+.cover-editorial-kicker{font-size:8.4pt;letter-spacing:.075em;color:var(--accent);font-weight:750;margin:0 0 28px}
+.cover-editorial-main .document-title{font-size:33pt;font-weight:790;line-height:1.25;letter-spacing:-.018em;margin:0;white-space:nowrap;word-break:keep-all;color:var(--ink)}
+.cover-editorial-main .document-deck{font-size:10.5pt;line-height:1.7;color:var(--muted);white-space:nowrap;word-break:keep-all;margin:24px 0 0}
+.cover-editorial-accent{width:68px;height:5px;background:var(--accent);margin-top:48px}
+.cover-editorial-bottom{display:grid;grid-template-columns:1fr 1fr;gap:25px;padding:19px 0 0;border-top:1px solid var(--line)}
+.cover-editorial-bottom>div{display:flex;flex-direction:column;gap:9px;min-width:0}
+.cover-editorial-bottom span{font-size:8pt;letter-spacing:.045em;color:var(--muted);font-weight:600}
+.cover-editorial-bottom strong{font-size:9.6pt;line-height:1.5;font-weight:660;color:var(--ink);word-break:keep-all}
+@media screen and (max-width:850px){.paper{width:100%;min-height:0;padding:32px 27px}.cover-sheet,.cover-sheet.cover-centered,.cover-sheet.cover-editorial{min-height:700px}}
+@media screen and (max-width:540px){.paper{padding:27px 20px}.doc-cards{grid-template-columns:1fr}.cover-brand{flex-wrap:wrap}.cover-sheet,.cover-sheet.cover-centered,.cover-sheet.cover-editorial{min-height:660px}.cover-sheet.cover-one .cover-brand-right img{width:190px;max-width:57%}.cover-center-content{padding:0 4px 70px}.cover-center-content .document-title{font-size:25pt}.cover-center-content .document-deck{font-size:10pt}.cover-editorial-top img{width:143px}.cover-editorial-main{margin:0;padding:0 0 30px}.cover-editorial-kicker{font-size:7pt}.cover-editorial-main .document-title{font-size:19pt;white-space:normal}.cover-editorial-main .document-deck{font-size:8.5pt;white-space:normal}.cover-editorial-accent{margin-top:38px}.cover-editorial-bottom{gap:12px}.table th,.table td{padding:8px 5px}.cover-sheet .cover{margin-top:44px}
+ .doc-architecture-diagram{grid-template-columns:1fr;gap:23px}
+ .arch-step:not(:last-child)::after{left:50%;top:calc(100% + 1px);height:21px;width:0;border-top:0;border-left:2px solid var(--accent);transform:translateX(-50%)}
+ .arch-step:not(:last-child)::before{left:calc(50% - 4px);top:calc(100% + 15px);transform:rotate(135deg)}
+}
+@media print{
+ .paper{max-width:none}
+ .part{break-inside:auto}.part-head,.cover,.specimen-label,.specimen-rule{break-after:avoid}
+ .doc-body,.part p{orphans:3;widows:3}
+ .table tr,.fact,.doc-card,.doc-image,.verification-questions,.doc-architecture-diagram,.timeline{break-inside:avoid}
+ .table thead{display:table-header-group}.table caption{break-after:avoid}
+ .example .cover-paper{break-after:page;page-break-after:always}
+ .example .cover-paper:last-child{break-after:auto;page-break-after:auto}
+ .cover-sheet,.cover-sheet.cover-centered,.cover-sheet.cover-editorial{min-height:247mm}
+ .cover-editorial-main,.cover-center-content{break-inside:avoid}
+ .cover-editorial-accent{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ .doc-card,.verification-questions{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+@media print{.steps{break-inside:avoid;page-break-inside:avoid}}
+
+
+
+/* Overlay the whole preferred column so its border reads as one raised selection. */
+.doc-recommended-table{margin:17px 0 20px;break-inside:avoid;page-break-inside:avoid}
+.doc-recommended-caption{font-size:8.5pt;color:var(--muted);line-height:1.5;margin:0 0 9px}
+.doc-visually-hidden{position:absolute!important;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.doc-recommended-shell{position:relative;isolation:isolate}
+.doc-recommended-shell::after{content:"";position:absolute;z-index:3;pointer-events:none;top:-2px;bottom:-2px;left:var(--rec-start,30%);width:35%;box-sizing:border-box;border:2.5px solid var(--accent);border-radius:2px}
+.doc-recommended-grid{width:100%;table-layout:fixed;margin:0;border-top:1px solid var(--line)}
+.doc-recommended-grid th,.doc-recommended-grid td{padding:12px 10px;vertical-align:top;overflow-wrap:anywhere}
+.doc-recommended-grid th:first-child,.doc-recommended-grid td:first-child{padding-left:10px}
+.doc-recommended-grid th:last-child,.doc-recommended-grid td:last-child{padding-right:10px}
+.doc-recommended-grid .recommended-heading{position:relative;color:var(--accent);font-weight:760}
+.doc-recommended-grid .rec-star{color:var(--accent);margin-right:5px;font-size:12pt}
+.doc-recommended-grid .rec-badge{display:inline-block;font-size:7.6pt;line-height:1.5;font-weight:750;white-space:nowrap;color:var(--accent);margin-left:7px}
+.doc-recommended-grid .recommended-cell{background:color-mix(in srgb,var(--accent) 5%,#FFFFFF)}
+@media screen and (max-width:540px){
+ .doc-recommended-grid th,.doc-recommended-grid td{padding:10px 5px;font-size:8pt}
+ .doc-recommended-grid .rec-badge{display:block;margin:3px 0 0}
+}
+@media print{
+ .doc-architecture-diagram,.arch-step,.arch-node,.doc-recommended-table,.doc-recommended-shell{break-inside:avoid;page-break-inside:avoid}
+ .doc-architecture-diagram{grid-template-columns:repeat(3,minmax(0,1fr))}
+ .arch-node{border:1px solid var(--line);border-top:3px solid var(--accent)}
+ .arch-step:not(:last-child)::after{border-top:2px solid var(--accent)}
+ .doc-recommended-shell::after{border:2.5px solid var(--accent)}
+ .doc-recommended-grid .recommended-cell{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+
+/* Reusable editorial document layouts: 2/3/4-column cards, comparisons and facts.
+   Keep portrait A4 width in mind; printed columns always follow the chosen layout. */
+.doc-multi-cards,.doc-option-compare,.doc-summary-grid,.doc-numbered-blocks{
+ display:grid;
+ gap:12px;
+ margin:16px 0 18px;
+}
+.doc-multi-cards.cols-2,.doc-numbered-blocks.cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.doc-multi-cards.cols-3,.doc-numbered-blocks.cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.doc-multi-cards.cols-4,.doc-numbered-blocks.cols-4,.doc-summary-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+.doc-numbered-blocks.cols-1{grid-template-columns:1fr}
+.doc-multi-card{min-width:0;padding:14px 13px 16px;break-inside:avoid}
+.doc-multi-cards.style-line .doc-multi-card{border:1px solid var(--line);border-top:2px solid var(--accent)}
+.doc-multi-cards.style-tint .doc-multi-card{background:#F6F7FA;border-top:2px solid var(--accent)}
+.doc-multi-cards.style-open .doc-multi-card{border-top:1px solid var(--line);padding-left:0;padding-right:4px}
+.doc-item-index{font-size:8.6pt;line-height:1.4;display:block;color:var(--accent);font-weight:740;margin-bottom:12px}
+.doc-multi-card h3,.doc-option h3,.doc-numbered-blocks h3{font-size:10.8pt;line-height:1.4;margin:0 0 7px;font-weight:740;word-break:keep-all}
+.doc-multi-card p,.doc-numbered-blocks p{font-size:9.2pt;line-height:1.55;margin:0;color:var(--muted);word-break:keep-all}
+.doc-multi-cards.cols-4 .doc-multi-card{padding:13px 10px}
+.doc-multi-cards.cols-4 .doc-multi-card h3{font-size:10.1pt}
+.doc-multi-cards.cols-4 .doc-multi-card p{font-size:8.7pt}
+.doc-multi-cards.style-open.cols-4 .doc-multi-card{padding-left:0}
+
+/* Four-up metrics are for short labels and values, not long descriptions. */
+.doc-summary-grid{gap:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.doc-summary-item{min-width:0;padding:17px 12px}
+.doc-summary-item+.doc-summary-item{border-left:1px solid var(--line)}
+.doc-summary-item strong{display:block;font-size:19pt;line-height:1.2;letter-spacing:0;font-weight:740;overflow-wrap:anywhere}
+.doc-summary-item span{display:block;font-size:8.8pt;line-height:1.5;color:var(--muted);margin-top:9px;word-break:keep-all}
+
+/* Side-by-side comparison: each option has equal weight, no implied winner. */
+.doc-option-compare{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.doc-option{border:1px solid var(--line);min-width:0;padding:18px 16px;break-inside:avoid}
+.doc-option-label{display:block;color:var(--accent);font-size:8.8pt;font-weight:740;line-height:1.4;margin-bottom:8px}
+.doc-option ul{list-style:none;margin:13px 0 0;padding:12px 0 0;border-top:1px solid var(--line)}
+.doc-option li{font-size:9.2pt;line-height:1.55;padding:4px 0;color:var(--muted);word-break:keep-all}
+
+/* Unchecked means not yet verified; don't use checked icons for sample requirements. */
+.doc-checklist{display:grid;grid-template-columns:1fr;list-style:none;gap:11px 20px;margin:15px 0 18px;padding:0}
+.doc-checklist.cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.doc-checklist li{display:flex;align-items:flex-start;gap:9px;min-width:0;font-size:9.6pt;line-height:1.6;break-inside:avoid;word-break:keep-all}
+.doc-check-square{width:12px;height:12px;border:1px solid var(--accent);flex:0 0 12px;margin-top:3px;background:transparent}
+
+/* Numbered instructional blocks: open composition, no decorative cards. */
+.doc-numbered-blocks{list-style:none;padding:0;gap:14px}
+.doc-numbered-blocks li{display:block;min-width:0;border-top:1px solid var(--line);padding:13px 0 0;break-inside:avoid}
+.doc-numbered-blocks .doc-item-index{margin-bottom:10px}
+
+/* Full-width highlight, followed by a compact technical specification list. */
+.doc-highlight{border-left:3px solid var(--accent);background:#F6F7FA;padding:15px 18px;margin:18px 0;break-inside:avoid}
+.doc-highlight strong{display:block;font-size:11pt;line-height:1.4;margin-bottom:7px}
+.doc-highlight p{margin:0;font-size:9.6pt;line-height:1.65;word-break:keep-all}
+
+
+/* Local, screen-only playground: preview uses the same multiCards renderer as templates. */
+.doc-layout-controls{display:grid;gap:12px;margin:0 0 15px}
+.doc-layout-control{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.doc-layout-control>span{font-size:9pt;color:var(--muted);font-weight:610}
+.doc-layout-control>div{display:flex;flex-wrap:wrap;gap:5px}
+.doc-layout-control button{border:1px solid var(--line);background:#fff;color:var(--ink);padding:6px 10px;border-radius:5px;font-size:8.8pt;line-height:1.35;cursor:pointer}
+.doc-layout-control button[aria-pressed="true"]{border-color:var(--accent);color:var(--accent);font-weight:740}
+.doc-layout-control button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.doc-layout-live{min-width:0}
+
+@media screen and (max-width:850px){
+ .doc-multi-cards.cols-4,.doc-numbered-blocks.cols-4{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media screen and (max-width:540px){
+ .doc-multi-cards,.doc-multi-cards.cols-2,.doc-multi-cards.cols-3,.doc-multi-cards.cols-4,
+ .doc-option-compare,.doc-checklist.cols-2,.doc-numbered-blocks,.doc-numbered-blocks.cols-2,
+ .doc-numbered-blocks.cols-3,.doc-numbered-blocks.cols-4{grid-template-columns:1fr}
+ .doc-summary-item{padding:12px 6px}
+ .doc-summary-item strong{font-size:15pt}
+ .doc-summary-item span{font-size:7.5pt}
+}
+@media print{
+ .doc-layout-controls{display:none!important}
+ .doc-multi-cards.cols-2,.doc-numbered-blocks.cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .doc-multi-cards.cols-3,.doc-numbered-blocks.cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+ .doc-multi-cards.cols-4,.doc-numbered-blocks.cols-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+ .doc-multi-card,.doc-option,.doc-checklist li,.doc-numbered-blocks li,
+ .doc-highlight,.doc-summary-item{break-inside:avoid;page-break-inside:avoid}
+ .doc-multi-cards,.doc-option-compare,.doc-checklist,.doc-highlight,.doc-summary-grid{
+  -webkit-print-color-adjust:exact;print-color-adjust:exact
+ }
+ .doc-multi-cards.style-tint .doc-multi-card,.doc-highlight{background:#F6F7FA}
+}
+
+/* Schedule 2: month/week grouped table with reusable task intervals. */
+.schedule-grid{width:100%;border-collapse:collapse;table-layout:fixed;margin:14px 0;break-inside:avoid}
+.schedule-grid caption{text-align:left;color:var(--muted);font-size:8.5pt;line-height:1.5;margin-bottom:9px}
+.schedule-grid .schedule-name{width:26%}
+.schedule-grid th,.schedule-grid td{border:0;border-bottom:1px solid var(--line);padding:11px 6px;font-size:9.2pt;line-height:1.5;overflow-wrap:anywhere}
+.schedule-grid thead th{background:transparent;color:var(--muted);text-align:center;font-weight:650}.schedule-grid thead{border-top:1px solid var(--line);border-bottom:1pt solid #8793A3}.schedule-grid thead tr:first-child th+th{border-left:1px solid var(--line)}
+.schedule-grid tbody th{text-align:left;background:transparent;font-weight:400}
+.schedule-grid thead tr:last-child th{border-left:1px solid var(--line)}
+.schedule-grid .schedule-track-cell{padding:0}
+.schedule-track{height:46px;position:relative;background-image:linear-gradient(to right,var(--line) 1px,transparent 1px);background-size:calc(100% / var(--weeks)) 100%}
+.schedule-grid .schedule-bar{position:absolute;top:9px;bottom:9px;display:flex;align-items:center;justify-content:center;padding:0 5px;border-radius:5px;background:var(--accent);color:#FFFFFF;font-weight:700;font-size:8.5pt;line-height:1.2;white-space:nowrap;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+@media screen and (max-width:540px){.schedule-track{height:52px}.schedule-grid .schedule-bar{font-size:7pt;white-space:normal;text-align:center;overflow-wrap:anywhere}}
+@media screen and (max-width:540px){.schedule-grid th,.schedule-grid td{font-size:8pt;padding:9px 3px}.schedule-grid thead th{font-size:7.5pt;white-space:nowrap}}
+@media print{.schedule-grid,.schedule-grid .schedule-bar{-webkit-print-color-adjust:exact;print-color-adjust:exact;break-inside:avoid;page-break-inside:avoid}}
+@media screen and (max-width:540px){.schedule-grid .schedule-bar{padding:0}}

@@ -1,0 +1,124 @@
+/* Document System — A4 open-editorial draft */
+:root{--ink:#161B22;--muted:#55616F;--line:#DBE1E8;--accent:#5C6BC0;--soft:#F5F6F9;
+--doc-font:"Pretendard Variable",Pretendard,"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif}
+*{box-sizing:border-box}
+body{margin:0;background:#EFF1F5;color:var(--ink);font-family:var(--doc-font);letter-spacing:0}
+button{font:inherit;cursor:pointer}
+button:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.top{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20}
+.topinner{max-width:1240px;margin:auto;padding:16px 26px;display:flex;justify-content:space-between;align-items:center;gap:16px}
+.brand{font-size:15px;font-weight:760}
+.actions{display:flex;gap:9px}
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:9px 13px;background:#fff;border:1px solid var(--line);border-radius:5px;color:var(--ink);text-decoration:none;font-size:12px;font-weight:650;transition:background 160ms,border-color 160ms,transform 160ms}
+.btn:hover{background:var(--soft);transform:translateY(-1px)}.btn.primary{background:var(--accent);border-color:var(--accent);color:white}
+.btn.primary:hover{background:#4134CF}
+.tabs{max-width:1240px;margin:auto;padding:0 26px;display:flex;gap:29px;overflow-x:auto}
+.tabs button{border:0;border-bottom:2px solid transparent;background:transparent;color:var(--muted);font-size:13px;font-weight:580;white-space:nowrap;padding:10px 0 13px;transition:color 160ms,border-color 160ms}
+.tabs button[aria-selected=true]{border-color:var(--accent);color:var(--accent);font-weight:740}
+.example[hidden]{display:none}.example{animation:enter 200ms ease both}
+@keyframes enter{from{opacity:.6;transform:translateY(5px)}to{opacity:1;transform:none}}
+.preview{padding:24px 14px 55px}
+.paper{width:210mm;min-height:297mm;background:#fff;margin:0 auto 22px;padding:20mm 21mm 17mm;box-shadow:0 8px 28px #1f293712;display:flex;flex-direction:column}
+.paper *{letter-spacing:0}
+.cover{margin:8px 0 30px}
+.document-kind{font-size:9.2px;color:var(--accent);font-weight:750;margin:0 0 12px}
+.document-title{font-size:27pt;line-height:1.27;margin:0 0 15px;font-weight:790;word-break:keep-all}
+.document-deck{font-size:10.3pt;line-height:1.7;font-weight:400;color:var(--muted);margin:0;word-break:keep-all}
+.part{margin-top:35px;break-inside:avoid}
+.part:first-child{margin-top:0}
+.part-head{display:grid;grid-template-columns:max-content minmax(0,1fr);column-gap:8px;align-items:center;margin:0 0 15px;break-after:avoid}
+.part-head span{font-size:18pt;color:var(--accent);font-weight:550;line-height:1.25;font-variant-numeric:tabular-nums}
+.part-head h2{font-size:18pt;font-weight:780;margin:0;line-height:1.25;word-break:keep-all}
+.part p{font-size:10pt;line-height:1.72;margin:0;word-break:keep-all}
+.part p+p{margin-top:8px}
+.fact-list{border-top:1px solid var(--line);margin:8px 0 0}
+.fact{display:grid;grid-template-columns:124px 1fr;gap:12px;border-bottom:1px solid var(--line);padding:10px 0}
+.fact dt{color:var(--muted);font-size:9.3pt;border-right:1px solid var(--line);padding-right:12px}.fact dd{margin:0;font-size:9.8pt;font-weight:580}
+.list{margin:4px 0 0;padding:0;list-style:none;counter-reset:row}
+.list li{counter-increment:row;position:relative;border-top:1px solid var(--line);padding:10px 0 10px 31px;font-size:9.5pt;line-height:1.5}
+.list li:before{content:counter(row,decimal-leading-zero);position:absolute;left:0;top:11px;font-weight:750;font-size:9pt;color:var(--accent)}
+.list li strong{display:block;margin-bottom:4px;font-size:10pt;font-weight:710}.list li p{color:var(--muted);font-size:9.5pt}
+.metrics{border-top:1px solid var(--line);border-bottom:1px solid var(--line);display:grid;grid-template-columns:repeat(3,1fr);margin:20px 0 0}
+.metric{padding:17px 12px 18px 0}.metric+.metric{border-left:1px solid var(--line);padding-left:14px}
+.metric span{display:block;color:var(--muted);font-size:9px;margin-bottom:9px}.metric strong{font-size:23pt;font-weight:760;line-height:1}.metric small{font-size:10pt;font-weight:400}
+.table{border-top:0.75pt solid var(--line);border-collapse:collapse;width:100%;table-layout:auto;margin-top:11px}
+.table th,.table td{text-align:left;padding:9px 11px;vertical-align:top;font-size:9.2pt;line-height:1.5;word-break:keep-all}
+.table th:first-child,.table td:first-child{padding-left:0}
+.table th:last-child,.table td:last-child{padding-right:0}
+.table tbody td:not(:last-child){border-right:0.75pt solid var(--line)}
+.table thead th{border-bottom:1pt solid #8793A3}
+.table tbody td{border-bottom:1px solid var(--line)}
+.table th{font-weight:650;color:#667383;font-size:9pt;background:transparent}.table td:first-child{font-weight:610}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:0;margin:10px 0 0;list-style:none}
+.steps li{padding:15px 13px 17px 0;min-width:0}.steps li+li{border-left:1px solid var(--line);padding-left:13px}
+.steps span{font-size:9px;color:var(--accent);font-weight:700}.steps strong{display:block;font-size:10pt;margin:7px 0;font-weight:720}.steps p{font-size:9.2pt;line-height:1.5;color:var(--muted)}
+.note{margin-top:15px;padding:10px 0 10px 13px;border-left:2px solid var(--accent);color:var(--muted);font-size:9pt;line-height:1.65}
+.question{margin:12px 0 0;padding:15px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);font-size:14pt;line-height:1.5;font-weight:740}
+.checks{padding:0;margin:8px 0;list-style:none;columns:2;column-gap:25px}
+.checks li{font-size:9.5pt;line-height:1.6;padding:4px 0;break-inside:avoid}
+.checks li:before{content:"—";color:var(--accent);margin-right:7px}
+.subhead{font-size:10.7pt;font-weight:730;margin:15px 0 8px}
+.technical .cover{margin:8px 0 25px}.technical .document-title{font-size:25pt}.technical .part{margin-top:22px}
+@media screen and (max-width:850px){.paper{width:min(210mm,100%);min-height:0;padding:32px 27px}.document-title{font-size:29px}.steps{grid-template-columns:1fr}.steps li+li{border-left:0;border-top:1px solid var(--line);padding-left:0}.tabs{gap:17px}}
+@media screen and (max-width:540px){.paper{padding:27px 20px}.document-title{font-size:26px}.fact{grid-template-columns:90px 1fr}.checks{columns:1}.actions .desktop{display:none}.tabs{padding:0 14px}.topinner{padding:13px 14px}.metric strong{font-size:19pt}}
+
+
+/* Responsive hierarchy: chapter (21pt) remains visibly larger than subsection
+   (13.5pt). A dedicated number gutter keeps labels and paragraphs separate. */
+@media screen and (max-width:540px){
+ .part-head{grid-template-columns:max-content minmax(0,1fr);column-gap:6px}
+ .part-head span,.part-head h2{font-size:16pt;line-height:1.24}
+}
+
+/* Four-step horizontal editorial timeline: centered dots on a continuous rule. */
+.timeline{position:relative;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));list-style:none;
+ margin:19px 0 4px;padding:0}
+.timeline::before{content:"";height:2px;position:absolute;top:7px;left:12.5%;right:12.5%;background:var(--line)}
+.timeline li{position:relative;z-index:1;min-width:0;display:flex;flex-direction:column;align-items:center;
+ padding:0 6px;text-align:center}
+.timeline-dot{display:block;width:16px;height:16px;border-radius:50%;border:3px solid #fff;
+ background:var(--accent);box-shadow:0 0 0 1px var(--accent);margin:0 0 15px;flex-shrink:0}
+.timeline li strong{display:block;font-size:9.4pt;line-height:1.4;font-weight:720;word-break:keep-all}
+.timeline li small{display:block;margin-top:6px;font-size:8.4pt;line-height:1.45;color:var(--muted);font-weight:400;word-break:keep-all}
+@media screen and (max-width:540px){
+ .timeline{grid-template-columns:repeat(2,minmax(0,1fr));gap:17px 8px}
+ .timeline::before{display:none}
+}
+
+@page{size:A4;margin:0}
+@media print{
+ body{background:white}.top{display:none!important}.preview{padding:0}.example[hidden]{display:none!important}.example{animation:none}
+ .paper{margin:0;width:210mm;height:297mm;min-height:297mm;padding:20mm 21mm 17mm;box-shadow:none;overflow:hidden;page-break-after:always;break-after:page}
+ .paper:last-child{page-break-after:auto;break-after:auto}.part,.list li,.table tr,.steps li{break-inside:avoid}
+ /* Match the on-screen four-node timeline even when Chrome print backgrounds are off.
+    A border draws the connector reliably; the dot retains a clear outline and fill. */
+ .timeline,.timeline li,.timeline-dot{
+  -webkit-print-color-adjust:exact;
+  print-color-adjust:exact;
+ }
+ .timeline{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  break-inside:avoid;
+  page-break-inside:avoid;
+ }
+ .timeline::before{
+  height:0;
+  top:7px;
+  background:none;
+  border-top:1.5px solid var(--line);
+ }
+ .timeline-dot{
+  border:2px solid var(--accent);
+  background:var(--accent);
+  box-shadow:none;
+  outline:3px solid #fff;
+  outline-offset:-4px;
+ }
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+
+/* Studio embedding preserves standalone viewing and document-only printing. */
+.embedded .actions .desktop{display:none}
+
+@media screen{html.embedded,html.embedded body{overflow:hidden}.embedded .top{display:none}}

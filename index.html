@@ -1,0 +1,898 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+<title>SmartECM Design System — Preview</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+:root{
+--bg:#FFFFFF;--surface:#FFFFFF;--surface-alt:#F6F7F9;--text:#161B22;--muted:#4E5968;--border:#E2E5E9;
+--accent:#5C6BC0;--on-accent:#FFFFFF;--success:#166534;--warn:#92400E;--danger:#B42318;
+--radius:5px;--pill-radius:9999px;--space:1;--shadow:0 10px 32px rgba(28,33,58,.055);
+font-family:"Pretendard Variable",Pretendard,Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:calc(14px + 2pt);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);line-height:1.5;letter-spacing:0}
+button,input,select{font:inherit}
+button{cursor:pointer}
+a{color:inherit;text-decoration:none}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+svg{width:19px;height:19px;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;fill:none;flex-shrink:0}
+.icon-sm{width:16px;height:16px}
+.app{display:grid;grid-template-columns:244px minmax(0,1fr) 270px;min-height:100vh}
+.sidebar{background:var(--surface);border-right:1px solid var(--border);padding:27px 14px 18px;display:flex;flex-direction:column;gap:30px;min-height:100vh}
+.brand{display:flex;gap:11px;align-items:center;padding:0 12px}
+.brandmark{width:36px;height:36px;display:grid;place-items:center;background:#16191f;color:#fff;border-radius:5px;font-weight:800;font-size:calc(19px + 2pt);letter-spacing:0}
+.brand strong{font-size:calc(14px + 2pt);letter-spacing:0}
+.brand small{display:block;color:var(--muted);font-size:calc(11px + 2pt)}
+.navtitle{font-size:calc(10px + 2pt);font-weight:800;letter-spacing:0;color:var(--muted);padding:0 13px 8px;text-transform:uppercase}
+.navgroup{display:grid;gap:4px}
+.navbtn{background:transparent;border:0;border-radius:5px;display:flex;align-items:center;gap:12px;text-align:left;padding:11px 12px;color:var(--muted);font-size:calc(13px + 2pt);font-weight:570}
+.navbtn.active{background:var(--surface-alt);color:var(--text);font-weight:750}
+.navbtn.active svg{color:var(--accent)}
+.navbtn:hover:not(.active){background:var(--surface-alt);color:var(--text)}
+.sidebarbottom{margin-top:auto;padding:12px;border-top:1px solid var(--border)}
+.sidebarbottom .user{display:flex;gap:10px;align-items:center}
+.avatar{display:grid;place-items:center;flex-shrink:0;width:34px;height:34px;border-radius:5px;background:var(--accent);color:var(--on-accent);font-weight:750}
+.user small{display:block;color:var(--muted)}
+main{min-width:0;padding:28px clamp(20px,3.5vw,54px) 80px;max-width:1600px;width:100%;margin:0 auto}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:14px}
+.breadcrumb{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:calc(12px + 2pt)}
+.breadcrumb strong{color:var(--text)}
+.topactions{display:flex;gap:10px;align-items:center}
+.roundbtn{display:grid;place-items:center;width:34px;height:34px;background:var(--surface);border:1px solid var(--border);border-radius:5px;color:var(--muted)}
+.pill{border:1px solid var(--border);background:var(--surface);border-radius:var(--pill-radius);padding:5px 9px;display:inline-flex;align-items:center;gap:6px;font-size:calc(11px + 2pt);color:var(--muted);font-weight:700}
+.dot{width:6px;height:6px;border-radius:50%;background:#2AAA74;display:inline-block}
+.hero{padding:44px 0 26px;display:flex;align-items:end;justify-content:space-between;gap:20px}
+.eyebrow{font-size:calc(11px + 2pt);letter-spacing:0;font-weight:850;color:var(--accent);text-transform:uppercase;margin-bottom:10px}
+.hero h1{font-size:calc(clamp(28px,3.3vw,43px) + 2pt);letter-spacing:0;line-height:1.13;margin:0 0 12px;font-weight:800}
+.hero p{margin:0;color:var(--muted);font-size:calc(13px + 2pt)}
+.actionrow{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.btn{display:inline-flex;gap:8px;align-items:center;justify-content:center;border:1px solid transparent;border-radius:var(--radius);padding:10px 14px;font-size:calc(12px + 2pt);font-weight:730;white-space:nowrap;min-height:38px}
+.btn-primary{background:var(--accent);color:var(--on-accent)}
+.btn-outline{border-color:var(--border);background:var(--surface);color:var(--text)}
+.btn-ghost{background:transparent;color:var(--muted)}
+.btn:hover{filter:brightness(.97)}.btn:disabled{opacity:.45;cursor:not-allowed}
+.cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:calc(13px * var(--space))}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow)}
+.metric{padding:calc(19px * var(--space));min-height:148px;position:relative;overflow:hidden}
+.metric .metric-top{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:calc(12px + 2pt);font-weight:650;gap:4px}
+.metric .metric-top svg{width:16px;height:16px}
+.metric .number{margin:20px 0 4px;font-size:calc(clamp(27px,3vw,37px) + 2pt);letter-spacing:0;font-weight:800;line-height:1}
+.metric .detail{font-size:calc(11px + 2pt);color:var(--muted)}
+.metric .up{color:var(--success);font-weight:800}
+.grid2{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(290px,1fr);gap:calc(15px * var(--space));margin-top:calc(15px * var(--space))}
+.sectionhead{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:17px}
+.sectionhead h2{margin:0;font-size:calc(15px + 2pt);letter-spacing:0}
+.sectionhead small{display:block;font-size:calc(11px + 2pt);color:var(--muted);font-weight:400;margin-top:3px}
+.link{border:0;background:transparent;color:var(--accent);font-size:calc(11px + 2pt);font-weight:750}
+.panel{padding:calc(21px * var(--space));min-width:0}
+.rowtable{width:100%;border-collapse:collapse;text-align:left;white-space:nowrap}
+.rowtable th{font-size:calc(10px + 2pt);letter-spacing:0;color:var(--muted);font-weight:700;padding:10px 8px;border-bottom:1px solid var(--border)}
+.rowtable td{font-size:calc(12px + 2pt);padding:calc(15px * var(--space)) 8px;border-bottom:1px solid var(--border)}
+.rowtable tr:last-child td{border-bottom:0}
+.rowtable td:first-child{font-weight:700}
+.rowtable th:first-child,.rowtable td:first-child{padding-left:0}
+.status{display:inline-flex;align-items:center;gap:6px;font-size:calc(11px + 2pt);font-weight:700;border-radius:var(--pill-radius);padding:5px 9px;background:var(--surface-alt);color:var(--muted)}
+.status svg{width:13px;height:13px}
+.status.ok{background:color-mix(in srgb,var(--success) 11%,var(--surface));color:var(--success)}
+.status.wait{background:color-mix(in srgb,var(--warn) 10%,var(--surface));color:var(--warn)}
+.status.fail{background:color-mix(in srgb,var(--danger) 10%,var(--surface));color:var(--danger)}
+.agenthead{display:flex;gap:11px;align-items:center;margin-bottom:22px}
+.agenticon{background:color-mix(in srgb,var(--accent) 12%,var(--surface));color:var(--accent);display:grid;place-items:center;width:39px;height:39px;border-radius:5px}
+.agenthead strong{font-size:calc(13px + 2pt)}.agenthead small{display:block;font-size:calc(11px + 2pt);color:var(--muted)}
+.steps{display:grid;gap:18px;margin:0;padding:0;list-style:none}
+.steps li{display:flex;gap:12px;position:relative}
+.steps li:not(:last-child):after{content:"";height:calc(100% - 5px);width:1px;background:var(--border);position:absolute;top:26px;left:11px}
+.stepicon{width:23px;height:23px;display:grid;place-items:center;border-radius:50%;flex-shrink:0;background:var(--surface-alt);color:var(--muted)}
+.stepicon.done{background:color-mix(in srgb,var(--success) 14%,var(--surface));color:var(--success)}
+.stepicon.current{background:var(--accent);color:var(--on-accent)}
+.stepicon svg{width:12px;height:12px}
+.steptxt strong{font-size:calc(12px + 2pt)}.steptxt small{display:block;color:var(--muted);font-size:calc(11px + 2pt);margin-top:3px}
+.progress{height:5px;border-radius:var(--pill-radius);background:var(--surface-alt);margin-top:17px;overflow:hidden}
+.progress span{height:100%;display:block;width:62%;background:var(--accent);border-radius:var(--pill-radius)}
+.footnote{font-size:calc(10px + 2pt);color:var(--muted);display:flex;justify-content:space-between;margin-top:8px}
+.lower{display:grid;grid-template-columns:1fr 1fr;gap:calc(15px * var(--space));margin-top:calc(15px * var(--space))}
+.spark{display:flex;align-items:end;gap:8px;height:95px;padding:8px 0 0}
+.spark i{display:block;flex:1;background:color-mix(in srgb,var(--accent) 17%,var(--surface));border-radius:5px 5px 0 0;min-width:6px}
+.spark i:nth-child(6),.spark i:nth-child(9){background:var(--accent)}
+.kicker{font-size:calc(10px + 2pt);letter-spacing:0;color:var(--muted);font-weight:800;text-transform:uppercase}
+.componentbuttons{display:flex;gap:8px;flex-wrap:wrap}
+.input{background:var(--surface);border:1px solid var(--border);border-radius:5px;padding:10px 12px;color:var(--text);width:100%;outline:0}
+.input:focus{border-color:var(--accent);box-shadow:none;outline:0}
+.fieldlabel{font-size:calc(11px + 2pt);font-weight:730;display:block;margin:16px 0 7px}
+.aside{background:var(--surface);border-left:1px solid var(--border);padding:25px 18px;min-height:100vh;position:sticky;top:0;height:100vh;overflow:auto}
+.asidehead{display:flex;align-items:center;justify-content:space-between;margin-bottom:23px}
+.asidehead h2{margin:0;font-size:calc(15px + 2pt);letter-spacing:0}
+.tag{font-size:calc(9px + 2pt);font-weight:750;background:var(--surface-alt);padding:4px 7px;border-radius:5px;color:var(--muted)}
+.controlgroup{margin:0 0 25px}
+.controlgroup h3{font-size:calc(10px + 2pt);letter-spacing:0;text-transform:uppercase;color:var(--muted);margin:0 0 10px;font-weight:850}
+.segment{display:flex;gap:4px;padding:4px;border:1px solid var(--border);border-radius:5px;background:var(--surface-alt)}
+.segment button{flex:1;background:transparent;border:0;color:var(--muted);border-radius:5px;padding:8px 4px;font-weight:730;font-size:calc(11px + 2pt)}
+.segment button.selected{background:var(--surface);color:var(--text);box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.swatches{display:flex;flex-wrap:wrap;align-items:center;gap:9px}
+.swatch{width:31px;height:31px;flex:0 0 31px;background:var(--swatch);border:3px solid var(--surface);border-radius:5px;outline:1px solid var(--border);position:relative}
+.swatch.selected{outline:2px solid var(--text)}
+.swatch[data-accent].selected:after{content:"✓";position:absolute;inset:0;display:grid;place-items:center;color:var(--check-color,#FFFFFF);font-size:calc(13px + 2pt);font-weight:900;text-shadow:0 1px 2px #0002}
+.accent-custom{display:grid;place-items:center;background:var(--surface-alt);color:var(--muted);cursor:pointer;overflow:hidden}
+.accent-custom svg{width:19px;height:19px;pointer-events:none}
+.accent-custom input{position:absolute;inset:0;width:100%;height:100%;padding:0;margin:0;opacity:0;cursor:pointer}
+.accent-custom:focus-within{outline:2px solid var(--accent);outline-offset:2px}
+.accent-custom.selected{background:color-mix(in srgb,var(--accent) 14%,var(--surface))}
+.accent-custom.selected svg{color:var(--accent)}
+.accent-hex{font-size:12px;line-height:1.4;color:var(--muted);margin-top:8px;font-variant-numeric:tabular-nums}
+.rangehead{display:flex;justify-content:space-between;margin-bottom:10px;font-size:calc(12px + 2pt)}
+.rangehead span{color:var(--muted)}
+input[type=range]{accent-color:var(--accent);width:100%;cursor:pointer}
+.asidebottom{display:grid;gap:8px;margin-top:24px}
+.prompt-mode-control{display:grid;gap:8px;margin-bottom:7px}
+.prompt-mode-control label{font-size:calc(10px + 2pt);color:var(--muted);font-weight:750}
+.prompt-mode-select{width:100%;border:1px solid var(--border);border-radius:5px;background:var(--surface);color:var(--text);padding:10px 11px;cursor:pointer;font-size:calc(11px + 2pt)}
+.prompt-mode-select:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.prompt-mode-hint{font-size:calc(9px + 2pt);line-height:1.6;color:var(--muted);margin:0}
+.asidebottom .btn{width:100%}
+.note{font-size:calc(10px + 2pt);color:var(--muted);line-height:1.6}
+.toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,90px);opacity:0;pointer-events:none;background:#151923;color:#fff;padding:12px 18px;border-radius:5px;font-size:calc(12px + 2pt);box-shadow:0 8px 25px #0002;transition:transform .2s,opacity .2s;z-index:99}
+.toast.show{transform:translate(-50%,0);opacity:1}
+.view{display:none}.view.active{display:block}
+.alt-head{padding-top:45px}
+.alt-head h1{margin:0 0 8px;font-size:calc(35px + 2pt);letter-spacing:0}
+.alt-head p{margin:0 0 28px;color:var(--muted);font-size:calc(13px + 2pt)}
+.demo-section{margin-top:15px}
+.demo-section h3{font-size:calc(12px + 2pt);margin:0 0 15px;color:var(--muted)}
+.stack{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.modalback{display:none;position:fixed;inset:0;background:rgba(4,8,17,.5);z-index:80;align-items:center;justify-content:center;padding:20px}
+.modalback.open{display:flex}
+.modal{width:min(430px,100%);background:var(--surface);border:1px solid var(--border);border-radius:5px;padding:26px;box-shadow:0 20px 70px #0003}
+.modal h3{margin:0 0 9px;font-size:calc(18px + 2pt)}.modal p{color:var(--muted);font-size:calc(12px + 2pt);margin-bottom:24px}
+.modal .actionrow{justify-content:flex-end}
+@media(max-width:1200px){.app{grid-template-columns:72px minmax(0,1fr) 255px}.sidebar{padding:25px 8px}.brand{padding:0 7px}.brandwords,.navtitle,.navlabel,.sidebarbottom .user div{display:none}.navbtn{justify-content:center}.sidebarbottom{padding:10px 7px}.user{justify-content:center}.cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:960px){.app{grid-template-columns:68px minmax(0,1fr)}.aside{grid-column:2;position:static;height:auto;min-height:0;border-left:0;border-top:1px solid var(--border)}.aside .controlgroup{max-width:420px}.grid2{grid-template-columns:1fr}}
+@media(max-width:640px){.app{grid-template-columns:1fr}.sidebar{min-height:0;flex-direction:row;align-items:center;gap:15px;padding:11px 16px;overflow-x:auto;border-right:0;border-bottom:1px solid var(--border)}.brand{min-width:40px;padding:0}.navgroup{display:flex}.navbtn{padding:9px}.sidebarbottom{display:none}.aside{grid-column:1}.hero{display:block;padding-top:32px}.hero .actionrow{margin-top:18px}.cards{grid-template-columns:1fr 1fr}.metric{min-height:125px;padding:14px}.lower{grid-template-columns:1fr}.topbar .pill{display:none}main{padding:17px 15px 40px}.rowtable{min-width:460px}.tablewrap{overflow-x:auto}.hero h1{font-size:calc(31px + 2pt)}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{transition:none!important;animation:none!important}}
+
+/* Semantic pastel badge palette */
+:root {
+--badge-success-bg:#DDF9E9;--badge-success-text:#177348;
+--badge-warning-bg:#FFF0CB;--badge-warning-text:#95620D;
+--badge-danger-bg:#FFE3E9;--badge-danger-text:#B92F51;
+--badge-info-bg:#E1EEFF;--badge-info-text:#275EB3;
+--badge-progress-bg:#ECE7FF;--badge-progress-text:#6245B2;
+--badge-neutral-bg:#ECF0F7;--badge-neutral-text:#53627A;
+}
+:root[data-theme="dark"] {
+--badge-success-bg:#183A2C;--badge-success-text:#8CE9B6;
+--badge-warning-bg:#493A21;--badge-warning-text:#FFD88E;
+--badge-danger-bg:#4B2634;--badge-danger-text:#FFAAC0;
+--badge-info-bg:#213956;--badge-info-text:#A9CEFF;
+--badge-progress-bg:#342C53;--badge-progress-text:#CEC3FF;
+--badge-neutral-bg:#293544;--badge-neutral-text:#C7D3E4;
+}
+.status{background:var(--badge-neutral-bg);color:var(--badge-neutral-text)}
+.status.ok,.status.success{background:var(--badge-success-bg);color:var(--badge-success-text)}
+.status.wait,.status.warning{background:var(--badge-warning-bg);color:var(--badge-warning-text)}
+.status.fail,.status.danger{background:var(--badge-danger-bg);color:var(--badge-danger-text)}
+.status.info{background:var(--badge-info-bg);color:var(--badge-info-text)}
+.status.progress-state{background:var(--badge-progress-bg);color:var(--badge-progress-text)}
+.pill.healthy{background:var(--badge-success-bg);color:var(--badge-success-text);border-color:transparent}
+.pill.healthy .dot{background:var(--badge-success-text)}
+.tag{background:var(--badge-progress-bg);color:var(--badge-progress-text)}
+.input:focus,.input:focus-visible,.gallery-input:focus,.gallery-input:focus-visible{outline:none;box-shadow:none;border:1px solid var(--accent)}
+input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):focus-visible,select:focus-visible,textarea:focus-visible{outline:none}
+button:focus-visible,a:focus-visible,[role="tab"]:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+
+/* Component gallery · consistent 5px / pill geometry */
+.gallery-subhead{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:30px 0 0}
+.gallery-subhead h2{margin:0;font-size:calc(18px + 2pt)}
+.gallery-subhead p{margin:4px 0 0;color:var(--muted);font-size:calc(11px + 2pt)}
+.ui-gallery-grid{display:grid;grid-template-columns:1fr 1fr;gap:calc(15px * var(--space));margin-top:calc(15px * var(--space))}
+.ui-gallery-grid .demo-section{margin-top:0}
+.gallery-toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:15px}
+.gallery-toolbar input{min-width:210px;flex:1}
+.gallery-toolbar select{max-width:175px}
+.ui-table{border-collapse:collapse;width:100%;min-width:600px}
+.ui-table th,.ui-table td{font-size:calc(11px + 2pt);border-bottom:1px solid var(--border);text-align:left;padding:13px 10px;white-space:nowrap}
+.ui-table th{background:var(--surface-alt);color:var(--muted);font-weight:650}
+.ui-table th button{font:inherit;color:inherit;background:transparent;border:0;padding:0;cursor:pointer}
+.ui-table th button[aria-pressed=true]{color:var(--accent)}
+.ui-table tr:last-child td{border:0}
+.ui-table tbody tr:hover{background:color-mix(in srgb,var(--accent) 4%,var(--surface))}
+.ui-table-footer{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:calc(10px + 2pt);color:var(--muted);margin-top:12px}
+.ui-page{border:1px solid var(--border);border-radius:var(--radius);background:var(--surface);color:var(--text);padding:7px 10px}
+.ui-page:disabled{opacity:.3;cursor:not-allowed}
+.ui-alert-stack{display:grid;gap:10px}
+.ui-alert{display:flex;gap:11px;align-items:flex-start;padding:14px;border-radius:var(--radius)}
+.ui-alert>svg{width:19px;height:19px;flex-shrink:0}
+.ui-alert>div{flex:1}
+.ui-alert strong{font-weight:750;font-size:calc(11px + 2pt)}
+.ui-alert p{margin:4px 0 0;font-size:calc(10px + 2pt);opacity:.88}
+.ui-alert.info{background:var(--badge-info-bg);color:var(--badge-info-text)}
+.ui-alert.ok{background:var(--badge-success-bg);color:var(--badge-success-text)}
+.ui-alert.wait{background:var(--badge-warning-bg);color:var(--badge-warning-text)}
+.ui-alert.fail{background:var(--badge-danger-bg);color:var(--badge-danger-text)}
+.ui-alert[hidden]{display:none}
+.ui-alert-close{border:0;background:transparent;color:inherit;font-size:22px;line-height:1;opacity:.7}
+.ui-form-help{color:var(--badge-danger-text);font-size:calc(10px + 2pt);margin:5px 0 0}
+.ui-error-input{border-color:var(--badge-danger-text)}
+.ui-selector-divider{border-top:1px solid var(--border);margin:18px 0}
+.ui-switch-row{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:calc(11px + 2pt)}
+.ui-switch{display:block;position:relative;width:42px;height:24px;flex-shrink:0}
+.ui-switch input{position:absolute;opacity:0;width:100%;height:100%;margin:0;cursor:pointer}
+.ui-switch>span{position:absolute;inset:0;border-radius:var(--pill-radius);background:var(--border);pointer-events:none}
+.ui-switch>span:before{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:transform .15s;box-shadow:0 1px 3px #0002}
+.ui-switch input:checked+span{background:var(--accent)}
+.ui-switch input:checked+span:before{transform:translateX(18px)}
+.ui-switch input:focus-visible+span{outline:2px solid var(--accent);outline-offset:2px}
+.ui-check{display:flex;gap:10px;align-items:center;margin:10px 0;font-size:calc(11px + 2pt)}
+.ui-check input{width:17px;height:17px;accent-color:var(--accent)}
+.ui-check input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.ui-tabs{display:flex;gap:5px;border-bottom:1px solid var(--border)}
+.ui-tabs button{border:0;border-bottom:2px solid transparent;padding:9px 12px;background:transparent;color:var(--muted);font-size:calc(11px + 2pt);font-weight:650}
+.ui-tabs button[aria-selected=true]{color:var(--accent);border-color:var(--accent)}
+.ui-tabpanel{padding:15px 0;line-height:1.8;min-height:74px;font-size:calc(11px + 2pt);color:var(--muted)}
+.ui-tabpanel[hidden]{display:none}
+.ui-progress-label{display:flex;justify-content:space-between;gap:10px;font-size:calc(11px + 2pt);margin-bottom:7px}
+.ui-progress{height:7px;border-radius:var(--pill-radius);background:var(--surface-alt);overflow:hidden}
+.ui-progress span{width:72%;height:100%;display:block;background:var(--accent);border-radius:var(--pill-radius)}
+.ui-skeleton{display:flex;gap:10px;align-items:center;margin:14px 0}
+.ui-skeleton>span{width:33px;height:33px;flex-shrink:0;background:var(--surface-alt);border-radius:var(--radius)}
+.ui-skeleton div{display:grid;gap:7px;flex:1}
+.ui-skeleton div span{height:9px;width:82%;background:var(--surface-alt);border-radius:var(--radius)}
+.ui-skeleton div span:last-child{width:51%}
+.ui-empty{display:flex;align-items:center;flex-direction:column;gap:8px;text-align:center;border:1px dashed var(--border);border-radius:var(--radius);padding:19px}
+.ui-empty svg{width:23px;height:23px;color:var(--muted)}
+.ui-empty strong{font-size:calc(11px + 2pt)}
+.ui-empty p{color:var(--muted);margin:0;font-size:calc(10px + 2pt)}
+@media(max-width:1160px){.ui-gallery-grid{grid-template-columns:1fr}}
+@media(max-width:600px){.gallery-toolbar input,.gallery-toolbar select{width:100%;max-width:none}}
+</style>
+<link rel="stylesheet" href="./styles/editorial.css">
+<link rel="stylesheet" href="./styles/motion.css">
+</head>
+<body>
+<svg aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden">
+ <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></symbol>
+ <symbol id="i-bot" viewBox="0 0 24 24"><rect x="4" y="7" width="16" height="13" rx="4"/><path d="M12 3v4M9 3h6M8 13h.01M16 13h.01M9 17h6"/></symbol>
+ <symbol id="i-image" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8" cy="8" r="1.5"/><path d="m3 17 6-6 4 4 3-3 5 5"/></symbol>
+ <symbol id="i-document" viewBox="0 0 24 24"><path d="M14 2H5v20h14V7zM14 2v6h5M8 12h8M8 16h8"/></symbol>
+ <symbol id="i-list" viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></symbol>
+ <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20v-11"/></symbol>
+ <symbol id="i-settings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15l1-3-1-3-3 .1-2-2.1-1-3h-3l-1 3-2 2.1-3-.1-1 3 1 3 3-.1 2 2.1 1 3h3l1-3 2-2.1z"/></symbol>
+ <symbol id="i-bell" viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></symbol>
+ <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+ <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+ <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 5 5L20 7"/></symbol>
+ <symbol id="i-play" viewBox="0 0 24 24"><path d="m8 5 11 7-11 7z"/></symbol>
+ <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l4 2"/></symbol>
+ <symbol id="i-more" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/></symbol>
+ <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m16 16 5 5"/></symbol>
+ <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 2 4 6v6c0 5 4 8 8 10 4-2 8-5 8-10V6z"/><path d="m9 12 2 2 4-4"/></symbol>
+ <symbol id="i-activity" viewBox="0 0 24 24"><path d="M2 12h5l3-8 4 16 3-8h5"/></symbol>
+ <symbol id="i-filter" viewBox="0 0 24 24"><path d="M3 5h18l-7 8v6l-4 2v-8z"/></symbol>
+ <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
+</svg>
+<div class="app">
+ <nav class="sidebar" aria-label="미리보기 앱 탐색">
+   <div class="brand"><div class="brandmark">a<span style="color:#9D96FF">.</span></div><div class="brandwords"><strong>SmartECM Studio</strong><small>Preview</small></div></div>
+   <div class="navgroup">
+     <div class="navtitle">Workspace</div>
+     <button type="button" class="navbtn active" data-view="dashboard"><svg><use href="#i-grid"/></svg><span class="navlabel">대시보드</span></button>
+     <button type="button" class="navbtn" data-view="components"><svg><use href="#i-list"/></svg><span class="navlabel">UI 컴포넌트</span></button>
+     <button type="button" class="navbtn" data-view="assets"><svg aria-hidden="true"><use href="#i-image"/></svg><span class="navlabel">디자인 에셋</span></button>
+     <button type="button" class="navbtn" data-view="documents"><svg aria-hidden="true"><use href="#i-document"/></svg><span class="navlabel">문서 스타일</span></button>
+     <button type="button" class="navbtn" data-view="dashboard"><svg><use href="#i-chart"/></svg><span class="navlabel">모니터링</span></button>
+     <div class="navtitle" style="margin-top:25px">System</div>
+     <button type="button" class="navbtn" data-view="components"><svg><use href="#i-settings"/></svg><span class="navlabel">디자인 실험실</span></button>
+   </div>
+   <div class="sidebarbottom"><div class="user"><span class="avatar">A</span><div><strong style="font-size:calc(12px + 2pt)">Administrator</strong><small>Workspace Owner</small></div></div></div>
+ </nav>
+ <main>
+   <div class="topbar">
+     <div class="breadcrumb"><span>Workspace</span><svg class="icon-sm"><use href="#i-chevron"/></svg><strong id="breadcrumb">Overview</strong></div>
+     <div class="topactions"><span class="pill healthy">모든 시스템 정상</span><button class="roundbtn" id="notifications" aria-label="알림"><svg class="icon-sm"><use href="#i-bell"/></svg></button><span class="avatar" style="width:32px;height:32px;font-size:calc(12px + 2pt)">AD</span></div>
+   </div>
+   <section class="view active" id="dashboard">
+     <div class="hero">
+       <div><div class="eyebrow">Command Center / 01</div><h1>운영 현황</h1><p>에이전트 상태, 실행 흐름, 주요 작업을 확인하세요.</p></div>
+       <div class="actionrow"><button class="btn btn-outline" id="view-activity"><svg class="icon-sm"><use href="#i-chart"/></svg>활동 내역</button><button class="btn btn-primary" id="new-task"><svg class="icon-sm"><use href="#i-plus"/></svg>새 작업 실행</button></div>
+     </div>
+     <div class="cards">
+       <div class="card metric"><div class="metric-top">활성 에이전트<svg><use href="#i-bot"/></svg></div><div class="number">12<span style="color:var(--muted);font-size:calc(17px + 2pt)"> / 14</span></div><div class="detail"><span class="up">정상 작동</span> · 2개 대기</div></div>
+       <div class="card metric"><div class="metric-top">오늘 완료 작업<svg><use href="#i-check"/></svg></div><div class="number">248</div><div class="detail"><span class="up">↑ 12.8%</span> · 전일 대비</div></div>
+       <div class="card metric"><div class="metric-top">평균 처리 시간<svg><use href="#i-clock"/></svg></div><div class="number">1.8<span style="color:var(--muted);font-size:calc(17px + 2pt)">s</span></div><div class="detail">최근 24시간 기준</div></div>
+       <div class="card metric"><div class="metric-top">주의 필요<svg><use href="#i-shield"/></svg></div><div class="number">03</div><div class="detail"><span style="color:var(--warn);font-weight:800">검토 대기</span> · 3건</div></div>
+     </div>
+     <div class="grid2">
+       <div class="card panel">
+         <div class="sectionhead"><div><h2>최근 작업</h2><small>작업 상태, 실행 이력, 담당 에이전트</small></div><button class="link" id="all-tasks">전체 보기 →</button></div>
+         <div class="tablewrap"><table class="rowtable">
+           <thead><tr><th>작업</th><th>에이전트</th><th>상태</th><th>시간</th></tr></thead>
+           <tbody>
+             <tr><td>보안 패치 영향 분석</td><td>Patch Agent</td><td><span class="status ok"><svg><use href="#i-check"/></svg>완료</span></td><td>방금 전</td></tr>
+             <tr><td>매뉴얼 최신화 검사</td><td>Docs Agent</td><td><span class="status progress-state"><svg><use href="#i-activity"/></svg>실행 중</span></td><td>2분 전</td></tr>
+             <tr><td>클러스터 상태 점검</td><td>Monitor Agent</td><td><span class="status ok"><svg><use href="#i-check"/></svg>완료</span></td><td>8분 전</td></tr>
+             <tr><td>업데이트 적용 승인</td><td>Patch Agent</td><td><span class="status wait"><svg><use href="#i-clock"/></svg>승인 대기</span></td><td>12분 전</td></tr>
+           </tbody>
+         </table></div>
+       </div>
+       <div class="card panel">
+         <div class="sectionhead"><div><h2>에이전트 실행 흐름</h2><small>현재 실행 중인 자동화</small></div><span class="status progress-state">진행 중</span></div>
+         <div class="agenthead"><span class="agenticon"><svg><use href="#i-bot"/></svg></span><div><strong>매뉴얼 검증 워크플로</strong><small>Docs Agent · 작업 #0248</small></div></div>
+         <ol class="steps">
+           <li><span class="stepicon done"><svg><use href="#i-check"/></svg></span><div class="steptxt"><strong>작업 요청 수신</strong><small>입력 및 권한 확인 완료</small></div></li>
+           <li><span class="stepicon done"><svg><use href="#i-check"/></svg></span><div class="steptxt"><strong>문서 변경 사항 분석</strong><small>변경 파일 18개 검사 완료</small></div></li>
+           <li><span class="stepicon current"><svg><use href="#i-activity"/></svg></span><div class="steptxt"><strong>내용 검증 중</strong><small>참조 문서와 정책을 비교하고 있습니다</small></div></li>
+           <li><span class="stepicon"><svg><use href="#i-clock"/></svg></span><div class="steptxt"><strong>결과 보고</strong><small>이전 단계 완료 후 진행</small></div></li>
+         </ol>
+         <div class="progress"><span></span></div><div class="footnote"><span>실행 단계 3/4</span><span>62%</span></div>
+       </div>
+     </div>
+     <div class="lower">
+       <div class="card panel"><div class="sectionhead"><div><h2>에이전트 실행 추이</h2><small>최근 12시간 · 샘플 데이터</small></div><span class="pill">시간별</span></div><div class="spark" aria-label="시간별 처리량을 나타내는 샘플 막대그래프"><i style="height:35%"></i><i style="height:47%"></i><i style="height:29%"></i><i style="height:59%"></i><i style="height:49%"></i><i style="height:88%"></i><i style="height:68%"></i><i style="height:55%"></i><i style="height:96%"></i><i style="height:76%"></i><i style="height:86%"></i><i style="height:69%"></i></div></div>
+       <div class="card panel"><div class="sectionhead"><div><h2>컴포넌트 미리보기</h2><small>공통 디자인 시스템 요소</small></div><button class="link" id="components-link">더 보기 →</button></div><div class="componentbuttons"><button class="btn btn-primary" id="demo-primary">Primary action</button><button class="btn btn-outline" id="demo-secondary">Secondary</button><button class="btn btn-ghost" id="demo-tertiary">Tertiary</button></div><label class="fieldlabel" for="dashboard-search">입력 필드</label><input id="dashboard-search" class="input" placeholder="검색어를 입력하세요" autocomplete="off"></div>
+     </div>
+   </section>
+   <section class="view" id="components">
+     <div class="alt-head"><div class="eyebrow">Design System / 02</div><h1>UI 컴포넌트</h1><p>공통 버튼, 상태, 입력 요소를 테스트해 보세요. 실제 운영 데이터가 아닌 디자인 샘플입니다.</p></div>
+     <div class="card panel demo-section"><div class="sectionhead"><div><h2>Buttons</h2><small>버튼의 강조 수준과 상태</small></div></div><div class="stack"><button class="btn btn-primary" id="test-primary"><svg class="icon-sm"><use href="#i-plus"/></svg>Primary</button><button class="btn btn-outline" id="test-secondary">Secondary</button><button class="btn btn-ghost" id="test-ghost">Ghost</button><button class="btn btn-primary" disabled>Disabled</button><button class="btn btn-outline" id="open-modal">모달 열기</button></div></div>
+     <div class="card panel demo-section"><div class="sectionhead"><div><h2>Status badges</h2><small>색상만으로 상태를 전달하지 않습니다</small></div></div><div class="stack"><span class="status ok"><svg><use href="#i-check"/></svg>성공</span><span class="status wait"><svg><use href="#i-clock"/></svg>검토 대기</span><span class="status fail">실패</span><span class="status progress-state"><svg><use href="#i-activity"/></svg>실행 중</span></div></div>
+     <div class="card panel demo-section"><div class="sectionhead"><div><h2>Inputs & form</h2><small>라벨과 포커스 표현을 확인하세요</small></div></div><div style="max-width:430px"><label class="fieldlabel" for="demo-name">작업 이름</label><input class="input" id="demo-name" placeholder="예: 보안 패치 검증"><label class="fieldlabel" for="demo-category">작업 유형</label><select class="input" id="demo-category"><option>자동화 작업</option><option>상태 모니터링</option><option>승인 요청</option></select><div class="actionrow" style="margin-top:16px"><button class="btn btn-primary" id="form-demo">샘플 실행</button><button class="btn btn-outline" id="form-reset">초기화</button></div></div></div>
+
+    <div class="gallery-subhead"><div><h2>Component Gallery</h2><p>데이터 · 알림 · 입력 · 내비게이션 · 상태 표시</p></div><span class="tag">EXPANDED</span></div>
+    <div class="card panel demo-section" id="ui-gallery-table">
+      <div class="sectionhead"><div><h2>Data Table</h2><small>검색 · 필터 · 정렬 · 페이지 이동</small></div><span class="tag">INTERACTIVE</span></div>
+      <div class="gallery-toolbar"><input class="input" type="search" id="ui-table-query" aria-label="테이블 검색" placeholder="작업명 또는 에이전트 검색"><select class="input" id="ui-table-filter" aria-label="상태 필터"><option value="all">전체 상태</option><option>완료</option><option>실행 중</option><option>승인 대기</option><option>실패</option></select><button class="btn btn-outline" type="button" id="ui-table-clear">초기화</button></div>
+      <div class="tablewrap"><table class="ui-table"><thead><tr><th scope="col"><button type="button" data-uisort="name">작업명 ↕</button></th><th scope="col"><button type="button" data-uisort="agent">에이전트 ↕</button></th><th scope="col"><button type="button" data-uisort="status">상태 ↕</button></th><th scope="col"><button type="button" data-uisort="time">시각 ↕</button></th><th scope="col" class="ui-expand-header"><span class="sr-only">상세 정보</span></th></tr></thead><tbody id="ui-table-body"></tbody></table></div>
+      <div class="ui-table-footer"><span id="ui-table-count"></span><div class="actionrow"><button class="ui-page" id="ui-prev" type="button">이전</button><span id="ui-page-counter"></span><button class="ui-page" id="ui-next" type="button">다음</button></div></div>
+    </div>
+    <div class="card panel demo-section">
+      <div class="sectionhead"><div><h2>Alerts & Messages</h2><small>파스텔 알림 · 닫기 · 재표시</small></div><button type="button" class="link" id="ui-alert-restore">다시 표시</button></div>
+      <div class="ui-alert-stack">
+        <div class="ui-alert info" role="status"><svg><use href="#i-bell"/></svg><div><strong>정보 · 업데이트 안내</strong><p>새로운 에이전트 설정을 확인해 주세요.</p></div><button type="button" class="ui-alert-close" aria-label="정보 알림 닫기">×</button></div>
+        <div class="ui-alert ok" role="status"><svg><use href="#i-check"/></svg><div><strong>완료 · 변경사항 저장</strong><p>작업이 정상적으로 반영되었습니다.</p></div><button type="button" class="ui-alert-close" aria-label="완료 알림 닫기">×</button></div>
+        <div class="ui-alert wait" role="alert"><svg><use href="#i-clock"/></svg><div><strong>주의 · 검토 대기</strong><p>승인이 필요한 작업 3건이 있습니다.</p></div><button type="button" class="ui-alert-close" aria-label="주의 알림 닫기">×</button></div>
+        <div class="ui-alert fail" role="alert"><svg><use href="#i-shield"/></svg><div><strong>오류 · 동기화 실패</strong><p>연결 상태를 확인하고 다시 시도하세요.</p></div><button type="button" class="ui-alert-close" aria-label="오류 알림 닫기">×</button></div>
+      </div>
+      <div class="actionrow" style="margin-top:14px"><button type="button" class="btn btn-outline" id="ui-toast-ok">완료 토스트</button><button type="button" class="btn btn-outline" id="ui-toast-error">오류 토스트</button></div>
+    </div>
+    <div class="ui-gallery-grid">
+      <div class="card panel demo-section">
+        <div class="sectionhead"><div><h2>Advanced Forms</h2><small>텍스트 · 셀렉트 · 멀티라인 · 입력 오류</small></div></div>
+        <label class="fieldlabel" for="ui-form-name">작업 이름</label><input id="ui-form-name" class="input" placeholder="예: 권한 검토">
+        <label class="fieldlabel" for="ui-form-type">작업 유형</label><select class="input" id="ui-form-type"><option>자동화</option><option>모니터링</option><option>승인 요청</option></select>
+        <label class="fieldlabel" for="ui-form-comment">설명</label><textarea class="input" id="ui-form-comment" rows="3" placeholder="작업에 대해 설명해 주세요."></textarea>
+        <label class="fieldlabel" for="ui-form-error">오류 상태</label><input class="input ui-error-input" id="ui-form-error" value="잘못된 입력 값" aria-invalid="true" aria-describedby="ui-form-error-text"><p class="ui-form-help" id="ui-form-error-text">입력 내용을 확인하세요.</p>
+      </div>
+      <div class="card panel demo-section">
+        <div class="sectionhead"><div><h2>Selection Controls</h2><small>스위치 · 체크박스 · 라디오</small></div></div>
+        <label class="ui-switch-row"><span>에이전트 자동 실행</span><span class="ui-switch"><input type="checkbox" checked role="switch" aria-label="에이전트 자동 실행"><span></span></span></label>
+        <div class="ui-selector-divider"></div>
+        <label class="ui-check"><input type="checkbox" checked>완료 알림 수신</label><label class="ui-check"><input type="checkbox">상세 로그 포함</label>
+        <div class="ui-selector-divider"></div>
+        <label class="ui-check"><input name="ui-demo-mode" type="radio" checked>검토 후 실행</label><label class="ui-check"><input name="ui-demo-mode" type="radio">자동 승인</label>
+      </div>
+      <div class="card panel demo-section">
+        <div class="sectionhead"><div><h2>Tabs & Navigation</h2><small>키보드 탐색을 지원하는 탭</small></div></div>
+        <div class="ui-tabs" role="tablist" aria-label="에이전트 상세 정보">
+          <button type="button" role="tab" data-uitab="summary" id="ui-tab-summary" aria-controls="ui-panel-summary" aria-selected="true">개요</button>
+          <button type="button" role="tab" data-uitab="logs" id="ui-tab-logs" aria-controls="ui-panel-logs" aria-selected="false" tabindex="-1">실행 로그</button>
+          <button type="button" role="tab" data-uitab="config" id="ui-tab-config" aria-controls="ui-panel-config" aria-selected="false" tabindex="-1">설정</button>
+        </div>
+        <div class="ui-tabpanel" role="tabpanel" id="ui-panel-summary" aria-labelledby="ui-tab-summary" tabindex="0">에이전트의 상태와 실행 이력을 요약합니다.</div>
+        <div class="ui-tabpanel" role="tabpanel" id="ui-panel-logs" aria-labelledby="ui-tab-logs" tabindex="0" hidden>10:30 · 실행 요청<br>10:32 · 검증 완료</div>
+        <div class="ui-tabpanel" role="tabpanel" id="ui-panel-config" aria-labelledby="ui-tab-config" tabindex="0" hidden>실행 주기와 승인 정책을 설정합니다.</div>
+      </div>
+      <div class="card panel demo-section">
+        <div class="sectionhead"><div><h2>Progress & Empty states</h2><small>진행률 · 스켈레톤 · 빈 화면</small></div></div>
+        <div class="ui-progress-label"><strong>진행률</strong><span>72%</span></div>
+        <div class="ui-progress" role="progressbar" aria-label="작업 진행률" aria-valuemin="0" aria-valuemax="100" aria-valuenow="72"><span></span></div>
+        <div class="ui-skeleton"><span></span><div><span></span><span></span></div></div>
+        <div class="ui-empty"><svg><use href="#i-search"/></svg><strong>검색 결과가 없습니다</strong><p>새 작업을 생성해 보세요.</p><button type="button" class="btn btn-outline" id="ui-empty-btn">작업 만들기</button></div>
+      </div>
+    </div>
+   </section>
+<section class="view" id="assets" aria-labelledby="assets-title"><header class="alt-head"><h1 id="assets-title">디자인 에셋</h1><p>SmartECM 로고와 제품 패키지 이미지입니다. 원본 비율과 투명도를 유지해 사용하세요.</p></header><div class="asset-gallery"><figure class="asset-item"><div class="asset-preview "><img src="./assets/로고_smartecm.png" alt="SmartECM 기본 로고" loading="lazy"></div><figcaption><h2>SmartECM 기본 로고</h2><p>밝은 배경용 로고</p><a class="btn btn-outline" href="./assets/로고_smartecm.png" download="로고_smartecm.png">PNG 원본 다운로드</a></figcaption></figure><figure class="asset-item"><div class="asset-preview asset-dark"><img src="./assets/로고_smartecm_w.png" alt="SmartECM 흰색 로고" loading="lazy"></div><figcaption><h2>SmartECM 흰색 로고</h2><p>어두운 배경용 로고</p><a class="btn btn-outline" href="./assets/로고_smartecm_w.png" download="로고_smartecm_w.png">PNG 원본 다운로드</a></figcaption></figure><figure class="asset-item"><div class="asset-preview asset-package"><img src="./assets/패키지이미지_배경없음.png" alt="SmartECM 제품 패키지" loading="lazy"></div><figcaption><h2>SmartECM 제품 패키지</h2><p>제품 패키지 이미지</p><a class="btn btn-outline" href="./assets/패키지이미지_배경없음.png" download="패키지이미지_배경없음.png">PNG 원본 다운로드</a></figcaption></figure></div></section>
+ <section class="view" id="documents" aria-label="문서 스타일"><header class="document-toolbar"><div class="document-toolbar-heading"><strong>SmartECM 문서 시스템</strong><button type="button" class="btn btn-primary" id="document-print">PDF로 인쇄</button></div><nav class="document-tabs" role="tablist" aria-label="문서 디자인 유형"></nav></header><iframe id="document-frame" class="document-frame" title="SmartECM 문서 시스템 — A4 미리보기 및 PDF 인쇄" src="./documents.html?embedded=1" loading="lazy"></iframe></section>
+ </main>
+ <aside class="aside" aria-label="디자인 설정">
+   <div class="asidehead"><h2>디자인 설정</h2><span class="tag">DRAFT 0.1</span></div>
+   <div class="controlgroup"><h3>Appearance</h3><div class="segment" id="theme-selector"><button type="button" data-theme="light" class="selected">Light</button><button type="button" data-theme="dark">Dark</button></div></div>
+   <div class="controlgroup"><h3>Accent color</h3><div class="swatches" id="accent-selector" role="group" aria-label="액센트 컬러 프리셋 및 직접 선택">
+     <button type="button" class="swatch selected" data-accent="#5C6BC0" style="--swatch:#5C6BC0" aria-label="SmartECM 기본 컬러 #5C6BC0" aria-pressed="true" title="SmartECM · #5C6BC0"></button>
+     <button type="button" class="swatch" data-accent="#53B3A3" style="--swatch:#53B3A3;--check-color:#17212F" aria-label="SmartGCM 메인 컬러 #53B3A3" aria-pressed="false" title="SmartGCM · #53B3A3"></button>
+     <button type="button" class="swatch" data-accent="#6EC6FF" style="--swatch:#6EC6FF;--check-color:#17212F" aria-label="스카이 블루 #6EC6FF" aria-pressed="false" title="스카이 · #6EC6FF"></button>
+     <button type="button" class="swatch" data-accent="#7ED6C2" style="--swatch:#7ED6C2;--check-color:#17212F" aria-label="민트 #7ED6C2" aria-pressed="false" title="민트 · #7ED6C2"></button>
+     <button type="button" class="swatch" data-accent="#FFD166" style="--swatch:#FFD166;--check-color:#17212F" aria-label="레몬 #FFD166" aria-pressed="false" title="레몬 · #FFD166"></button>
+     <button type="button" class="swatch" data-accent="#FF8A80" style="--swatch:#FF8A80;--check-color:#17212F" aria-label="코랄 #FF8A80" aria-pressed="false" title="코랄 · #FF8A80"></button>
+     <button type="button" class="swatch" data-accent="#B39DDB" style="--swatch:#B39DDB;--check-color:#17212F" aria-label="라벤더 #B39DDB" aria-pressed="false" title="라벤더 · #B39DDB"></button>
+     <button type="button" class="swatch" data-accent="#F48FB1" style="--swatch:#F48FB1;--check-color:#17212F" aria-label="로즈 #F48FB1" aria-pressed="false" title="로즈 · #F48FB1"></button>
+     <label class="swatch accent-custom" id="accent-custom-control" title="팔레트에서 사용자 지정 컬러 선택">
+       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18h1.2a2.3 2.3 0 0 0 1.8-3.7 1.6 1.6 0 0 1 1.25-2.6H18a3 3 0 0 0 3-3A9 9 0 0 0 12 3Z"/><circle cx="7.5" cy="11" r=".8"/><circle cx="11" cy="7.6" r=".8"/><circle cx="16" cy="8.5" r=".8"/><circle cx="7.8" cy="15" r=".8"/></svg>
+       <input id="accent-custom-picker" type="color" value="#5C6BC0" aria-label="자유로운 액센트 컬러 선택">
+     </label>
+   </div><div class="accent-hex" id="accent-hex" aria-live="polite">#5C6BC0</div></div>
+   <div class="controlgroup"><h3>Layout density</h3><div class="rangehead"><strong>간격과 밀도</strong><span id="density-value">기본</span></div><input id="density" aria-label="레이아웃 간격" type="range" min="0.8" max="1.25" step="0.05" value="1"></div>
+   <div class="controlgroup"><h3>Corner radius</h3><div class="rangehead"><strong>모서리 곡률 (0 또는 5px)</strong><span id="radius-value">5px</span></div><input id="radius" aria-label="모서리 둥글기" type="range" min="0" max="5" step="5" value="5"></div>
+   <div class="asidebottom">
+     <div class="prompt-mode-control">
+       <label for="prompt-mode">AI 작업 유형</label>
+       <select id="prompt-mode" class="prompt-mode-select" aria-describedby="prompt-mode-hint">
+         <option value="auto">현재 화면 기준 (자동)</option>
+         <option value="ui">UI/UX 디자인</option>
+         <option value="document">문서 디자인·작성</option>
+       </select>
+       <p id="prompt-mode-hint" class="prompt-mode-hint" aria-live="polite">현재 화면에 맞는 프롬프트가 복사됩니다.</p>
+     </div>
+     <button type="button" class="btn btn-primary" id="copy-settings">AI 작업 프롬프트 복사</button>
+     <button class="btn btn-outline" id="reset-settings">초안 설정 초기화</button>
+     <div class="note" id="storage-status">브라우저에 설정을 보관합니다. 새로고침 후에도 유지됩니다.</div>
+   </div>
+ </aside>
+</div>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<div id="modalback" class="modalback" role="presentation">
+ <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" tabindex="-1">
+   <h3 id="modal-title">새 작업 실행</h3><p>UI 동작 예시입니다. 실제 서버나 에이전트에 작업을 전송하지 않습니다.</p>
+   <label class="fieldlabel" for="modal-task">작업 이름</label><input class="input" id="modal-task" placeholder="새 작업 이름">
+   <div class="actionrow" style="margin-top:24px"><button class="btn btn-outline" id="close-modal">취소</button><button class="btn btn-primary" id="confirm-modal">샘플 실행</button></div>
+ </div>
+</div>
+<script src="./scripts/document-library.js"></script>
+<script>
+(()=>{
+ "use strict";
+ const key="agent-ui-system.playground.v0.1";
+ const defaults={theme:"light",accent:"#5C6BC0",density:1,radius:5};
+ let opts={...defaults};
+ try{const saved=JSON.parse(localStorage.getItem(key)||"null");if(saved&&typeof saved==="object"){opts={...defaults,...saved}}}catch(e){}
+ // Move the old preview's original default to the confirmed SmartECM brand color.
+ if(String(opts.accent).toUpperCase()==="#5145E6")opts.accent=defaults.accent;
+ if(!/^#[0-9A-Fa-f]{6}$/.test(String(opts.accent)))opts.accent=defaults.accent;
+ opts.accent=String(opts.accent).toUpperCase();
+ opts.radius=[0,5].includes(Number(opts.radius))?Number(opts.radius):5;
+ const root=document.documentElement;
+ const light={background:"#FFFFFF",surface:"#FFFFFF",surfaceAlt:"#F6F7F9",textPrimary:"#161B22",textSecondary:"#4E5968",border:"#E2E5E9",success:"#166534",warning:"#92400E",danger:"#B42318"};
+ const dark={background:"#0B0B0D",surface:"#0B0B0D",surfaceAlt:"#18191C",textPrimary:"#F4F7FB",textSecondary:"#B3C0CE",border:"#292B30",success:"#65CE97",warning:"#F5C46B",danger:"#FF8B87"};
+ let palettes={light,dark};
+ // An HTTP server (including Vercel) can load the canonical draft tokens.json.
+ // file:// preview uses the mirrored fallback values above without needing a local server.
+ fetch("./tokens/tokens.json").then(r=>{if(!r.ok)throw Error();return r.json()}).then(v=>{
+  if(v&&v.color&&v.color.light&&v.color.dark){palettes={light:v.color.light,dark:v.color.dark};render()}
+ }).catch(()=>{});
+ const $=id=>document.getElementById(id);
+ function store(){try{localStorage.setItem(key,JSON.stringify(opts))}catch(e){}}
+ function syncDocumentAccent(){
+   $("document-frame")?.contentDocument?.documentElement.style.setProperty("--accent",opts.accent);
+ }
+ // Use dark text on light accent colors (mint/sky/lemon/custom) for contrast.
+ function onAccent(hex){
+   const rgb=[1,3,5].map(i=>parseInt(hex.slice(i,i+2),16)/255);
+   const luminance=rgb.map(v=>v<=0.04045?v/12.92:Math.pow((v+0.055)/1.055,2.4))
+     .reduce((acc,v,i)=>acc+v*[0.2126,0.7152,0.0722][i],0);
+   return (1.05/(luminance+0.05))>=((luminance+0.05)/0.05)?"#FFFFFF":"#17212F";
+ }
+ function render(){
+   const p=palettes[opts.theme]||palettes.light;
+   const map={"--bg":p.background,"--surface":p.surface,"--surface-alt":p.surfaceAlt,"--text":p.textPrimary,"--muted":p.textSecondary,"--border":p.border,"--success":p.success,"--warn":p.warning,"--danger":p.danger,"--accent":opts.accent,"--on-accent":onAccent(opts.accent),"--radius":opts.radius+"px","--space":opts.density};
+   Object.keys(map).forEach(k=>root.style.setProperty(k,String(map[k])));
+   syncDocumentAccent();
+   root.style.colorScheme=opts.theme;
+   root.dataset.theme=opts.theme;
+   document.querySelectorAll("[data-theme]").forEach(b=>b.classList.toggle("selected",b.dataset.theme===opts.theme));
+   let presetSelected=false;
+   document.querySelectorAll("[data-accent]").forEach(b=>{
+     const selected=b.dataset.accent.toUpperCase()===opts.accent;
+     b.classList.toggle("selected",selected);
+     b.setAttribute("aria-pressed",String(selected));
+     if(selected)presetSelected=true;
+   });
+   $("accent-custom-control").classList.toggle("selected",!presetSelected);
+   $("accent-custom-picker").value=opts.accent;
+   $("accent-hex").textContent=opts.accent;
+   $("density").value=opts.density;$("radius").value=opts.radius;
+   $("density-value").textContent=opts.density<.94?"컴팩트":opts.density>1.09?"여유롭게":"기본";
+   $("radius-value").textContent=opts.radius+"px";
+ }
+ let timer;
+ function toast(msg){const el=$("toast");el.textContent=msg;el.classList.add("show");clearTimeout(timer);timer=setTimeout(()=>el.classList.remove("show"),2300)}
+ document.querySelectorAll("[data-theme]").forEach(b=>b.addEventListener("click",()=>{opts.theme=b.dataset.theme;store();render()}));
+ document.querySelectorAll("[data-accent]").forEach(b=>b.addEventListener("click",()=>{opts.accent=b.dataset.accent.toUpperCase();store();render()}));
+ $("accent-custom-picker").addEventListener("input",e=>{
+   if(!/^#[0-9A-Fa-f]{6}$/.test(e.target.value))return;
+   opts.accent=e.target.value.toUpperCase();store();render();
+ });
+ $("density").addEventListener("input",e=>{opts.density=Number(e.target.value);store();render()});
+ $("radius").addEventListener("input",e=>{opts.radius=Number(e.target.value);store();render()});
+ $("reset-settings").addEventListener("click",()=>{opts={...defaults};store();render();toast("초안 기본 설정으로 초기화했습니다")});
+ // Prompt tasks must follow the current Studio context, with an explicit override.
+ function getPromptType(){
+   const chosen=$("prompt-mode").value;
+   if(chosen==="ui"||chosen==="document")return chosen;
+   return document.querySelector("#documents.view.active")?"document":"ui";
+ }
+ function updatePromptModeHint(){
+   const type=getPromptType();
+   $("prompt-mode-hint").textContent=type==="document"
+     ?"문서 전용: A4·템플릿·인쇄 기준을 사용합니다."
+     :"UI/UX 전용: 화면·컴포넌트·반응형 기준을 사용합니다.";
+ }
+ $("prompt-mode").addEventListener("change",updatePromptModeHint);
+ function buildAiDesignPrompt(){
+   const type=getPromptType();
+   const common=[
+     "SmartECM 공통 디자인 시스템을 적용해 아래 작업을 수행해 주세요.",
+     "",
+     "공식 GitHub: https://github.com/2hansl-wenit/smartecm-design-system",
+     "웹 미리보기: https://smartecm-design-preview.vercel.app/",
+     "",
+     "먼저 저장소에 접근할 수 있는지 확인하고 AGENTS.md, SKILL.md와 아래 작업별 파일을 읽어 주세요.",
+     "저장소가 비공개이거나 읽을 수 없다면 접근했다고 가정하지 말고 GitHub 연결 또는 파일 제공을 요청하세요. URL만으로 Skill이 설치되지는 않습니다.",
+     "이번 요청은 디자인 기준을 활용하는 작업입니다. 디자인 시스템 원본 저장소의 수정이나 Push는 별도로 요청하지 않는 한 하지 마세요.",
+     ""
+   ];
+   if(type==="document"){
+     const selected=SmartECMDocuments.menus.find(([id])=>id===selectedDocument);
+     const documentLayout=selected?selected[1]:"세로형";
+     const documentSettings={
+       designSystem:"smartecm-design-system",
+       taskType:"document",
+       selectedExample:documentLayout,
+       page:"A4",
+       defaultOutput:"single standalone HTML file (unless requested otherwise)",
+       pdfPrintButton:true,
+       orientation:selectedDocument==="landscape"?"landscape":selectedDocument==="portrait"?"portrait":"choose from document purpose",
+       accent:opts.accent,
+       source:"Studio preview selection; not a change to canonical tokens"
+     };
+     return [
+       ...common,
+       "[문서 디자인 및 작성 지침]",
+       "references/document-style.md, references/document-components.md, tokens/document-tokens.json, styles/document.css, styles/doc-layout.css, styles/document-library.css, scripts/document-library.js를 우선 읽어 주세요.",
+       "이번 작업은 보고서·제안서·계획서 등 문서 제작입니다. 웹 대시보드나 화면 UI 컴포넌트 규칙을 문서 서식에 억지로 적용하지 마세요.",
+       "사용자가 제공한 자료를 먼저 읽고 목적·독자·문서 유형·필수 내용 및 근거를 파악하세요. 확인되지 않은 사실·수치·제품 지원 내용은 만들지 마세요.",
+       "A4 여백과 타이포그래피, 자연스러운 페이지 흐름, 표와 문서 공통 컴포넌트를 적용하세요. 큰 제목은 첫 페이지에만 배치하고 기본 푸터는 추가하지 마세요.",
+       "별도 출력 형식을 지정하지 않았으면 PDF/DOCX 파일을 먼저 만들지 말고, 브라우저에서 바로 열 수 있는 독립 실행형 단일 HTML 파일(.html) 하나만 완성해 전달하세요. 중복 형식 제작과 불필요한 변환은 생략하세요.",
+       "생성 HTML의 화면 상단에는 스크롤 시에도 보이는 'PDF로 인쇄' 버튼을 항상 포함하고, 누르면 window.print()로 브라우저 인쇄 대화상자가 열리게 하세요. @media print에서는 버튼과 화면용 툴바를 숨겨 문서 본문만 인쇄하세요.",
+       "HTML 기본 템플릿은 templates/printable-document.html을 참조하세요. 실제 문서 데이터에 맞춰 구성요소와 스타일을 적용하고, 외부 파일에 의존하지 않는 A4 인쇄 가능한 결과물로 작성하세요.",
+       "사용자가 PDF, DOCX, PPTX 등 다른 출력 형식을 명시했다면 그 요청을 우선 적용하세요. HTML 기본 원칙을 강제로 적용하지 마세요.",
+       "파일 생성 기능이 가능하면 .html 파일로 제공하고, 파일 제공이 불가능한 환경에서는 실행 가능한 전체 HTML 코드를 전달하세요.",
+       "HTML 결과물에는 공식 Pretendard Variable 웹폰트(동적 서브셋) CSS 링크를 <head>에 포함하고, font-family에서 Pretendard Variable을 우선 지정하세요. PC에 글꼴이 설치되지 않아도 인터넷 연결 시 동일한 글꼴로 표시되어야 합니다. CDN 접근이 제한되는 환경은 폰트 파일 자체 호스팅을 별도로 준비해야 합니다.",
+       "HTML 화면 및 PDF 인쇄에서 글꼴, 잘림, 페이지 나눔, 표·도식 품질을 검사하세요.",
+       "현재 문서 미리보기에서 선택한 예시는 참고용입니다. 실제 문서 유형과 방향은 작업 요청에 맞춰 결정하세요.",
+       "",
+       "[현재 선택한 문서 디자인 설정]",
+       "```json",
+       JSON.stringify(documentSettings,null,2),
+       "```",
+       "",
+       "작업 요청: [작성할 문서의 목적·유형·독자·포함할 내용을 입력. 출력 형식이 없으면 HTML로 제작]",
+       "참고 자료: [필요한 파일이나 증적을 첨부]"
+     ].join("\n");
+   }
+   const uiSettings={
+     designSystem:"smartecm-design-system",
+     taskType:"ui-ux",
+     theme:opts.theme,
+     accent:opts.accent,
+     density:opts.density,
+     radiusPx:opts.radius,
+     source:"Studio preview selection; not a change to canonical tokens"
+   };
+   return [
+     ...common,
+     "[UI/UX 디자인 및 개발 지침]",
+     "references/foundations.md, references/components.md, references/interactions.md, references/agent-patterns.md, tokens/tokens.json, styles/editorial.css, styles/motion.css를 우선 읽어 주세요.",
+     "이번 작업은 웹 화면·콘솔·대시보드의 UI/UX 디자인입니다. 문서 전용 A4 여백이나 PDF 페이지 스타일을 웹 화면에 적용하지 마세요.",
+     "기존 화면의 정보 구조와 기능을 보존하며 공통 컴포넌트, 상태 표현, 접근성, 반응형, 미니멀한 타이포그래피와 인터랙션을 적용해 주세요.",
+     "Pretendard Variable 1.3.9 공식 웹폰트 동적 서브셋을 CSS 링크로 로드하고 글꼴 우선순위 맨 앞에 지정하세요. 폰트가 없는 PC에서도 웹폰트가 표시되도록 하되 CDN 차단 시 폴백을 유지하세요.",
+     "다음 테마와 액센트, 밀도 및 모서리 값을 이번 UI 시안에 적용하세요. 선택값은 공식 브랜드 토큰을 자동 변경하지 않습니다.",
+     "",
+     "[현재 선택한 UI 디자인 설정]",
+     "```json",
+     JSON.stringify(uiSettings,null,2),
+     "```",
+     "",
+     "작업 요청: [만들거나 수정할 화면, 사용 목적, 기능, 대상 사용자와 구현 환경을 입력]"
+   ].join("\n");
+ }
+ $("copy-settings").addEventListener("click",async()=>{
+   const value=buildAiDesignPrompt();
+   let copied=false;
+   try{
+     if(navigator.clipboard?.writeText){
+       await navigator.clipboard.writeText(value);
+       copied=true;
+     }
+   }catch(e){}
+   if(!copied){
+     const area=document.createElement("textarea");
+     area.value=value;area.setAttribute("readonly","");
+     area.style.cssText="position:fixed;left:-9999px;top:0";
+     document.body.appendChild(area);area.focus();area.select();
+     try{copied=document.execCommand("copy")}catch(e){}
+     area.remove();
+   }
+   toast(copied?(getPromptType()==="document"?"문서 제작용 AI 프롬프트를 복사했습니다.":"UI/UX용 AI 프롬프트를 복사했습니다."):"복사하지 못했습니다. 브라우저의 클립보드 권한을 확인해 주세요");
+ });
+ function view(name){
+   document.body.classList.toggle("document-view",name==="documents");
+   document.querySelectorAll(".view").forEach(v=>v.classList.toggle("active",v.id===name));
+   document.querySelectorAll(".navbtn").forEach(b=>b.classList.toggle("active",b.dataset.view===name&&b===document.querySelector('.navbtn[data-view="'+name+'"]')));
+   $("breadcrumb").textContent=name==="assets"?"디자인 에셋":name==="documents"?"문서 스타일":name==="components"?"Components":"Overview";
+   updatePromptModeHint();
+   window.scrollTo({top:0,behavior:"auto"});
+ }
+ document.querySelectorAll("[data-view]").forEach(b=>b.addEventListener("click",()=>view(b.dataset.view)));
+ ["components-link"].forEach(id=>$(id).addEventListener("click",()=>view("components")));
+
+ document.querySelector(".document-tabs").innerHTML=SmartECMDocuments.tabs("document");
+ const documentFrame=$("document-frame");
+ const documentTabs=[...document.querySelectorAll("[data-document]")];
+ let selectedDocument="portrait";
+ function resizeDocument(){
+   const preview=documentFrame.contentDocument?.querySelector(".preview");
+   if(preview && documentFrame.clientWidth)documentFrame.style.height=Math.ceil(preview.getBoundingClientRect().height)+"px";
+ }
+ function selectDocument(tab,focus=false){
+   selectedDocument=tab.dataset.document;
+   documentTabs.forEach(b=>{const on=b===tab;b.setAttribute("aria-selected",String(on));b.tabIndex=on?0:-1});
+   updatePromptModeHint();
+   documentFrame.contentDocument?.getElementById("tab-"+selectedDocument)?.click();
+   resizeDocument();if(focus)tab.focus();
+   $("documents").scrollIntoView({block:"start",behavior:"instant"});
+ }
+ documentTabs.forEach((tab,i)=>{
+   tab.addEventListener("click",()=>selectDocument(tab));
+   tab.addEventListener("keydown",e=>{if(!["ArrowLeft","ArrowRight","Home","End"].includes(e.key))return;e.preventDefault();const n=e.key==="Home"?0:e.key==="End"?documentTabs.length-1:(i+(e.key==="ArrowRight"?1:documentTabs.length-1))%documentTabs.length;selectDocument(documentTabs[n],true)});
+ });
+ let documentObserver;
+ documentFrame.addEventListener("load",()=>{
+   syncDocumentAccent();
+   documentObserver?.disconnect();
+   documentFrame.contentDocument.getElementById("tab-"+selectedDocument).click();
+   documentObserver=new ResizeObserver(resizeDocument);
+   documentObserver.observe(documentFrame.contentDocument.querySelector(".preview"));
+   resizeDocument();
+ });
+ $("document-print").addEventListener("click",()=>documentFrame.contentWindow.print());
+ new ResizeObserver(resizeDocument).observe($("documents"));
+
+ const modal=$("modalback");
+ let modalReturnFocus=null;
+ function showModal(){
+  if(modal.classList.contains("open"))return;
+  modalReturnFocus=document.activeElement;
+  closeAllMotionSelects();
+  modal.classList.add("open");
+  document.body.classList.add("modal-is-open");
+  $("modal-task").focus({preventScroll:true});
+ }
+ function hideModal(){
+  if(!modal.classList.contains("open"))return;
+  modal.classList.remove("open");
+  document.body.classList.remove("modal-is-open");
+  if(modalReturnFocus&&typeof modalReturnFocus.focus==="function")modalReturnFocus.focus({preventScroll:true});
+  modalReturnFocus=null;
+ }
+ ["new-task","open-modal"].forEach(id=>$(id).addEventListener("click",showModal));
+ $("close-modal").addEventListener("click",hideModal);
+ $("confirm-modal").addEventListener("click",()=>{hideModal();toast("시뮬레이션입니다. 실제 작업은 실행되지 않았습니다")});
+ modal.addEventListener("click",e=>{if(e.target===modal)hideModal()});
+ document.addEventListener("keydown",e=>{
+  if(!modal.classList.contains("open"))return;
+  if(e.key==="Escape"){e.preventDefault();hideModal();return}
+  if(e.key!=="Tab")return;
+  const elements=[...modal.querySelectorAll('button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled])')].filter(el=>el.getClientRects().length);
+  if(!elements.length){e.preventDefault();modal.querySelector(".modal").focus();return}
+  const first=elements[0],last=elements[elements.length-1];
+  if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}
+  else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}
+ });
+ ["notifications","view-activity","all-tasks","demo-primary","demo-secondary","demo-tertiary","test-primary","test-secondary","test-ghost"].forEach(id=>$(id).addEventListener("click",()=>toast("디자인 상호작용을 확인하는 샘플입니다")));
+ $("form-demo").addEventListener("click",()=>toast("샘플 폼입니다. 실제 요청은 전송되지 않습니다"));
+ $("form-reset").addEventListener("click",()=>{$("demo-name").value="";$("demo-category").selectedIndex=0;toast("샘플 입력이 초기화됐습니다")});
+
+ // Interactive gallery demos use synthetic data only.
+ const uiJobs=[
+  {name:"보안 패치 검사",agent:"Patch Agent",status:"완료",time:"10:40"},
+  {name:"문서 내용 동기화",agent:"Docs Agent",status:"실행 중",time:"10:30"},
+  {name:"호스트 상태 확인",agent:"Monitor Agent",status:"완료",time:"10:21"},
+  {name:"권한 변경 검토",agent:"Policy Agent",status:"승인 대기",time:"10:10"},
+  {name:"백업 상태 점검",agent:"Backup Agent",status:"실패",time:"09:58"},
+  {name:"취약점 목록 정리",agent:"Patch Agent",status:"완료",time:"09:45"},
+  {name:"에이전트 배포 승인",agent:"Policy Agent",status:"승인 대기",time:"09:23"},
+  {name:"정책 스캔",agent:"Security Agent",status:"실행 중",time:"08:55"},
+  {name:"로그 정합성 검증",agent:"Audit Agent",status:"완료",time:"08:40"}
+ ];
+ const uiTable={page:0,sort:"time",asc:false,pageSize:5,expandedName:null};
+ const badgeTypes={"완료":"ok","실행 중":"progress-state","승인 대기":"wait","실패":"fail"};
+ function drawUITable(){
+  const query=$("ui-table-query").value.trim().toLocaleLowerCase("ko");
+  const status=$("ui-table-filter").value;
+  const filtered=uiJobs.filter(r=>(status==="all"||r.status===status)&&[r.name,r.agent].some(v=>v.toLocaleLowerCase("ko").includes(query)));
+  filtered.sort((a,b)=>{const n=a[uiTable.sort].localeCompare(b[uiTable.sort],"ko");return uiTable.asc?n:-n});
+  const totalPages=Math.max(1,Math.ceil(filtered.length/uiTable.pageSize));
+  uiTable.page=Math.min(Math.max(uiTable.page,0),totalPages-1);
+  const pageRows=filtered.slice(uiTable.page*uiTable.pageSize,(uiTable.page+1)*uiTable.pageSize);
+  const tbody=$("ui-table-body");tbody.replaceChildren();
+  for(const r of pageRows){
+   const tr=document.createElement("tr");
+   [r.name,r.agent,r.status,r.time].forEach((value,i)=>{
+    const td=document.createElement("td");
+    if(i===2){const pill=document.createElement("span");pill.className="status "+badgeTypes[r.status];pill.textContent=value;td.append(pill)}
+    else{td.textContent=value;if(i===0)td.style.fontWeight="700"}
+    tr.append(td);
+   });
+   const detailId="detail-"+uiJobs.indexOf(r);
+   const toggleCell=document.createElement("td");
+   const toggle=document.createElement("button");
+   toggle.type="button";toggle.className="ui-expand-btn";
+   toggle.setAttribute("aria-label",r.name+" 상세 펼치기");
+   toggle.setAttribute("aria-expanded","false");
+   toggle.setAttribute("aria-controls",detailId);
+   toggle.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>';
+   toggleCell.append(toggle);tr.append(toggleCell);
+   const detailRow=document.createElement("tr");
+   detailRow.className="ui-detail-row";detailRow.id=detailId;detailRow.setAttribute("aria-hidden","true");
+   const td=document.createElement("td");td.colSpan=5;
+   const details=document.createElement("div");details.className="ui-detail-panel";
+   const inner=document.createElement("div");inner.className="ui-detail-inner";
+   const fields=[
+     ["작업 번호","#"+String(uiJobs.indexOf(r)+240).padStart(4,"0")],
+     ["요청자","Administrator"],
+     ["실행 대상",r.agent==="Patch Agent"?"Node-01":r.agent==="Docs Agent"?"Docs Repository":"Agent Cluster"],
+     ["처리 결과",r.status==="실패"?"연결 상태 확인 필요":r.status==="승인 대기"?"담당자 승인 필요":r.status==="완료"?"정상 처리":"진행 상태 확인 중"]
+   ];
+   for(const [label,value] of fields){
+    const item=document.createElement("div");item.className="ui-detail-item";
+    const caption=document.createElement("span");caption.textContent=label;
+    const info=document.createElement("strong");info.textContent=value;
+    item.append(caption,info);inner.append(item);
+   }
+   details.append(inner);td.append(details);detailRow.append(td);
+   const setExpanded=on=>{
+    tr.classList.toggle("ui-expanded-main",on);
+    detailRow.classList.toggle("is-expanded",on);
+    detailRow.setAttribute("aria-hidden",on?"false":"true");
+    toggle.setAttribute("aria-expanded",on?"true":"false");
+    toggle.setAttribute("aria-label",r.name+(on?" 상세 접기":" 상세 펼치기"));
+   };
+   toggle.addEventListener("click",()=>{
+    const now=toggle.getAttribute("aria-expanded")!=="true";
+    tbody.querySelectorAll(".ui-detail-row.is-expanded").forEach(row=>{
+     row.classList.remove("is-expanded");row.setAttribute("aria-hidden","true");
+     const prev=row.previousElementSibling;
+     prev?.classList.remove("ui-expanded-main");
+     const btn=prev?.querySelector(".ui-expand-btn");
+     if(btn){btn.setAttribute("aria-expanded","false");btn.setAttribute("aria-label",prev.cells[0].textContent+" 상세 펼치기")}
+    });
+    uiTable.expandedName=now?r.name:null;
+    setExpanded(now);
+   });
+   tbody.append(tr,detailRow);
+   setExpanded(uiTable.expandedName===r.name);
+  }
+  if(!pageRows.length){const tr=document.createElement("tr"),td=document.createElement("td");td.colSpan=5;td.style.textAlign="center";td.style.padding="30px";td.textContent="검색 결과가 없습니다.";tr.append(td);tbody.append(tr)}
+  const start=pageRows.length?uiTable.page*uiTable.pageSize+1:0;
+  $("ui-table-count").textContent="전체 "+filtered.length+"건 · "+start+"–"+(uiTable.page*uiTable.pageSize+pageRows.length)+" 표시";
+  $("ui-page-counter").textContent=(uiTable.page+1)+" / "+totalPages;
+  $("ui-prev").disabled=uiTable.page===0;$("ui-next").disabled=uiTable.page===totalPages-1;
+  document.querySelectorAll("[data-uisort]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.uisort===uiTable.sort?"true":"false"));
+ }
+ $("ui-table-query").addEventListener("input",()=>{uiTable.page=0;uiTable.expandedName=null;drawUITable()});
+ $("ui-table-filter").addEventListener("change",()=>{uiTable.page=0;uiTable.expandedName=null;drawUITable()});
+ $("ui-table-clear").addEventListener("click",()=>{$("ui-table-query").value="";$("ui-table-filter").value="all";uiTable.page=0;uiTable.sort="time";uiTable.asc=false;uiTable.expandedName=null;drawUITable()});
+ $("ui-prev").addEventListener("click",()=>{uiTable.page--;drawUITable()});
+ $("ui-next").addEventListener("click",()=>{uiTable.page++;drawUITable()});
+ document.querySelectorAll("[data-uisort]").forEach(b=>b.addEventListener("click",()=>{if(uiTable.sort===b.dataset.uisort)uiTable.asc=!uiTable.asc;else{uiTable.sort=b.dataset.uisort;uiTable.asc=true}uiTable.page=0;drawUITable()}));
+ drawUITable();
+ document.querySelectorAll(".ui-alert-close").forEach(b=>b.addEventListener("click",()=>{
+  const el=b.closest(".ui-alert");
+  if(el.hidden||el.classList.contains("is-dismissing"))return;
+  if(window.matchMedia("(prefers-reduced-motion: reduce)").matches){el.hidden=true;return}
+  el.style.maxHeight=el.scrollHeight+"px";
+  void el.offsetHeight;
+  el.classList.add("is-dismissing");
+  el.style.maxHeight="0px";
+  window.setTimeout(()=>{if(el.classList.contains("is-dismissing"))el.hidden=true},250);
+ }));
+ $("ui-alert-restore").addEventListener("click",()=>document.querySelectorAll(".ui-alert").forEach(el=>{
+  el.hidden=false;el.classList.remove("is-dismissing");el.style.maxHeight="";
+ }));
+ $("ui-toast-ok").addEventListener("click",()=>toast("정상 완료 알림 예시입니다."));
+ $("ui-toast-error").addEventListener("click",()=>toast("오류 알림 예시입니다. 실제 작업 오류는 아닙니다."));
+ $("ui-empty-btn").addEventListener("click",showModal);
+ const uiTabs=[...document.querySelectorAll("[data-uitab]")];
+ function selectUITab(selected,focus=false){
+  uiTabs.forEach(b=>{
+   const yes=b===selected;b.setAttribute("aria-selected",yes?"true":"false");
+   b.tabIndex=yes?0:-1;$("ui-panel-"+b.dataset.uitab).hidden=!yes;
+  });
+  if(focus)selected.focus();
+ }
+ uiTabs.forEach((b,i)=>{b.addEventListener("click",()=>selectUITab(b));b.addEventListener("keydown",e=>{if(!["Home","End","ArrowLeft","ArrowRight"].includes(e.key))return;e.preventDefault();const next=e.key==="Home"?0:e.key==="End"?uiTabs.length-1:(i+(e.key==="ArrowRight"?1:-1)+uiTabs.length)%uiTabs.length;selectUITab(uiTabs[next],true)})});
+
+
+ // Progressive custom select: native select remains the source of truth.
+ const motionSelectClosers=new Set();
+ function closeAllMotionSelects(except=null){for(const close of motionSelectClosers){if(close!==except)close(false)}}
+ function enhanceMotionSelect(select){
+   if(!select||select.dataset.motionEnhanced==="true")return;
+   const id=select.id;
+   const externalLabel=document.querySelector('label[for="'+id+'"]');
+   const name=select.getAttribute("aria-label")||externalLabel?.textContent.trim()||"옵션 선택";
+   const host=document.createElement("div");host.className="motion-select";
+   select.before(host);host.append(select);
+   select.classList.add("motion-native");select.tabIndex=-1;select.setAttribute("aria-hidden","true");
+   select.dataset.motionEnhanced="true";
+   const trigger=document.createElement("button");trigger.type="button";trigger.id=id+"-trigger";
+   trigger.className="motion-select-trigger";
+   trigger.setAttribute("aria-label",name);trigger.setAttribute("aria-haspopup","listbox");
+   trigger.setAttribute("aria-expanded","false");
+   const text=document.createElement("span");text.className="motion-select-label";
+   const arrow=document.createElement("span");arrow.className="motion-select-chevron";arrow.setAttribute("aria-hidden","true");
+   trigger.append(text,arrow);host.append(trigger);
+   const panel=document.createElement("div");panel.className="motion-select-menu";panel.id=id+"-list";
+   panel.setAttribute("role","listbox");panel.setAttribute("aria-label",name);
+   trigger.setAttribute("aria-controls",panel.id);
+   const buttons=[],options=[...select.options];
+   options.forEach((opt,i)=>{
+     const btn=document.createElement("button");btn.type="button";btn.className="motion-select-option";
+     btn.textContent=opt.text;btn.setAttribute("role","option");btn.setAttribute("aria-selected","false");
+     btn.id=id+"-option-"+i;btn.tabIndex=-1;btn.disabled=opt.disabled;
+     btn.addEventListener("click",()=>{
+       if(opt.disabled)return;
+       select.value=opt.value;select.dispatchEvent(new Event("change",{bubbles:true}));
+       refresh();setOpen(false);trigger.focus();
+     });
+     btn.addEventListener("keydown",e=>{
+       let targetIndex=i;
+       if(e.key==="ArrowDown")targetIndex=(i+1)%buttons.length;
+       else if(e.key==="ArrowUp")targetIndex=(i+buttons.length-1)%buttons.length;
+       else if(e.key==="Home")targetIndex=0;
+       else if(e.key==="End")targetIndex=buttons.length-1;
+       else if(e.key==="Escape"){e.preventDefault();setOpen(false);trigger.focus();return}
+       else if(e.key==="Tab"){setOpen(false);return}
+       else if(e.key===" "||e.key==="Enter"){e.preventDefault();btn.click();return}
+       else return;
+       e.preventDefault();
+       let attempts=0;
+       while(buttons[targetIndex].disabled&&attempts++<buttons.length)targetIndex=(targetIndex+1)%buttons.length;
+       if(!buttons[targetIndex].disabled)buttons[targetIndex].focus();
+     });
+     buttons.push(btn);panel.append(btn);
+   });
+   host.append(panel);
+   if(externalLabel)externalLabel.htmlFor=trigger.id;
+   function refresh(){
+     text.textContent=options[select.selectedIndex]?.text||"선택";
+     buttons.forEach((btn,i)=>btn.setAttribute("aria-selected",options[i].selected?"true":"false"));
+   }
+   function setOpen(open,focusOption=false){
+     if(open)closeAllMotionSelects(setOpen);
+     host.classList.toggle("open",open);trigger.setAttribute("aria-expanded",open?"true":"false");
+     panel.inert=!open;panel.setAttribute("aria-hidden",open?"false":"true");
+     if(open&&focusOption){const active=buttons[Math.max(select.selectedIndex,0)];if(active&&!active.disabled)active.focus()}
+   }
+   motionSelectClosers.add(setOpen);
+   trigger.addEventListener("click",()=>setOpen(!host.classList.contains("open"),false));
+   trigger.addEventListener("keydown",e=>{
+     if(["Enter"," ","ArrowDown","ArrowUp"].includes(e.key)){e.preventDefault();setOpen(true,true)}
+     else if(e.key==="Escape"){setOpen(false)}
+   });
+   select.addEventListener("change",refresh);
+   refresh();setOpen(false);
+ }
+ ["demo-category","ui-form-type","ui-table-filter"].forEach(id=>enhanceMotionSelect($(id)));
+ document.addEventListener("pointerdown",e=>{if(!e.target.closest(".motion-select"))closeAllMotionSelects()});
+ document.addEventListener("focusin",e=>{if(!e.target.closest(".motion-select"))closeAllMotionSelects()});
+
+ render();
+})();
+</script>
+</body>
+</html>

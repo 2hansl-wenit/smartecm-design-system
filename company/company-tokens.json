@@ -1,0 +1,24 @@
+{
+  "name": "SmartECM Design System",
+  "version": "0.1.0-company-draft",
+  "scope": "SmartECM-only",
+  "base": "../tokens/tokens.json",
+  "companyBrand": {
+    "brandAccent": "#5C6BC0",
+    "brandLogo": null,
+    "approved": true,
+    "note": "User confirmed SmartECM primary and SmartGCM secondary colors on 2026-10-28. Logos retain independent approval. Other palette presets are preview-only.",
+    "smartGcmAccent": "#53B3A3"
+  },
+  "layout": {
+    "direction": "open-editorial",
+    "cardPolicy": "use boundaries only when semantic or interactive",
+    "borderRadiusPx": 5,
+    "pillRadiusPx": 9999
+  },
+  "accessibility": {
+    "letterSpacingPx": 0,
+    "statusNeedsText": true,
+    "reducedMotion": true
+  }
+}

@@ -1,0 +1,388 @@
+{
+  "meta": {
+    "name": "Agent Document System",
+    "version": "0.1.0",
+    "status": "draft",
+    "note": "Draft style review: no top document masthead, aligned section number/title, equal-size KPIs, distinct table header/dividers, 4-node schedule timeline."
+  },
+  "sharedUI": {
+    "source": "tokens/tokens.json",
+    "principles": [
+      "minimal",
+      "typography-first",
+      "open-editorial",
+      "5px or pill",
+      "letter-spacing 0",
+      "single accent"
+    ]
+  },
+  "page": {
+    "size": "A4",
+    "widthMm": 210,
+    "heightMm": 297,
+    "marginTopMm": 20,
+    "marginBottomMm": 19,
+    "marginLeftMm": 21,
+    "marginRightMm": 21,
+    "orientations": {
+      "portrait": {
+        "widthMm": 210,
+        "heightMm": 297
+      },
+      "landscape": {
+        "widthMm": 297,
+        "heightMm": 210
+      }
+    }
+  },
+  "colors": {
+    "background": "#FFFFFF",
+    "text": "#161B22",
+    "secondary": "#55616F",
+    "divider": "#DBE1E8",
+    "accent": "#5145E6"
+  },
+  "typography": {
+    "fontFamily": [
+      "Pretendard Variable",
+      "Pretendard",
+      "Noto Sans KR",
+      "Apple SD Gothic Neo",
+      "Malgun Gothic",
+      "sans-serif"
+    ],
+    "letterSpacing": 0,
+    "bodyPt": 10,
+    "bodyLineHeight": 1.72,
+    "titlePt": 27,
+    "sectionPt": 18,
+    "tablePt": 9.2,
+    "sectionLabelColor": "accent",
+    "sectionCaptionWeight": 400,
+    "kpiValuePt": 23,
+    "nestedSubtitles": {
+      "objectivePt": 12,
+      "questionPt": 12.7,
+      "previousObjectivePt": 10,
+      "previousQuestionPt": 10.7,
+      "weight": 730,
+      "nestedNumberPt": 13.5,
+      "nestedTitlePt": 13.5,
+      "nestedBodyPt": 10,
+      "firstLevelLayout": "max-content number width + 8px gap; baseline balanced via center alignment",
+      "nestedNumberWeight": 550,
+      "nestedGutter": "max-content",
+      "nestedGapPx": 8,
+      "nestedMobileNumberPt": 12.5,
+      "nestedMobileTitlePt": 12.5,
+      "nestedMobileGapPx": 6
+    },
+    "sectionNumberPt": 18,
+    "chapterNumberGapPx": 8,
+    "chapterMobile": {
+      "numberPt": 16,
+      "titlePt": 16,
+      "gapPx": 6
+    },
+    "sectionNumberWeight": 550,
+    "webfont": {
+      "family": "Pretendard Variable",
+      "version": "1.3.9",
+      "cssUrl": "https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css",
+      "load": "<link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css\">",
+      "variant": "dynamic-subset variable weight",
+      "remoteRequired": true,
+      "fallback": "Pretendard, system font",
+      "deploymentNote": "Internet-connected browsers fetch the webfont; restricted networks need self-hosted WOFF2/CSS after proper OFL attribution."
+    }
+  },
+  "visual": {
+    "sectionDivider": "1px hairline",
+    "tables": "thin horizontal rules, no zebra stripes or boxed cells",
+    "kpis": "open typography strip",
+    "callouts": "rare, left 2px accent rule",
+    "decorativeCards": false,
+    "headerFooter": "No default document footer or publisher header; leave the bottom margin blank"
+  },
+  "types": [
+    "결과보고서",
+    "수행계획서",
+    "제안서"
+  ],
+  "review": [
+    "Dates and factual assertions checked against materials",
+    "Table not cut or overflowed",
+    "No clipped paragraphs",
+    "No split headings or important rows",
+    "Korean glyphs and page breaks visually checked",
+    "No sensitive customer data in public demo"
+  ],
+  "layout": {
+    "topDecorativeHeader": false,
+    "sectionNumber": {
+      "fontSizePt": 18,
+      "gapPx": 8,
+      "align": "center",
+      "sizeMatchesSectionTitle": true,
+      "fontWeight": 550
+    },
+    "table": {
+      "topBorder": "0.75pt neutral hairline",
+      "headerBottom": "1pt muted slate rule (#8793A3)",
+      "headerText": "#667383 (muted slate), weight 650",
+      "headerColumnSeparators": false,
+      "bodyColumnSeparators": "0.75pt neutral hairline",
+      "bodyRowBorder": "1px neutral hairline",
+      "outerVerticalBorder": false,
+      "columnSizing": {
+        "strategy": "content-aware, optional explicit column percentages",
+        "input": "table.columnWidths[]; same number as headers and sum to 100",
+        "exampleHeaders": [
+          "기능",
+          "차별화 검토 내용",
+          "우선 확보할 증적"
+        ],
+        "examplePercentages": [
+          36,
+          38,
+          26
+        ],
+        "rules": [
+          "Expand columns containing long feature labels",
+          "Use matching colgroup width for header and body",
+          "Keep word-break: keep-all; overflow-wrap: break-word",
+          "Review A4 and landscape print",
+          "Choose percentages from actual content rather than copying a preset"
+        ]
+      }
+    },
+    "timeline": {
+      "orientation": "horizontal",
+      "stages": 4,
+      "continuousBar": true,
+      "nodeShape": "circle",
+      "textBelow": true,
+      "stagesLabels": [
+        "현황 조사 및 협의",
+        "수정·검수",
+        "사이트별 순차 이전",
+        "완료 보고"
+      ]
+    },
+    "facts": {
+      "labelColumn": "124px desktop, 90px small screens",
+      "labelBackground": "transparent (white paper)",
+      "labelText": "semantic muted color (var(--muted))",
+      "labelWeight": 400,
+      "valueWeight": 580,
+      "divider": "1px neutral hairline attached to label right side",
+      "dividerHeight": "label content height, not a continuous full-row block",
+      "columnGapPx": 12,
+      "rowDivider": "1px neutral hairline",
+      "outerBorder": false,
+      "source": "Restored from reference screenshot and commit 4b4f3b3"
+    },
+    "multiPage": {
+      "title": "First page only; never repeat the cover title on continuation pages",
+      "flow": "Body and tables naturally continue across automatic A4 page breaks",
+      "pagination": "Use CSS paged media or document processor, not hard-coded article splits",
+      "pageNumbers": "No automatic page counters by default; add only on explicit request",
+      "orphans": "Keep subheadings with following text and avoid split table rows"
+    },
+    "callouts": {
+      "format": "left line icon and right text",
+      "padding": "generous whitespace, no box",
+      "uses": [
+        "key verification question",
+        "operational caveat",
+        "expected output"
+      ],
+      "visual": "no heavy border or card"
+    },
+    "verificationQuestions": {
+      "style": "soft tinted band without icons",
+      "background": "#F7F8FB",
+      "border": "none",
+      "radiusPx": 0,
+      "heading": "aligned to question text",
+      "questions": "2 columns desktop; single column mobile",
+      "horizontalPaddingPx": 25,
+      "icon": false,
+      "outputNote": "retain previous thin left accent rule"
+    },
+    "printFooter": {
+      "enabled": false,
+      "placement": "none",
+      "documentTitle": false,
+      "separatorLine": false,
+      "pageNumbers": false,
+      "scope": "all seven document views (screen and printed PDF)",
+      "pageMargins": "20mm top / 21mm sides / 19mm bottom retained",
+      "optionalFooter": "Only as an explicit template requirement; never insert a global default"
+    },
+    "keyQuestion": {
+      "style": "classic editorial quotation with 1px top/bottom hairlines",
+      "left": "large separate opening curly quotation mark",
+      "right": "large two-line question without any label or target icon",
+      "placement": "within document body only; keep adjacent text unchanged",
+      "background": "transparent",
+      "noDecorativeIcon": true
+    },
+    "planNote": {
+      "topMarginPx": 11,
+      "leftIconColumnPx": 26,
+      "columnGapPx": 8,
+      "verticalPaddingPx": 5,
+      "iconPx": 20,
+      "scope": "plan advisory text, not all document callouts"
+    },
+    "library": {
+      "source": "scripts/document-library.js",
+      "covers": {
+        "type": "two independent tabs",
+        "cover01": {
+          "style": "centered",
+          "inherits": "former cover02",
+          "topLogo": "right, 220px",
+          "title": "center-aligned raised above page midpoint",
+          "subtitle": "center-aligned below title",
+          "bottomMetadata": [
+            {
+              "label": "작성자",
+              "value": "(주)위앤아이티 홍길동 차장",
+              "isSample": true
+            },
+            {
+              "label": "작성일",
+              "value": "current Asia/Seoul calendar date"
+            }
+          ],
+          "centerProductImage": false
+        },
+        "cover02": {
+          "style": "editorial",
+          "inherits": "former cover01 refined",
+          "topLogo": "left, 172px",
+          "topRightLabel": "DOCUMENT SERIES / 02",
+          "title": "two-line left aligned",
+          "accent": "vertical rule plus short bar",
+          "subtitle": "below title",
+          "bottomMetadata": "company and document type",
+          "centerProductImage": false
+        },
+        "print": "selected cover only, A4 portrait, no global default footer"
+      },
+      "templates": [
+        "proposal",
+        "plan"
+      ],
+      "schedule": "shared table renderer",
+      "examples": 25,
+      "renderers": 22,
+      "newRenderers": [
+        "multiCards",
+        "summaryGrid",
+        "optionCompare",
+        "checklist",
+        "numberedBlocks",
+        "highlight",
+        "recommendedTable",
+        "subsections"
+      ],
+      "multiColumn": {
+        "columns": [
+          2,
+          3,
+          4
+        ],
+        "styles": [
+          "line",
+          "tint",
+          "open"
+        ],
+        "defaultColumns": 3,
+        "defaultStyle": "line",
+        "previewControls": "interactive, aria-pressed",
+        "print": "hide controls and print selected layout",
+        "responsive": "mobile stacks cards and option comparisons; screen 4-up becomes 2-up at intermediate width",
+        "content": "4-column cells are for short titles, brief descriptions or numeric values"
+      },
+      "examplesNote": "All displayed system specifications are synthetic samples",
+      "otherExamples": [
+        "recommended-column comparison table"
+      ],
+      "recommendedTable": {
+        "placement": "after general table in component gallery",
+        "columns": 3,
+        "columnWidthsPercent": [
+          30,
+          35,
+          35
+        ],
+        "recommendedColumn": 1,
+        "highlight": "2.5px accent full-column overlay border, star and recommendation label",
+        "sampleOnly": true,
+        "print": "keep table with outline together where possible"
+      },
+      "architecture": {
+        "style": "connected boxed node diagram",
+        "nodes": 3,
+        "connector": "printable border + arrowheads",
+        "mobile": "vertical chain",
+        "print": "horizontal"
+      },
+      "scheduleGrid": {
+        "barFill": "var(--accent)",
+        "barText": "#FFFFFF",
+        "barWeight": 700,
+        "printColorAdjust": "exact"
+      },
+      "hierarchyExample": {
+        "component": "subsections",
+        "chapterPt": 18,
+        "subheadingPt": 13.5,
+        "gutter": "max-content",
+        "gapPx": 8,
+        "subNumberPt": 13.5,
+        "subNumberWeight": 550
+      },
+      "specimenHeader": {
+        "numberPt": 13,
+        "titlePt": 13,
+        "numberWeight": 550,
+        "gapPx": 7,
+        "alignment": "center",
+        "mobile": "same"
+      }
+    },
+    "htmlDelivery": {
+      "defaultWhenUnspecified": "single standalone HTML file",
+      "explicitFormatOverride": true,
+      "oneFile": true,
+      "stickyPrintButton": {
+        "label": "PDF로 인쇄",
+        "action": "window.print()",
+        "visibility": "screen only",
+        "print": "@media print hides toolbar"
+      },
+      "starterTemplate": "templates/printable-document.html",
+      "page": "A4",
+      "footer": "none by default",
+      "fontLoading": {
+        "default": "Official Pretendard Variable 1.3.9 dynamic-subset webfont CSS link in head",
+        "requiresNetwork": true,
+        "offline": "Provide self-hosted font assets for disconnected customer environments",
+        "pdf": "Allow font load before printing; check PDF font embedding"
+      }
+    }
+  },
+  "previewMenus": [
+    "세로형",
+    "가로형",
+    "표지 01",
+    "표지 02",
+    "제안서",
+    "계획서",
+    "공통 컴포넌트"
+  ]
+}

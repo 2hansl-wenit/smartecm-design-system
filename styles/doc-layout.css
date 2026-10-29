@@ -1,0 +1,139 @@
+/* Document proposal pagination and editorial focus */
+.question.question-feature{display:grid;grid-template-columns:68px 1fr;gap:12px;align-items:center;margin:25px 0 8px;padding:17px 0;border:0;font-size:inherit}
+.question-icon{color:var(--accent);width:52px;display:grid;place-items:center}
+.question-icon svg{width:34px;height:34px}
+.question-content>span{display:block;color:var(--accent);font-size:9pt;margin-bottom:6px}
+.question-content>strong{display:block;font-size:13pt;line-height:1.55}
+.note.note-icon-led{border:0;display:grid;grid-template-columns:26px minmax(0,1fr);gap:8px;align-items:center;margin-top:11px;padding:5px 0}
+.note-symbol{display:grid;place-items:center;color:var(--accent)}
+.note-symbol svg{width:20px;height:20px}
+.continuous-document{height:auto;min-height:297mm;overflow:visible}
+@page{size:A4;margin:20mm 21mm 17mm}
+@media print{
+ .paper{width:auto;height:auto;min-height:260mm;padding:0;margin:0;box-shadow:none;overflow:visible}
+ .continuous-document{display:block;width:auto;min-height:0;height:auto;overflow:visible;break-after:auto}
+ .continuous-document .part{break-inside:auto}
+ .continuous-document .part-head{break-after:avoid}
+ .table thead{display:table-header-group}
+}
+@media screen and (max-width:540px){
+ .question.question-feature{grid-template-columns:46px 1fr;gap:8px}
+ .note.note-icon-led{grid-template-columns:26px minmax(0,1fr);gap:7px;margin-top:10px}
+}
+
+
+
+/* Nested section subtitles: body 10pt, subtitle 12.7pt (+2pt from previous 10.7pt). */
+.technical .part .subhead{
+ font-size:12.7pt;
+ font-weight:730;
+ line-height:1.42;
+ letter-spacing:0;
+}
+.technical .part > .sub-section-title{font-size:12pt;margin:17px 0 8px}
+.technical .part > .part-head + .sub-section-title{margin-top:12px}
+
+/* Technical verification questions: quiet tinted band with no decorative icon. */
+.verification-questions{
+ display:block;
+ margin:25px 0 16px;
+ padding:21px 25px 23px;
+ background:#F7F8FB;
+ border:0;
+ border-radius:0;
+ break-inside:avoid;
+}
+.verification-content{min-width:0}
+.verification-content .subhead{
+ font-size:12.7pt;font-weight:730;
+ margin:0 0 13px;
+ line-height:1.4;
+}
+.verification-content .checks{
+ display:grid;
+ grid-template-columns:repeat(2,minmax(0,1fr));
+ column-gap:24px;
+ row-gap:11px;
+ margin:0;padding:0;list-style:none;columns:auto;
+}
+.verification-content .checks li{
+ position:relative;
+ margin:0;
+ padding:0 0 0 18px;
+ font-size:9.5pt;
+ line-height:1.6;
+ word-break:keep-all;
+ break-inside:avoid;
+}
+.verification-content .checks li::before{
+ content:"—";
+ position:absolute;left:0;top:0;
+ margin:0;color:var(--accent);
+}
+@media screen and (max-width:540px){
+ .verification-questions{padding:17px 16px 19px}
+ .verification-content .checks{grid-template-columns:1fr;row-gap:9px}
+}
+@media print{
+ .verification-questions{
+  break-inside:avoid;page-break-inside:avoid;
+  -webkit-print-color-adjust:exact;
+  print-color-adjust:exact;
+ }
+}
+
+
+/* A restrained quotation: simple hairlines and a separated opening mark. */
+.question.question-quote{
+ display:grid;
+ grid-template-columns:39px minmax(0,1fr);
+ column-gap:9px;
+ align-items:center;
+ margin:16px 0 6px;
+ padding:15px 0 17px;
+ border-top:1px solid var(--line);
+ border-bottom:1px solid var(--line);
+ background:transparent;
+ font-size:inherit;
+ font-weight:inherit;
+ break-inside:avoid;
+}
+.question-quote .quote-mark{
+ font-family:Georgia,"Times New Roman",serif;
+ color:var(--accent);
+ font-weight:400;
+ font-size:42pt;
+ line-height:.8;
+ align-self:center;
+ padding-top:9px;
+}
+.question-quote .quote-text{
+ display:block;
+ color:var(--ink);
+ font-size:14pt;
+ line-height:1.5;
+ font-weight:740;
+ word-break:keep-all;
+}
+@media screen and (max-width:540px){
+ .question.question-quote{grid-template-columns:28px minmax(0,1fr);gap:7px}
+ .question-quote .quote-mark{font-size:34pt}
+ .question-quote .quote-text{font-size:12.2pt}
+}
+/* No default document footer: no page-margin captions, rules or counters.
+   User-supplied footer content belongs to an explicitly chosen template only. */
+@media print{
+ .example .paper{
+  display:block;
+  width:auto;
+  min-height:0;
+  height:auto;
+  padding:0;
+  margin:0;
+  box-shadow:none;
+  overflow:visible;
+  break-after:auto;
+  page-break-after:auto;
+ }
+ .question.question-quote{break-inside:avoid}
+}

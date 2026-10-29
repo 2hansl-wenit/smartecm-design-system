@@ -1,0 +1,214 @@
+/*
+ * Agent UI System — Editorial / Open Canvas
+ * Iteration v0.1.1 (review draft)
+ * Purpose: remove non-semantic card framing while retaining meaningful controls.
+ */
+:root{
+  --open-rule:var(--border);
+  --open-max-width:1560px;
+}
+body{box-shadow:none}
+main{max-width:var(--open-max-width);padding-left:clamp(26px,3.5vw,68px);padding-right:clamp(26px,3.5vw,68px)}
+.sidebar{box-shadow:none}
+.sidebar .navbtn{transition:background-color 140ms ease,color 140ms ease}
+.sidebar .navbtn.active{background:var(--surface-alt)}
+.topbar{padding-bottom:20px;border-bottom:1px solid var(--open-rule)}
+.hero{padding:45px 0 37px;gap:24px}
+.hero h1{font-size:clamp(35px,3vw,46px);font-weight:780;line-height:1.17;letter-spacing:0}
+.hero p{font-weight:400}
+.eyebrow{font-weight:650;text-transform:none;letter-spacing:0}
+.view .card{border:0;border-radius:0;background:transparent;box-shadow:none}
+.view .panel{min-width:0}
+.view .sectionhead{align-items:flex-start;margin-bottom:22px}
+.view .sectionhead h2{font-size:clamp(21px,1.65vw,25px);font-weight:730;line-height:1.25;letter-spacing:0}
+.view .sectionhead small{font-weight:400}
+.view .link{padding:4px 0;white-space:nowrap}
+.view .status{flex-shrink:0}
+/* The KPIs form a typographic strip, not four separate boxes. */
+#dashboard .cards{
+  gap:0;
+  margin:0;
+  border-top:1px solid var(--open-rule);
+  border-bottom:1px solid var(--open-rule);
+}
+#dashboard .cards .metric{
+  padding:30px clamp(16px,2vw,32px) 29px;
+  min-height:159px;
+  overflow:visible;
+  border:0;
+  border-right:1px solid var(--open-rule);
+  background:transparent;
+  border-radius:0;
+}
+#dashboard .cards .metric:first-child{padding-left:0}
+#dashboard .cards .metric:last-child{border-right:0;padding-right:0}
+#dashboard .metric .metric-top{font-weight:500;color:var(--muted);gap:8px}
+#dashboard .metric .metric-top svg{color:var(--muted);opacity:.72}
+#dashboard .metric .number{
+  margin:17px 0 9px;
+  font-size:clamp(36px,3vw,46px);
+  line-height:1.04;
+  font-weight:760;
+  letter-spacing:0;
+  font-variant-numeric:tabular-nums;
+}
+#dashboard .metric .detail{line-height:1.55}
+#dashboard .metric .detail .up{font-weight:650}
+#dashboard .metric .number span{font-weight:400}
+/* Wide, unboxed data table next to a workflow separated by one rule. */
+#dashboard .grid2{
+  grid-template-columns:minmax(0,1.5fr) minmax(310px,.9fr);
+  gap:0;
+  margin-top:0;
+  border-bottom:1px solid var(--open-rule);
+}
+#dashboard .grid2 > .panel{padding:42px 0 44px}
+#dashboard .grid2 > .panel:first-child{padding-right:clamp(24px,2.7vw,46px)}
+#dashboard .grid2 > .panel:last-child{
+  padding-left:clamp(24px,2.7vw,46px);
+  border-left:1px solid var(--open-rule);
+}
+#dashboard .rowtable{border-collapse:collapse;width:100%}
+#dashboard .rowtable th{
+  padding:14px 9px 13px;
+  font-weight:500;
+  text-transform:none;
+  background:transparent;
+  color:var(--muted);
+  border-bottom:1px solid var(--open-rule);
+}
+#dashboard .rowtable td{
+  padding:19px 9px;
+  font-weight:400;
+  border-bottom:1px solid var(--open-rule);
+  line-height:1.35;
+}
+#dashboard .rowtable td:first-child{font-weight:630}
+#dashboard .rowtable tbody tr:hover{background:color-mix(in srgb,var(--text) 2.5%,transparent)}
+#dashboard .rowtable tbody tr:last-child td{border-bottom:none}
+#dashboard .agenthead{margin:12px 0 27px;gap:12px}
+#dashboard .agenticon{background:transparent;color:var(--accent);width:25px;height:30px;display:grid;place-items:center}
+#dashboard .agenticon svg{width:22px;height:22px}
+#dashboard .agenthead strong{font-weight:730}
+#dashboard .agenthead small{font-weight:400}
+#dashboard .steps{gap:20px}
+#dashboard .steps li{gap:13px}
+#dashboard .steptxt strong{font-weight:620}
+#dashboard .steptxt small{font-weight:400}
+#dashboard .progress{margin-top:25px}
+/* The supplementary panels remain open sections with a single divider. */
+#dashboard .lower{
+  grid-template-columns:1fr 1fr;
+  gap:0;
+  margin-top:0;
+  border-bottom:1px solid var(--open-rule);
+}
+#dashboard .lower > .panel{padding:38px 0 42px}
+#dashboard .lower > .panel:first-child{padding-right:clamp(24px,2.7vw,46px)}
+#dashboard .lower > .panel:last-child{border-left:1px solid var(--open-rule);padding-left:clamp(24px,2.7vw,46px)}
+#dashboard .spark{height:125px;gap:9px}
+#dashboard .spark i{border-radius:5px 5px 0 0}
+#dashboard .componentbuttons{gap:11px}
+#dashboard .fieldlabel{font-weight:550}
+#dashboard .pill{border-color:var(--open-rule)}
+/* Component catalog: vertical chapters separated by hairline dividers. */
+#components .alt-head{padding:50px 0 32px;border-bottom:1px solid var(--open-rule)}
+#components .alt-head h1{font-size:clamp(34px,3vw,45px);font-weight:780;line-height:1.15}
+#components > .card.demo-section{
+  padding:30px 0 34px;
+  margin:0;
+  border-bottom:1px solid var(--open-rule);
+}
+#components .gallery-subhead{
+  padding:37px 0 21px;
+  margin:0;
+  border-bottom:1px solid var(--open-rule);
+}
+#components .gallery-subhead h2{font-size:clamp(23px,2vw,29px);font-weight:750}
+#components .gallery-subhead p{font-weight:400}
+#components .ui-gallery-grid{gap:0;margin:0;border-bottom:1px solid var(--open-rule)}
+#components .ui-gallery-grid > .panel{padding:36px 0 40px}
+#components .ui-gallery-grid > .panel:first-child{padding-right:clamp(24px,2.7vw,46px)}
+#components .ui-gallery-grid > .panel:last-child{border-left:1px solid var(--open-rule);padding-left:clamp(24px,2.7vw,46px)}
+#components .ui-table th{
+  background:transparent;
+  border-top:1px solid var(--open-rule);
+  border-bottom:1px solid var(--open-rule);
+  font-weight:540;
+  padding-top:16px;
+  padding-bottom:16px;
+}
+#components .ui-table td{padding-top:17px;padding-bottom:17px}
+#components .ui-table tbody tr:last-child td{border-bottom:0}
+#components .ui-table tbody tr:hover{background:color-mix(in srgb,var(--text) 2.5%,transparent)}
+#components .gallery-toolbar{margin-bottom:21px}
+#components .ui-alert-stack{gap:9px}
+/* Tinted alerts, controls and feedback are intentionally bounded: the grouping has a purpose. */
+#components .ui-alert{border-radius:var(--radius)}
+#components .ui-tabs{margin-top:5px}
+#components .ui-empty{min-height:170px}
+#components .fieldlabel{font-weight:550}
+#components .tag{border-radius:var(--radius)}
+/* Workspace side panels are structural chrome rather than content cards. */
+.aside{box-shadow:none}
+.aside .tip{background:var(--surface-alt);border-radius:var(--radius)}
+@media (max-width:1200px){
+  #dashboard .cards .metric:nth-child(2){border-right:0}
+  #dashboard .cards .metric:nth-child(-n+2){border-bottom:1px solid var(--open-rule)}
+  #dashboard .cards .metric:nth-child(3){padding-left:0}
+  #dashboard .cards .metric:nth-child(4){padding-right:0}
+}
+@media (max-width:960px){
+  #dashboard .grid2{grid-template-columns:1fr}
+  #dashboard .grid2 > .panel:first-child{padding-right:0}
+  #dashboard .grid2 > .panel:last-child{padding-left:0;border-left:0;border-top:1px solid var(--open-rule)}
+  #dashboard .lower{grid-template-columns:1fr}
+  #dashboard .lower > .panel:first-child{padding-right:0}
+  #dashboard .lower > .panel:last-child{padding-left:0;border-left:0;border-top:1px solid var(--open-rule)}
+}
+@media (max-width:1160px){
+  #components .ui-gallery-grid{grid-template-columns:1fr}
+  #components .ui-gallery-grid > .panel:first-child{padding-right:0}
+  #components .ui-gallery-grid > .panel:last-child{padding-left:0;border-left:0;border-top:1px solid var(--open-rule)}
+}
+@media (max-width:640px){
+  main{padding-left:20px;padding-right:20px}
+  .topbar{padding-bottom:15px}
+  .hero{padding:30px 0 29px}
+  .hero h1{font-size:clamp(31px,8vw,39px)}
+  #dashboard .cards .metric{padding:22px 12px;min-height:140px}
+  #dashboard .cards .metric:nth-child(odd){padding-left:0}
+  #dashboard .cards .metric:nth-child(even){padding-right:0}
+  #dashboard .metric .number{font-size:clamp(29px,7vw,41px)}
+  #dashboard .grid2 > .panel{padding:31px 0}
+  #dashboard .lower > .panel{padding:31px 0}
+  .view .sectionhead h2{font-size:21px}
+  #components .alt-head{padding:34px 0 29px}
+  #components > .card.demo-section{padding:25px 0}
+}
+@media (prefers-reduced-motion:reduce){
+  .sidebar .navbtn{transition:none}
+}
+
+/* Keep document work inside the Studio shell; print is owned by the frame. */
+#documents{padding-top:0}
+.document-frame{display:block;width:100%;height:1200px;border:1px solid var(--open-rule);border-radius:0;background:#EFF1F5}
+
+.document-view .topbar{display:none}
+.document-view main{padding-top:0}
+.document-toolbar{position:sticky;top:0;z-index:30;background:var(--bg,#fff);border-bottom:1px solid var(--open-rule)}
+.document-toolbar-heading{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 0}
+.document-tabs{display:flex;gap:28px;overflow-x:auto}
+.document-tabs button{font:inherit;font-size:13px;white-space:nowrap;border:0;border-bottom:2px solid transparent;padding:12px 0;background:transparent;color:var(--muted);cursor:pointer}
+.document-tabs button[aria-selected=true]{color:var(--accent);border-color:var(--accent);font-weight:700}
+.document-tabs button:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+@media(min-width:641px){.document-view .sidebar{position:sticky;top:0;height:100dvh;min-height:0;align-self:start}}
+
+/* Supplied brand assets: open gallery, original aspect ratios. */
+#assets .alt-head{padding:38px 0 30px;border-bottom:1px solid var(--open-rule)}
+#assets h1{font-size:34px;margin:0 0 12px}#assets .alt-head p{color:var(--muted);line-height:1.7;margin:0}
+.asset-gallery{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:36px 28px;padding:30px 0}
+.asset-item{margin:0;min-width:0}.asset-preview{display:flex;align-items:center;justify-content:center;height:240px;padding:32px;background:#F4F5F8}
+.asset-preview img{display:block;max-width:100%;max-height:100%;object-fit:contain}.asset-dark{background:#242936}
+.asset-package{height:420px}.asset-item:last-child{grid-column:1/-1}.asset-item figcaption{padding-top:18px}.asset-item h2{font-size:19px;margin:0 0 8px}.asset-item p{color:var(--muted);font-size:14px;margin:0 0 18px}
+@media(max-width:700px){.asset-gallery{grid-template-columns:1fr}.asset-preview{height:190px;padding:24px}.asset-package{height:340px}}

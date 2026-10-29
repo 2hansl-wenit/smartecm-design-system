@@ -1,0 +1,17 @@
+# Reference copy; active configuration is .gitlab-ci.yml.
+# Company main pushes only. Requires protected VERCEL_TOKEN.
+image: node:22-alpine
+stages: [deploy]
+# Archived after company GitHub migration; no pipeline may run.
+workflow:
+  rules:
+    - when: never
+deploy_company_preview:
+  stage: deploy
+  resource_group: smartecm-design-preview-production
+  interruptible: false
+  environment:
+    name: production
+    url: https://smartecm-design-preview.vercel.app
+  script:
+    - sh scripts/deploy-preview-ci.sh

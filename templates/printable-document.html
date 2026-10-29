@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>문서 제목 입력 | SmartECM 문서 시스템</title>
+  <!-- Official Pretendard dynamic-subset webfont. Internet access required; fallbacks remain. -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <style>
+    /* Starter shell for standalone HTML output. Replace sample data with sourced facts.
+       A4: 20mm top / 21mm sides / 19mm bottom. No automatic document footer. */
+    :root{--accent:#5C6BC0;--ink:#161B22;--muted:#55616F;--line:#DBE1E8;
+      --font:"Pretendard Variable",Pretendard,"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif}
+    *{box-sizing:border-box}
+    body{margin:0;background:#EEF1F5;color:var(--ink);font-family:var(--font);letter-spacing:0}
+    .print-toolbar{position:sticky;top:0;z-index:10;display:flex;align-items:center;
+      justify-content:space-between;gap:16px;background:#fff;border-bottom:1px solid var(--line);
+      padding:12px max(16px,calc((100vw - 210mm)/2))}
+    .print-toolbar strong{font-size:14px}
+    .print-button{border:0;border-radius:5px;background:var(--accent);color:white;
+      padding:11px 18px;font:700 14px var(--font);cursor:pointer}
+    .print-button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+    .paper{width:210mm;max-width:100%;min-height:297mm;background:#fff;
+      margin:24px auto;padding:20mm 21mm 19mm;box-shadow:0 8px 26px #10182814}
+    h1{font-size:27pt;line-height:1.28;margin:0 0 16px}
+    .intro{font-size:10pt;line-height:1.7;color:var(--muted)}
+    .chapter{margin-top:34px;break-inside:auto}
+    .chapter-heading{display:grid;grid-template-columns:max-content minmax(0,1fr);
+      gap:8px;align-items:center;margin:0 0 15px;break-after:avoid}
+    .chapter-heading .chapter-number{color:var(--accent);font-size:18pt;font-weight:550;line-height:1.25;font-variant-numeric:tabular-nums}
+    .chapter-heading h2{margin:0;font-size:18pt;font-weight:780;line-height:1.25}
+    .subsection{display:grid;grid-template-columns:max-content minmax(0,1fr);
+      gap:8px;padding:17px 0;border-top:1px solid var(--line);break-inside:avoid}
+    .subsection .subnumber{font-size:13.5pt;color:var(--accent);font-weight:550;line-height:1.5;font-variant-numeric:tabular-nums}
+    .subsection h3{margin:0;font-size:13.5pt;line-height:1.5}
+    .subsection p{margin:10px 0 0;font-size:10pt;line-height:1.72}
+    table{border-collapse:collapse;width:100%;table-layout:fixed;margin:16px 0 0}
+    th,td{text-align:left;vertical-align:top;padding:10px 8px;font-size:9.2pt;
+      line-height:1.5;word-break:keep-all;overflow-wrap:break-word}
+    th{border-bottom:1pt solid #8793A3;color:var(--muted);font-weight:700}
+    td{border-bottom:1px solid var(--line)}
+    tbody tr{break-inside:avoid}
+    thead{display:table-header-group}
+    @page{size:A4;margin:20mm 21mm 19mm}
+    @media print{
+      body{background:#fff}
+      .print-toolbar{display:none!important}
+      .paper{width:auto;max-width:none;min-height:0;margin:0;padding:0;box-shadow:none}
+      .chapter-heading,.subsection h3{break-after:avoid}
+      .subsection{break-inside:avoid}
+      *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    }
+    @media screen and (max-width:650px){
+      .paper{padding:26px 20px;min-height:0}
+      .chapter-heading{grid-template-columns:max-content minmax(0,1fr);gap:6px}
+      .chapter-heading .chapter-number,.chapter-heading h2{font-size:16pt;line-height:1.24}
+      .subsection{grid-template-columns:max-content minmax(0,1fr);gap:6px}
+      .subsection .subnumber{font-size:12.5pt}
+    }
+  </style>
+</head>
+<body>
+  <!-- Keep this button in every standalone HTML document; hide it only for print. -->
+  <header class="print-toolbar">
+    <strong>문서 제목 입력</strong>
+    <button class="print-button" type="button" onclick="window.print()" aria-label="이 문서를 PDF로 인쇄">PDF로 인쇄</button>
+  </header>
+  <main class="paper">
+    <h1>문서 제목 입력</h1>
+    <p class="intro">작성 목적과 문서 개요를 입력합니다. 아래 본문은 모두 가상의 레이아웃 예시입니다.</p>
+    <section class="chapter">
+      <div class="chapter-heading"><span class="chapter-number">01</span><h2>1레벨 대제목 예시</h2></div>
+      <section class="subsection"><span class="subnumber">01</span><div><h3>세부 항목 제목</h3><p>제목 아래의 본문을 별도 영역에 배치합니다.</p></div></section>
+      <section class="subsection"><span class="subnumber">02</span><div><h3>다음 세부 항목</h3><p>번호와 본문이 겹치지 않으며 읽기 흐름을 유지합니다.</p></div></section>
+    </section>
+    <section class="chapter">
+      <div class="chapter-heading"><span class="chapter-number">02</span><h2>표 열 너비 예시</h2></div>
+      <table aria-label="내용에 맞춘 표 열 너비">
+        <colgroup><col style="width:36%"><col style="width:38%"><col style="width:26%"></colgroup>
+        <thead><tr><th>기능</th><th>차별화 검토 내용</th><th>확보할 증적</th></tr></thead>
+        <tbody><tr><td>멀티 클러스터 통합 운영 관리</td><td>자원 현황과 접근 범위 확인</td><td>화면 캡처</td></tr></tbody>
+      </table>
+    </section>
+  </main>
+</body>
+</html>
