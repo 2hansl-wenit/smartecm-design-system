@@ -19,6 +19,11 @@ foreach ($asset in @('로고_smartecm.png','로고_smartecm_w.png','패키지이
 }
 New-Item -ItemType Directory -Force -Path (Join-Path $dist 'scripts') | Out-Null
 Copy-Item -LiteralPath (Join-Path $repo 'scripts/document-library.js') -Destination (Join-Path $dist 'scripts/document-library.js')
+# Publish only reviewed public AI-readable summaries.
+New-Item -ItemType Directory -Force -Path (Join-Path $dist 'ai') | Out-Null
+foreach ($guide in @('document.md','ui.md')) {
+  Copy-Item -LiteralPath (Join-Path $repo ('ai/' + $guide)) -Destination (Join-Path $dist ('ai/' + $guide))
+}
 # Only copy tokens actually required by the demo. No reference docs, source Skill or Git metadata.
 Write-Host "Static preview assembled: $dist" -ForegroundColor Green
 Write-Host 'Review the HTML/CSS/JSON content before publishing on an external Vercel URL.'
