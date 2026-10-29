@@ -349,3 +349,12 @@
 - Keep UI/UX and A4-document modes distinct, HTML-first and PDF print button for unspecified document format, Pretendard loading, source-data fidelity and no source-repo pushes by default.
 - Public HTTPS reading requires no GitHub login; users' AI environments still need supported web/GitHub access. The fallback is to request relevant files, not to claim access.
 - Updated adoption documentation and README; no private repository copied or new public repository created.
+
+## 2026-10-29 · Robust cross-AI document/UI prompting after Claude fetch failure
+
+- Reported Claude behavior: unable to fetch/search newly public GitHub source, then refused to draft a proposal and treated the unchanged task placeholder as missing input.
+- Verified GitHub repo visibility was Public; direct generic web fetch can fail independently. Public status alone never guarantees an LLM tool can access GitHub.
+- Added reviewed source-controlled AI summaries `ai/document.md` and `ai/ui.md`, allowlisted in shell/PowerShell static Vercel preview builds. They expose design principles only, no internal operational files.
+- Reworked UI/UX and A4-document copy prompts with enough compact **inlined minimum design rules** to proceed if both source URLs fail. Retain optional source links for deeper reference and prohibit claiming that unread Skill files were consulted.
+- Changed the final task placeholder from a literal '[document purpose ...]' to an instruction to execute the appended user request. A request for a document with no supplied evidence results in a visibly labeled sample/needs-validation draft, not an invented SmartECM product assertion or stalled production.
+- Validate live AI guide URLs after Vercel auto-deploy; a GitHub commit does not prove deployment readiness.
