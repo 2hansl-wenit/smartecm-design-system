@@ -74,3 +74,14 @@ When the user copies a document-design AI prompt and does **not** specify a file
 
 For report structure, use 21pt level-1 titles, distinct number and text columns in nested subsections, and table column percentages based on actual header/row content (for long feature labels, a sample split is 36/38/26 rather than equal thirds). See `references/document-style.md` and `references/document-components.md` for details. File output should be a complete usable HTML, not a truncated snippet. PDF printing remains optional from the user's browser.
 
+
+## 8) Claude / external AI may not fetch a Public GitHub URL
+
+Public GitHub eliminates the need for repository permission, **not** the need for a working tool to fetch the contents. External AI browsers/search tools can fail on newly public or unindexed repositories. This is not evidence that the GitHub repo is Private.
+
+The Studio's copied prompt now includes short, self-contained design rules and says **continue the requested work even if all links fail**; do not falsely claim that the full Skill was read. The references are optional enrichment:
+
+- A4 document summary: `https://smartecm-design-preview.vercel.app/ai/document.md`
+- UI/UX summary: `https://smartecm-design-preview.vercel.app/ai/ui.md`
+
+Both are reviewed plain Markdown assets exported from `ai/` by `scripts/build-preview.sh` and `scripts/build-preview.ps1`. After a new GitHub push, the Vercel deployment must complete before those links work. If both references are unavailable, the embedded fallback rules still allow a finished document/UI draft. For requests without specific customer/product evidence, mark unsupported facts `확인 필요` rather than producing a false claim or refusing all work.
