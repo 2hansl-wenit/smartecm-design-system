@@ -126,7 +126,7 @@ This is the **company** `$smartecm-ui` Skill. Canonical origin: `git@github.com:
 
 ## Sharing Studio selections with AI
 
-The Studio's **AI 작업 프롬프트 복사** action copies a Korean task prompt containing the canonical company GitHub URL, required Skill/reference reading order, Vercel preview URL, and the **current** theme, accent, density, and corner radius in JSON. The prompt must explicitly check repository access (the GitHub repository may be private) rather than assume the model can fetch or install the Skill. Browser selection is a design-preview preference and must not silently change the canonical company tokens or create a Git commit. The consuming AI should apply the selected configuration to the user's requested work, reusing existing components and A4 document rules when relevant.
+The Studio's **AI 작업 프롬프트 복사** copies a compact, task-specific prompt (~7 lines). It points to the **Public** company GitHub and to AGENTS.md, SKILL.md, and relevant references. Public files need no GitHub login, but the consuming AI still needs web/GitHub reading capability; otherwise request files instead of pretending to have read them. Document prompts carry current sample/orientation/accent and HTML-first/PDF-print behavior; UI prompts carry theme/accent/density/radius. Do not alter company source/tokens or push without an explicit instruction.
 
 
 ## Multi-column document layout components — 2026-10-28
@@ -145,7 +145,7 @@ All layout demos reuse renderers in `scripts/document-library.js`; do not copy o
 
 ## Distinct AI copy prompts for UI and document workflows — 2026-10-28
 
-The Studio's AI prompt copy control provides a **work type selector**: automatic by active screen, forced UI/UX, or forced document design/authoring. Auto must detect the document view and include the currently selected document example. UI/UX export uses UI foundations, components, interaction references and user-selected theme/accent/density/radius. Document export uses the document-style and document-components references, document tokens and A4 print templates; include the chosen document example, A4 orientation and accent, but **do not apply UI density/radius or dashboard layout rules to printed documents**. Both exports include canonical company GitHub, current privacy/access limitations, source preservation and a task-specific placeholder. Copy success feedback must match the chosen workflow and only display on success.
+The Studio's AI prompt copy control provides a **work type selector**: automatic by active screen, forced UI/UX, or forced document design/authoring. Auto must detect the document view and include the currently selected document example. UI/UX export uses UI foundations, components, interaction references and user-selected theme/accent/density/radius. Document export uses the document-style and document-components references, document tokens and A4 print templates; include the chosen document example, A4 orientation and accent, but **do not apply UI density/radius or dashboard layout rules to printed documents**. Both exports point to the public company GitHub with access-independent reading instructions, preserve the source, and include a short task placeholder. Copy success feedback must match the chosen workflow and only display on success.
 
 
 ## Cover 01/02 identity and author date — 2026-10-28
@@ -203,3 +203,10 @@ The Studio's AI prompt copy control provides a **work type selector**: automatic
 - Dynamic subset minimizes downloaded Korean glyphs. Prefer the variable family so authored weights including 550 and 750 render without replacing the font family. Keep sensible fallback fonts.
 - **Network/CDN access is required.** In closed or offline customer environments, replace the external CDN with approved self-hosted WOFF2/CSS assets and include the applicable SIL Open Font License notice. Do not misrepresent online-dependent HTML as offline font-portable.
 - For PDF exports, allow webfont loading before printing and inspect font embedding/line breaks. Webfont CSS affects browser HTML rendering but does not automatically embed a font into independently generated DOCX/PDF files.
+
+## Public short AI prompt policy — 2026-10-29
+
+- The repo is **Public**. Keep copied prompts concise (UI/UX and document modes separately): public URL, AGENTS/SKILL and key file paths, selected settings, minimum output guardrails, task placeholder.
+- No GitHub account authorization or collaborator invitations are needed for reading. If the AI lacks browsing or repository-read capability, it must say so and request relevant files; a public URL is not an installed Skill.
+- Omit redundant overview, repeated private-access caveats, and full JSON code fences. Do not automatically edit or push to this repository.
+- Document mode preserves single printable HTML + `window.print()` button when format is unspecified; explicit PDF/DOCX wins. UI mode preserves responsiveness/accessibility and user-chosen theme/accent/density/radius.
