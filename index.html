@@ -541,7 +541,7 @@ button:focus-visible,a:focus-visible,[role="tab"]:focus-visible{outline:2px soli
        "제공 자료를 근거로 A4 문서를 작성하세요. 출력 형식 미지정 시 인쇄 버튼이 있는 단일 HTML로 만들고, PDF·DOCX 등을 지정하면 그 형식을 우선하세요. Pretendard 웹폰트와 인쇄 시 가독성을 확인하세요.",
        "설정: "+JSON.stringify(config),
        "요청: [문서 목적·내용·첨부 자료]"
-     ].join("\\n");
+     ].join("\n");
    }
    const config={theme:opts.theme,accent:opts.accent,density:opts.density,radiusPx:opts.radius};
    return [
@@ -550,7 +550,7 @@ button:focus-visible,a:focus-visible,[role="tab"]:focus-visible{outline:2px soli
      "기존 기능을 보존하며 반응형·접근성·인터랙션과 Pretendard 웹폰트를 적용하세요. 설정은 이번 작업에만 사용하고 원본 토큰은 변경하지 마세요.",
      "설정: "+JSON.stringify(config),
      "요청: [화면·기능·대상 환경]"
-   ].join("\\n");
+   ].join("\n");
  }
  $("copy-settings").addEventListener("click",async()=>{
    const value=buildAiDesignPrompt();
