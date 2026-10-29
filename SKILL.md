@@ -210,3 +210,12 @@ The Studio's AI prompt copy control provides a **work type selector**: automatic
 - No GitHub account authorization or collaborator invitations are needed for reading. If the AI lacks browsing or repository-read capability, it must say so and request relevant files; a public URL is not an installed Skill.
 - Omit redundant overview, repeated private-access caveats, and full JSON code fences. Do not automatically edit or push to this repository.
 - Document mode preserves single printable HTML + `window.print()` button when format is unspecified; explicit PDF/DOCX wins. UI mode preserves responsiveness/accessibility and user-chosen theme/accent/density/radius.
+
+## External AI compatibility: proceed when public source URLs are blocked — 2026-10-29
+
+- A public GitHub repository does not guarantee that every assistant's browsing/search tool can retrieve it (a newly public repository might not yet be indexed, or an AI browser may be restricted).
+- The Studio prompt now includes **minimum usable UI or A4-document rules in the copied text**. Attempt to read the public repository and, optionally, the reviewed lightweight guides at `https://smartecm-design-preview.vercel.app/ai/document.md` or `/ai/ui.md`, but do **not** stop a task when external fetching fails.
+- Never claim full Skill compliance when the Skill files were not actually read. State that the fallback minimum was used when relevant, then produce the requested artifact.
+- When the user requests a proposal/report but does not provide source data, prepare a clearly marked sample/draft using generic structure; mark unsupported product claims, customers, prices, performance and references as `확인 필요`. Avoid exhaustive blocking questionnaires.
+- The document prompt preserves A4 print layout, HTML-first output with a working `PDF로 인쇄` button, Pretendard webfont, print safety, selected accent and document example. The UI prompt preserves design tokens and responsive/accessibility requirements.
+- The two public `ai/*.md` summaries are explicitly reviewed and allowlisted in the Unix and PowerShell static preview build scripts; never deploy raw `company/`, complete `SKILL.md` or internal docs by default.
