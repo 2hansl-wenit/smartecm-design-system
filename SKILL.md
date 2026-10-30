@@ -126,7 +126,7 @@ This is the **company** `$smartecm-ui` Skill. Canonical origin: `git@github.com:
 
 ## Sharing Studio selections with AI
 
-The Studio's **AI 작업 프롬프트 복사** copies a compact, task-specific prompt (~7 lines). It points to the **Public** company GitHub and to AGENTS.md, SKILL.md, and relevant references. Public files need no GitHub login, but the consuming AI still needs web/GitHub reading capability; otherwise request files instead of pretending to have read them. Document prompts carry current sample/orientation/accent and HTML-first/PDF-print behavior; UI prompts carry theme/accent/density/radius. Do not alter company source/tokens or push without an explicit instruction.
+The Studio's **AI 작업 프롬프트 복사** generates **one unified contextual prompt**, regardless of the active Studio tab. No mode selector is shown. The consuming AI routes the user's task to UI/UX references or document references, or both for mixed deliverables. The prompt includes the public GitHub URL, each workflow's reference paths and brief fallback instructions. UI work uses selected theme/accent/density/radius; document work uses the selected accent only, plus A4 HTML-first/PDF-print rules. Public files do not require GitHub login, but a consuming AI may lack web access; use embedded fallback guidance without claiming full unread Skill compliance. Never change source tokens or push without an explicit request.
 
 
 ## Multi-column document layout components — 2026-10-28
@@ -145,7 +145,7 @@ All layout demos reuse renderers in `scripts/document-library.js`; do not copy o
 
 ## Distinct AI copy prompts for UI and document workflows — 2026-10-28
 
-The Studio's AI prompt copy control provides a **work type selector**: automatic by active screen, forced UI/UX, or forced document design/authoring. Auto must detect the document view and include the currently selected document example. UI/UX export uses UI foundations, components, interaction references and user-selected theme/accent/density/radius. Document export uses the document-style and document-components references, document tokens and A4 print templates; include the chosen document example, A4 orientation and accent, but **do not apply UI density/radius or dashboard layout rules to printed documents**. Both exports point to the public company GitHub with access-independent reading instructions, preserve the source, and include a short task placeholder. Copy success feedback must match the chosen workflow and only display on success.
+**Superseded (2026-10-30):** The manual UI/UX-vs-document selector and active-screen routing were removed. There is one copy button and one combined prompt; choose the appropriate Skill references based on the user's actual requested deliverable, not the Studio page or a mode switch. For mixed UI and document deliverables, apply each relevant reference set to its corresponding output. The shared settings include theme/accent/density/radius; documents use the accent but retain A4-specific typography and layout. Copy success feedback is workflow-neutral.
 
 
 ## Cover 01/02 identity and author date — 2026-10-28
@@ -219,3 +219,10 @@ The Studio's AI prompt copy control provides a **work type selector**: automatic
 - When the user requests a proposal/report but does not provide source data, prepare a clearly marked sample/draft using generic structure; mark unsupported product claims, customers, prices, performance and references as `확인 필요`. Avoid exhaustive blocking questionnaires.
 - The document prompt preserves A4 print layout, HTML-first output with a working `PDF로 인쇄` button, Pretendard webfont, print safety, selected accent and document example. The UI prompt preserves design tokens and responsive/accessibility requirements.
 - The two public `ai/*.md` summaries are explicitly reviewed and allowlisted in the Unix and PowerShell static preview build scripts; never deploy raw `company/`, complete `SKILL.md` or internal docs by default.
+
+## Unified contextual AI prompt — 2026-10-30
+
+- The Studio shows **one AI 작업 프롬프트 복사 button**, with a short hint explaining that the receiving AI will infer the task type. There is no task-type dropdown, screen-driven routing, or separate copied prompts.
+- The single prompt includes two routing branches: **UI/UX screens** use `references/foundations.md`, `references/components.md`, `references/interactions.md`, `tokens/tokens.json`, and public `/ai/ui.md`; **documents** use `references/document-style.md`, `references/document-components.md`, `tokens/document-tokens.json`, `templates/printable-document.html`, and public `/ai/document.md`. Mixed tasks must respect both, separately per deliverable.
+- Keep the prompt short and task-independent. UI outputs use theme/accent/density/radius settings; document outputs use **only the chosen accent** and A4 document styles. If output format unspecified, documents default to standalone HTML with a working screen-only `PDF로 인쇄` control; honor explicitly requested PDF or DOCX formats.
+- Retain public-source links, minimal fallback design rules for inaccessible URLs, Pretendard Variable, source-fidelity safeguards, and a prohibition on unauthorized GitHub edits/pushes. If the prompt is pasted without any actual user task, ask what to make.
