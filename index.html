@@ -128,11 +128,7 @@ main{min-width:0;padding:28px clamp(20px,3.5vw,54px) 80px;max-width:1600px;width
 .rangehead span{color:var(--muted)}
 input[type=range]{accent-color:var(--accent);width:100%;cursor:pointer}
 .asidebottom{display:grid;gap:8px;margin-top:24px}
-.prompt-mode-control{display:grid;gap:8px;margin-bottom:7px}
-.prompt-mode-control label{font-size:calc(10px + 2pt);color:var(--muted);font-weight:750}
-.prompt-mode-select{width:100%;border:1px solid var(--border);border-radius:5px;background:var(--surface);color:var(--text);padding:10px 11px;cursor:pointer;font-size:calc(11px + 2pt)}
-.prompt-mode-select:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-.prompt-mode-hint{font-size:calc(9px + 2pt);line-height:1.6;color:var(--muted);margin:0}
+.prompt-auto-hint{font-size:calc(10px + 2pt);line-height:1.6;color:var(--muted);margin:0 0 3px}
 .asidebottom .btn{width:100%}
 .note{font-size:calc(10px + 2pt);color:var(--muted);line-height:1.6}
 .toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,90px);opacity:0;pointer-events:none;background:#151923;color:#fff;padding:12px 18px;border-radius:5px;font-size:calc(12px + 2pt);box-shadow:0 8px 25px #0002;transition:transform .2s,opacity .2s;z-index:99}
@@ -418,15 +414,7 @@ button:focus-visible,a:focus-visible,[role="tab"]:focus-visible{outline:2px soli
    <div class="controlgroup"><h3>Layout density</h3><div class="rangehead"><strong>간격과 밀도</strong><span id="density-value">기본</span></div><input id="density" aria-label="레이아웃 간격" type="range" min="0.8" max="1.25" step="0.05" value="1"></div>
    <div class="controlgroup"><h3>Corner radius</h3><div class="rangehead"><strong>모서리 곡률 (0 또는 5px)</strong><span id="radius-value">5px</span></div><input id="radius" aria-label="모서리 둥글기" type="range" min="0" max="5" step="5" value="5"></div>
    <div class="asidebottom">
-     <div class="prompt-mode-control">
-       <label for="prompt-mode">AI 작업 유형</label>
-       <select id="prompt-mode" class="prompt-mode-select" aria-describedby="prompt-mode-hint">
-         <option value="auto">현재 화면 기준 (자동)</option>
-         <option value="ui">UI/UX 디자인</option>
-         <option value="document">문서 디자인·작성</option>
-       </select>
-       <p id="prompt-mode-hint" class="prompt-mode-hint" aria-live="polite">현재 화면에 맞는 프롬프트가 복사됩니다.</p>
-     </div>
+     <p class="prompt-auto-hint">AI가 요청 내용에 따라 UI/UX·문서 디자인 기준을 자동 선택합니다.</p>
      <button type="button" class="btn btn-primary" id="copy-settings">AI 작업 프롬프트 복사</button>
      <button class="btn btn-outline" id="reset-settings">초안 설정 초기화</button>
      <div class="note" id="storage-status">브라우저에 설정을 보관합니다. 새로고침 후에도 유지됩니다.</div>
@@ -508,45 +496,19 @@ button:focus-visible,a:focus-visible,[role="tab"]:focus-visible{outline:2px soli
  $("density").addEventListener("input",e=>{opts.density=Number(e.target.value);store();render()});
  $("radius").addEventListener("input",e=>{opts.radius=Number(e.target.value);store();render()});
  $("reset-settings").addEventListener("click",()=>{opts={...defaults};store();render();toast("초안 기본 설정으로 초기화했습니다")});
- // Prompt tasks must follow the current Studio context, with an explicit override.
- function getPromptType(){
-   const chosen=$("prompt-mode").value;
-   if(chosen==="ui"||chosen==="document")return chosen;
-   return document.querySelector("#documents.view.active")?"document":"ui";
- }
- function updatePromptModeHint(){
-   const type=getPromptType();
-   $("prompt-mode-hint").textContent=type==="document"
-     ?"문서 전용: A4·템플릿·인쇄 기준을 사용합니다."
-     :"UI/UX 전용: 화면·컴포넌트·반응형 기준을 사용합니다.";
- }
- $("prompt-mode").addEventListener("change",updatePromptModeHint);
+ // A single workflow-independent prompt. The receiving AI selects its skill from the user's task,
+ // not from the Studio's currently visible tab.
  function buildAiDesignPrompt(){
-   const type=getPromptType();
-   const base="SmartECM 디자인 시스템 (Public): https://github.com/2hansl-wenit/smartecm-design-system";
-   const webfont="Pretendard Variable 웹폰트: https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css";
-   if(type==="document"){
-     const selected=SmartECMDocuments.menus.find(([id])=>id===selectedDocument);
-     const config={example:selected?selected[1]:"세로형",orientation:selectedDocument==="landscape"?"landscape":selectedDocument==="portrait"?"portrait":"auto",accent:opts.accent};
-     return [
-       base,
-       "문서 요약 가이드: https://smartecm-design-preview.vercel.app/ai/document.md (가능하면 SKILL.md와 원본 참조)",
-       "링크를 읽지 못해도 중단하지 말고 아래 기준으로 진행하세요. 원본을 확인하지 않았다면 Skill 전체를 적용했다고 주장하지 마세요. 원본 GitHub 수정·Push 금지.",
-       "기본: A4 여백 상20/좌우21/하19mm, 제목 1회, 섹션 18pt·본문 10pt, 간결한 표·도식·여백, 기본 푸터 없음. 열 너비는 내용에 맞게 조절. "+webfont,
-       "출력: 형식 미지정 시 완성된 단일 HTML에 상단 'PDF로 인쇄' 버튼(window.print), 인쇄 시 버튼 숨김. PDF/DOCX를 지정하면 그 형식 우선.",
-       "내용: 사용자 지시·첨부를 우선하고, 정보 부족 시 확인되지 않은 고객명·성능·가격은 만들지 말고 '예시/확인 필요'로 표시한 초안을 진행하세요. 파일을 못 읽었다는 이유만으로 제작을 보류하지 마세요.",
-       "설정: "+JSON.stringify(config),
-       "작업: 이어지는 사용자 요청을 수행하세요. 별도 내용 없이 제안서만 요청했다면 검토용 샘플 제안서를 작성하세요."
-     ].join("\n");
-   }
    const config={theme:opts.theme,accent:opts.accent,density:opts.density,radiusPx:opts.radius};
    return [
-     base,
-     "UI 요약 가이드: https://smartecm-design-preview.vercel.app/ai/ui.md (가능하면 SKILL.md와 원본 참조)",
-     "링크를 읽지 못해도 중단하지 말고 아래 기준으로 진행하세요. 원본을 확인하지 않았다면 Skill 전체 적용이라고 주장하지 마세요. 원본 GitHub 수정·Push 금지.",
-     "기본: 타이포그래피 중심의 미니멀 UI, 단색 포인트·명확한 정보 위계, 기본 모서리 5px, 불필요한 카드 최소화. 반응형·접근성·인터랙션과 기존 기능 보존. "+webfont,
+     "SmartECM 공개 디자인 시스템: https://github.com/2hansl-wenit/smartecm-design-system",
+     "작업 요청을 보고 적용할 디자인 기준을 자동 선택하세요 (AGENTS.md·SKILL.md 참고).",
+     "① UI/UX(화면·콘솔·대시보드·앱): references/foundations.md, references/components.md, references/interactions.md, tokens/tokens.json 및 https://smartecm-design-preview.vercel.app/ai/ui.md",
+     "② 문서(제안서·보고서·계획서·표지): references/document-style.md, references/document-components.md, tokens/document-tokens.json, templates/printable-document.html 및 https://smartecm-design-preview.vercel.app/ai/document.md",
+     "UI는 타이포그래피·반응형·접근성·기존 기능을 유지하고 아래 설정 전체를 적용하세요. 문서는 아래 accent만 반영하며 A4·본문 가독성·표 너비·페이지 흐름을 우선하세요. 파일 형식 미지정 시 PDF 인쇄 버튼(window.print)이 있는 단일 HTML로 만들고, 명시된 형식이 있다면 우선하세요.",
+     "공통: Pretendard Variable 웹폰트 사용. 실제 자료 우선, 확인되지 않은 사실은 '확인 필요'로 표시. 링크를 읽지 못해도 최소 기준으로 작업을 진행하되 읽지 않은 Skill을 적용했다고 주장하지 마세요. 원본 저장소 수정·Push 금지.",
      "설정: "+JSON.stringify(config),
-     "작업: 이어지는 사용자 요청을 수행하세요. 세부 사항이 부족하면 합리적인 샘플 UI를 만들고 가정만 명시하세요."
+     "작업: 이어지는 사용자 요청을 수행하세요. 요청 내용이 없다면 만들 대상만 확인하세요."
    ].join("\n");
  }
  $("copy-settings").addEventListener("click",async()=>{
@@ -566,14 +528,13 @@ button:focus-visible,a:focus-visible,[role="tab"]:focus-visible{outline:2px soli
      try{copied=document.execCommand("copy")}catch(e){}
      area.remove();
    }
-   toast(copied?(getPromptType()==="document"?"문서 제작용 AI 프롬프트를 복사했습니다.":"UI/UX용 AI 프롬프트를 복사했습니다."):"복사하지 못했습니다. 브라우저의 클립보드 권한을 확인해 주세요");
+   toast(copied?"AI 작업 프롬프트를 복사했습니다.":"복사하지 못했습니다. 브라우저의 클립보드 권한을 확인해 주세요");
  });
  function view(name){
    document.body.classList.toggle("document-view",name==="documents");
    document.querySelectorAll(".view").forEach(v=>v.classList.toggle("active",v.id===name));
    document.querySelectorAll(".navbtn").forEach(b=>b.classList.toggle("active",b.dataset.view===name&&b===document.querySelector('.navbtn[data-view="'+name+'"]')));
    $("breadcrumb").textContent=name==="assets"?"디자인 에셋":name==="documents"?"문서 스타일":name==="components"?"Components":"Overview";
-   updatePromptModeHint();
    window.scrollTo({top:0,behavior:"auto"});
  }
  document.querySelectorAll("[data-view]").forEach(b=>b.addEventListener("click",()=>view(b.dataset.view)));
@@ -590,7 +551,6 @@ button:focus-visible,a:focus-visible,[role="tab"]:focus-visible{outline:2px soli
  function selectDocument(tab,focus=false){
    selectedDocument=tab.dataset.document;
    documentTabs.forEach(b=>{const on=b===tab;b.setAttribute("aria-selected",String(on));b.tabIndex=on?0:-1});
-   updatePromptModeHint();
    documentFrame.contentDocument?.getElementById("tab-"+selectedDocument)?.click();
    resizeDocument();if(focus)tab.focus();
    $("documents").scrollIntoView({block:"start",behavior:"instant"});
