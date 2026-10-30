@@ -60,13 +60,16 @@ For accuracy, specify the repository version/commit to use and refresh imported 
 
 Start with one representative page (dashboard, list, or settings), check usability and visual consistency, then expand. Do not run bulk redesigns across live systems without review.
 
-## 6) Studio: AI 작업 프롬프트 복사 — Public·간결형
+## 6) Studio: AI 작업 프롬프트 복사 — 통합형
 
-- **현재 화면 기준(자동)** 또는 UI/UX·문서 작성 유형을 직접 선택한다. 클릭한 시점의 설정으로 각각 7줄 내외의 짧은 한국어 프롬프트를 복사한다.
-- 두 모드 모두 공개 저장소 `https://github.com/2hansl-wenit/smartecm-design-system`, `AGENTS.md`·`SKILL.md` 및 작업별 핵심 경로를 안내한다. **읽기/Clone에 별도 GitHub 승인이 필요하지 않다.** AI의 URL 읽기 기능이 없는 환경에서는 파일을 제공받도록 안내한다.
-- UI/UX는 테마·색상·밀도·반경을 포함하고, 문서는 현재 예시·방향·색상을 포함한다. 문서는 출력 형식 미지정 시 **PDF 인쇄 버튼이 있는 단일 HTML**을 기본으로 하며 명시된 PDF/DOCX 요청을 우선한다.
-- 원본 저장소에 대한 수정/Push는 작업 요청에 포함하지 않는다. 현재 미리보기 설정도 회사 원본 토큰을 자동으로 변경하지 않는다.
-- 복사에 실패하면 기존 클립보드 폴백과 오류 안내를 유지한다.
+디자인 설정 우측에는 **AI 작업 프롬프트 복사 버튼 하나**만 제공합니다. 수신 AI가 사용자의 실제 작업 지시를 보고 기준을 자동으로 선택합니다.
+
+- **UI/UX 작업**(웹 화면·콘솔·앱·대시보드): `references/foundations.md`, `references/components.md`, `references/interactions.md`, `tokens/tokens.json` 및 공개 `/ai/ui.md`.
+- **문서 작업**(제안서·보고서·계획서·표지): `references/document-style.md`, `references/document-components.md`, `tokens/document-tokens.json`, `templates/printable-document.html` 및 공개 `/ai/document.md`.
+- **복합 작업**: 화면은 UI 기준, 문서는 문서 기준으로 각각 작업합니다.
+- 통합 설정은 테마·accent·밀도·반경이며, 문서는 UI 밀도·반경을 무리하게 적용하지 않고 **accent만** 반영합니다. 문서 출력형식을 지정하지 않으면 PDF 인쇄 버튼이 있는 단일 HTML이 기본입니다.
+
+공개 저장소는 별도 GitHub 로그인 없이 읽을 수 있지만 외부 AI가 URL을 읽지 못할 수도 있으므로, 복사 프롬프트 자체에 최소 디자인 기준을 포함합니다. 원본을 읽지 않았다면 실제로 읽었다고 주장하지 말고, 가능한 결과물을 진행합니다. 원본 저장소를 자동으로 수정·Push하지 않습니다. 실제 작업 지시가 없을 때에만 제작 대상을 확인합니다.
 
 ## 7) Default HTML document output with print action
 
