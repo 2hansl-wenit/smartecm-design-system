@@ -358,3 +358,11 @@
 - Reworked UI/UX and A4-document copy prompts with enough compact **inlined minimum design rules** to proceed if both source URLs fail. Retain optional source links for deeper reference and prohibit claiming that unread Skill files were consulted.
 - Changed the final task placeholder from a literal '[document purpose ...]' to an instruction to execute the appended user request. A request for a document with no supplied evidence results in a visibly labeled sample/needs-validation draft, not an invented SmartECM product assertion or stalled production.
 - Validate live AI guide URLs after Vercel auto-deploy; a GitHub commit does not prove deployment readiness.
+
+## 2026-10-30 · Single context-aware AI prompt replaces type dropdown
+
+- Removed manual UI/UX vs document selector and the auto-by-current-Studio-page routing. Studio now copies one unified prompt irrespective of the active preview.
+- Receiving AI chooses UI/UX (`references/foundations.md`, UI tokens and components) or A4-document (`references/document-style.md`, document tokens and printable HTML) Skill references based on the actual user request. Mixed tasks apply each subset to the corresponding output.
+- Keep shared theme/accent/density/radius settings; document styling uses only accent and its own A4 rules. Preserve default standalone HTML + PDF-print button if a document format is unspecified.
+- Include concise offline-readable fallback rules plus optional reviewed public `/ai/ui.md` and `/ai/document.md` URLs, and prohibit unauthorized source repository edits/pushes.
+- No task beyond pasted instructions: ask what to build; do not assume the currently open Studio tab or invent a customer proposal.
