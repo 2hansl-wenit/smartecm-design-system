@@ -1,0 +1,9 @@
+/* Shared code primitives for UI and A4 documents. */
+:root{--code-bg:#F3F4F6;--code-ink:#28323F;--code-muted:#596575;--code-font:ui-monospace,"SFMono-Regular",Consolas,"Liberation Mono",monospace}
+.code-inline{font-family:var(--code-font);font-size:.9em;color:var(--code-ink);background:var(--code-bg);border-radius:3px;padding:.15em .4em;overflow-wrap:anywhere;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.code-block{margin:16px 0;background:var(--code-bg);color:var(--code-ink);border-radius:5px;min-width:0;max-width:100%;break-inside:avoid}
+.code-block figcaption{padding:12px 18px 0;font:600 11px/1.5 var(--code-font);color:var(--code-muted);letter-spacing:.04em}
+.code-block pre{margin:0;padding:14px 18px 18px;font:400 13px/1.7 var(--code-font);white-space:pre-wrap;overflow-wrap:anywhere;tab-size:2}
+.code-block code{font:inherit;color:inherit;background:none;padding:0;border:0}
+:root[data-theme="dark"]{--code-bg:#252B34;--code-ink:#E7EBF0;--code-muted:#B6C0CD}
+@media print{.code-block,.code-inline{--code-bg:#F3F4F6;--code-ink:#28323F;--code-muted:#596575;print-color-adjust:exact;-webkit-print-color-adjust:exact}.code-block pre{font-size:9pt;white-space:pre-wrap;overflow-wrap:anywhere}.code-block{box-decoration-break:clone}.code-block figcaption{break-after:avoid}}

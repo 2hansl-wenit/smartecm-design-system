@@ -226,3 +226,12 @@ All layout demos reuse renderers in `scripts/document-library.js`; do not copy o
 - The single prompt includes two routing branches: **UI/UX screens** use `references/foundations.md`, `references/components.md`, `references/interactions.md`, `tokens/tokens.json`, and public `/ai/ui.md`; **documents** use `references/document-style.md`, `references/document-components.md`, `tokens/document-tokens.json`, `templates/printable-document.html`, and public `/ai/document.md`. Mixed tasks must respect both, separately per deliverable.
 - Keep the prompt short and task-independent. UI outputs use theme/accent/density/radius settings; document outputs use **only the chosen accent** and A4 document styles. If output format unspecified, documents default to standalone HTML with a working screen-only `PDF로 인쇄` control; honor explicitly requested PDF or DOCX formats.
 - Retain public-source links, minimal fallback design rules for inaccessible URLs, Pretendard Variable, source-fidelity safeguards, and a prohibition on unauthorized GitHub edits/pushes. If the prompt is pasted without any actual user task, ask what to make.
+
+
+## Code primitives · 2026-11-03
+
+- UI와 문서의 공통 하위 요소는 `styles/code.css`의 `.code-inline`, `.code-block`을 사용한다. 회색 #F3F4F6 배경, #28323F 본문, 시스템 고정폭 글꼴을 적용하며 별도 폰트 다운로드나 구문 강조 라이브러리는 요구하지 않는다.
+- 짧은 파일명·속성은 인라인 code, 여러 줄 코드와 CLI는 figure/figcaption/pre/code로 구성한다. CLI도 같은 블록을 사용하고 명령 앞에 복사될 프롬프트 기호를 넣지 않는다.
+- 문서 렌더러 `inlineCode({before,text,after})`, `code({label,text})`는 모든 텍스트를 이스케이프한다. HTML을 코드로 표시할 때도 실행하지 않는다.
+- UI 다크 모드는 어두운 중성 회색을 사용한다. 긴 줄은 화면과 인쇄에서 줄바꿈하며 원문 개행·공백은 보존한다. 인쇄는 밝은 회색 배경과 9pt 고정폭 글꼴, 기존 A4 여백을 유지한다.
+- 단독 HTML은 templates/printable-document.html의 동일 인라인 스타일을 사용한다. 코드 블록은 가능하면 같은 페이지에 두되 긴 내용은 페이지 높이를 넘겨 자르지 않는다.

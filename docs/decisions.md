@@ -366,3 +366,8 @@
 - Keep shared theme/accent/density/radius settings; document styling uses only accent and its own A4 rules. Preserve default standalone HTML + PDF-print button if a document format is unspecified.
 - Include concise offline-readable fallback rules plus optional reviewed public `/ai/ui.md` and `/ai/document.md` URLs, and prohibit unauthorized source repository edits/pushes.
 - No task beyond pasted instructions: ask what to build; do not assume the currently open Studio tab or invent a customer proposal.
+
+
+## 2026-11-03 · Shared code primitives
+
+Added shared inline code, code block and CLI examples to UI and document libraries, using neutral gray surfaces and system monospace. Shared CSS includes dark UI and wrapping A4 print rules; standalone template carries the same CSS.

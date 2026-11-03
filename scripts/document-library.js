@@ -4,6 +4,8 @@
 const e=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const menus=[["portrait","세로형"],["landscape","가로형"],["cover01","표지 01"],["cover02","표지 02"],["proposal","제안서"],["plan","계획서"],["components","공통 컴포넌트"]];
 const C={
+code:({text,label='CODE'})=>'<figure class="code-block" data-component="code"><figcaption>'+e(label)+'</figcaption><pre><code>'+e(text)+'</code></pre></figure>',
+inlineCode:({before='',text,after=''})=>'<p class="doc-body" data-component="inlineCode">'+e(before)+'<code class="code-inline">'+e(text)+'</code>'+e(after)+'</p>',
 title:({title,deck="",label="DESIGN SAMPLE"})=>'<header class="cover" data-component="title"><p class="document-kind">'+e(label)+' · 디자인 샘플</p><h1 class="document-title">'+e(title)+'</h1><p class="document-deck">'+e(deck)+'</p></header>',
 overview:({text})=>'<p class="doc-body" data-component="overview">'+e(text)+'</p>',
 kpi:({items})=>'<div class="metrics" data-component="kpi">'+items.map(([l,v,u])=>'<div class="metric"><span>'+e(l)+'</span><strong>'+e(v)+'<small>'+e(u)+'</small></strong></div>').join('')+'</div>',
@@ -140,6 +142,9 @@ const landscape=()=>paper(render(title('가로형 기본 레이아웃','A4 297 �
 const proposal=()=>paper(render(title('운영환경 개선 제안서','검토용 샘플 · 고객 요구사항과 대안을 비교하기 위한 템플릿입니다. 실제 제품 지원 범위와 성능을 보장하는 자료가 아닙니다.','TEMPLATE / PROPOSAL'))+section(1,'제안 개요',[overview('운영환경의 현황을 파악하고 변경 영향을 최소화할 수 있는 개선 방향을 제안합니다. 대안별 검증 범위와 의사결정 조건을 먼저 정의합니다.'),quote])+section(2,'고객 요구사항 · 가상 예시',[block('table',{caption:'요구사항은 예시이며 고객 확인이 필요합니다.',headers:['요구사항','검토 관점','확인 방법'],rows:[['업무 연속성','서비스 영향 최소화','전환·복구 시나리오 검토'],['운영 가시성','상태와 작업 이력 확인','관측 항목·증적 협의'],['확장 가능성','향후 자원 변화 대응','지원 범위·제약 검증']]})])+section(3,'제안 아키텍처',[overview('아래 도식은 설명용 개념 구성입니다. 실제 연결 방식과 자원 배치는 요구사항 확인 후 작성합니다.'),architecture])+section(4,'대안 비교',[comparison,cards])+section(5,'도입 접근 방식',[timeline])+section(6,'검증 및 의사결정',[questions,note('산출물 · 요구사항 매핑, 대안 비교, 검증 기록, 미확인 항목 목록. 검증 전 항목을 완료 또는 지원 가능으로 표시하지 않습니다.')]));
 const plan=()=>paper(render(title('운영환경 개선 수행계획서','검토용 샘플 · 목적, 범위, 일정, 작업 단계와 검증 항목을 연결한 실행 계획입니다.','TEMPLATE / PLAN'))+section(1,'추진 목적',[overview('변경 전 현황을 기록하고 호환성 검증을 거쳐 단계적으로 개선 작업을 수행하는 절차를 수립합니다.'),kpi])+section(2,'범위와 전제',[facts,note('서비스 중단 시간과 작업 담당자는 실제 대상별로 산정하고 사전 협의합니다.')])+section(3,'추진 일정',[schedule,timeline])+section(4,'단계별 작업',[steps])+section(5,'검증 항목',[questions,block('table',{caption:'검증 계획 · 수행 결과가 아닌 예정 항목입니다.',headers:['영역','검증 방법','예정 증적'],rows:[['스토리지','장치 인식·용량·복구 경로 점검','구성 기록'],['네트워크','역할 분리·연동·접근 제어 점검','통신 시험 기록'],['업무 서비스','기능·데이터·사용자 동선 점검','체크리스트']]})])+section(6,'완료 조건 및 후속 조치',[overview('합의한 검증 항목의 증적을 확인하고 미해결 항목, 원상복구 절차, 운영 인수 항목을 함께 검토합니다.'),note('완료 조건 · 승인된 체크리스트 확인 및 담당자 인수. 현재 예시는 실제 완료 상태를 나타내지 않습니다.')]));
 const specimens=[
+['인라인 코드','파일명·속성·짧은 명령어를 본문 안에서 구분합니다.',block('inlineCode',{before:'설정 파일 ',text:'config.json',after:'에서 값을 확인합니다.'})],
+['코드 블록','회색 음영과 고정폭 글꼴로 구문을 구분합니다. 아래는 설명용 샘플입니다.',block('code',{label:'JSON · SAMPLE',text:'{\n  "name": "sample-service",\n  "enabled": true\n}'})],
+['CLI 명령어','명령만 담고 실행을 의미하는 장식이나 프롬프트는 생략합니다.',block('code',{label:'CLI · SAMPLE',text:'node --version\ngit status --short'})],
 ['제목','첫 페이지에서 한 번 사용하고 제목·도입문 위계를 유지합니다.',title('문서 제목과 도입문','문서의 목적과 범위를 간결하게 소개합니다.','COMPONENT')],
 ['대제목·하위 항목','큰 03 제목과 같은 내용 아래의 01·02 세부 항목을 번호 전용 칸으로 명확히 나눕니다.',subsectionSample],
 ['개요','사실·계획·미확인 항목을 구분하고 본문 행간을 유지합니다.',overview('운영환경을 조사하고 확인 가능한 증적을 바탕으로 개선 범위를 정리합니다. 문서 서식 설명을 위한 샘플입니다.')],

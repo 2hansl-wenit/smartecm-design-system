@@ -248,6 +248,7 @@ button:focus-visible,a:focus-visible,[role="tab"]:focus-visible{outline:2px soli
 </style>
 <link rel="stylesheet" href="./styles/editorial.css">
 <link rel="stylesheet" href="./styles/motion.css">
+<link rel="stylesheet" href="./styles/code.css">
 </head>
 <body>
 <svg aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden">
@@ -334,6 +335,11 @@ button:focus-visible,a:focus-visible,[role="tab"]:focus-visible{outline:2px soli
    </section>
    <section class="view" id="components">
      <div class="alt-head"><div class="eyebrow">Design System / 02</div><h1>UI 컴포넌트</h1><p>공통 버튼, 상태, 입력 요소를 테스트해 보세요. 실제 운영 데이터가 아닌 디자인 샘플입니다.</p></div>
+<div class="card panel demo-section"><div class="sectionhead"><div><h2>Code &amp; CLI</h2><small>문서와 UI가 공유하는 코드 기본 요소 · 디자인 샘플</small></div></div><p>설정 파일 <code class="code-inline">config.json</code>에서 <code class="code-inline">enabled</code> 값을 확인합니다.</p><figure class="code-block"><figcaption>JSON · SAMPLE</figcaption><pre><code>{
+  "name": "sample-service",
+  "enabled": true
+}</code></pre></figure><figure class="code-block"><figcaption>CLI · SAMPLE</figcaption><pre><code>node --version
+git status --short</code></pre></figure></div>
      <div class="card panel demo-section"><div class="sectionhead"><div><h2>Buttons</h2><small>버튼의 강조 수준과 상태</small></div></div><div class="stack"><button class="btn btn-primary" id="test-primary"><svg class="icon-sm"><use href="#i-plus"/></svg>Primary</button><button class="btn btn-outline" id="test-secondary">Secondary</button><button class="btn btn-ghost" id="test-ghost">Ghost</button><button class="btn btn-primary" disabled>Disabled</button><button class="btn btn-outline" id="open-modal">모달 열기</button></div></div>
      <div class="card panel demo-section"><div class="sectionhead"><div><h2>Status badges</h2><small>색상만으로 상태를 전달하지 않습니다</small></div></div><div class="stack"><span class="status ok"><svg><use href="#i-check"/></svg>성공</span><span class="status wait"><svg><use href="#i-clock"/></svg>검토 대기</span><span class="status fail">실패</span><span class="status progress-state"><svg><use href="#i-activity"/></svg>실행 중</span></div></div>
      <div class="card panel demo-section"><div class="sectionhead"><div><h2>Inputs & form</h2><small>라벨과 포커스 표현을 확인하세요</small></div></div><div style="max-width:430px"><label class="fieldlabel" for="demo-name">작업 이름</label><input class="input" id="demo-name" placeholder="예: 보안 패치 검증"><label class="fieldlabel" for="demo-category">작업 유형</label><select class="input" id="demo-category"><option>자동화 작업</option><option>상태 모니터링</option><option>승인 요청</option></select><div class="actionrow" style="margin-top:16px"><button class="btn btn-primary" id="form-demo">샘플 실행</button><button class="btn btn-outline" id="form-reset">초기화</button></div></div></div>
