@@ -74,3 +74,9 @@ Default hierarchy for dashboards and management consoles: **page header → unbo
 - 문서 렌더러 `inlineCode({before,text,after})`, `code({label,text})`는 모든 텍스트를 이스케이프한다. HTML을 코드로 표시할 때도 실행하지 않는다.
 - UI 다크 모드는 어두운 중성 회색을 사용한다. 긴 줄은 화면과 인쇄에서 줄바꿈하며 원문 개행·공백은 보존한다. 인쇄는 밝은 회색 배경과 9pt 고정폭 글꼴, 기존 A4 여백을 유지한다.
 - 단독 HTML은 templates/printable-document.html의 동일 인라인 스타일을 사용한다. 코드 블록은 가능하면 같은 페이지에 두되 긴 내용은 페이지 높이를 넘겨 자르지 않는다.
+
+
+## Code block density · 2026-11-03
+
+- 코드 블록 본문 행간은 1.45, 패딩은 상단 8px / 좌우 12px / 하단 10px이다. 레이블은 행간 1.4, 패딩 8px 12px 0이며 블록 바깥 세로 여백은 12px이다.
+- UI·문서 공통 CSS와 단독 HTML 템플릿에 동일 적용한다. 글자 크기와 인라인 코드 스타일은 유지한다.

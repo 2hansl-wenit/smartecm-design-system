@@ -371,3 +371,7 @@
 ## 2026-11-03 · Shared code primitives
 
 Added shared inline code, code block and CLI examples to UI and document libraries, using neutral gray surfaces and system monospace. Shared CSS includes dark UI and wrapping A4 print rules; standalone template carries the same CSS.
+
+## 2026-11-03 · Compact code blocks
+
+Reduced code line-height from 1.7 to 1.45 and horizontal padding from 18px to 12px; tightened caption/body vertical spacing in shared CSS and standalone print template. Font sizes remain unchanged.
